@@ -1,5 +1,6 @@
 import 'package:club_manager/widgets/Exercise.dart';
 import 'package:flutter/material.dart';
+import 'package:club_manager/FakeEntity.dart';
 
 class ExerciseList extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class _ExerciseListState extends State<ExerciseList>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
@@ -19,14 +21,14 @@ class _ExerciseListState extends State<ExerciseList>
         AnimationController(duration: Duration(seconds: 5), vsync: this);
     _animation = Tween<double>(begin: 0, end: 592).animate(_controller)
       ..addListener(() {
-        if (i < _animation.value / 50 && i < tasks.length) {
+        if (i < _animation.value / 50 && i < FakeData.tasks.length) {
           _listkey.currentState.insertItem(i, duration: Duration(seconds: 1));
           i++;
         }
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          for (; i < tasks.length; i++) {
+          for (; i < FakeData.tasks.length; i++) {
             _listkey.currentState.insertItem(i, duration: Duration(seconds: 0));
           }
         }
@@ -41,22 +43,24 @@ class _ExerciseListState extends State<ExerciseList>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) => Stack(
-              children: <Widget>[
-                Positioned(
-                  child: Container(
-                    width: 5,
-                    height: _animation.value,
-                    color: Colors.grey[300],
+  Widget build(BuildContext context) => Scaffold(
+        body: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) => Stack(
+                children: <Widget>[
+                  Positioned(
+                    child: Container(
+                      width: 5,
+                      height: _animation.value,
+                      color: Colors.grey[300],
+                    ),
+                    top: 0.0,
+                    right: 17.0,
                   ),
-                  top: 0.0,
-                  right: 17.0,
-                ),
-                EcerciseList()
-              ],
-            ),
+                  EcerciseList()
+                ],
+              ),
+        ),
       );
 }
 
@@ -75,123 +79,12 @@ class _EcerciseListState extends State<EcerciseList> {
       itemBuilder: (context, index, animation) {
         Exercise t = Exercise(
             animation: animation,
-            color: tasks[index].color,
-            title: tasks[index].title,
-            time: tasks[index].time,
-            subtitle: tasks[index].subtitle);
+            color: FakeData.tasks[index].color,
+            title: FakeData.tasks[index].title,
+            time: FakeData.tasks[index].time,
+            subtitle: FakeData.tasks[index].subtitle);
         return t;
       },
     );
   }
 }
-
-List<Exercise> tasks = [
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-  Exercise(
-      title: "تمرین بدنسازی",
-      subtitle: "همه سنین",
-      time: "بظ۵",
-      color: Colors.orange,
-      completed: false),
-  Exercise(
-      title: "نرمش صبحگاهی",
-      subtitle: "زیر ۱۲ سال",
-      time: "۷قظ",
-      color: Colors.cyan,
-      completed: true),
-  Exercise(
-      title: "تمرین دروازه بانان",
-      subtitle: "دست کش فراموش نشود",
-      time: "۲بظ",
-      color: Colors.pink,
-      completed: false),
-];

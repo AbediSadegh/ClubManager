@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/pages/ExercisesScreen.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +37,10 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   CircleImage(
                     gestureTapCallback: () {
-                      print("salam");
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ExerciseList()));
                     },
-                    title: "test",
+                    title: "تمرین",
                     height: 90,
                     width: 90,
                     iconData: Icons.fiber_new,
@@ -48,7 +50,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   ),
@@ -56,7 +57,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   )
@@ -75,7 +75,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   ),
@@ -83,7 +82,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   ),
@@ -91,7 +89,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   )
@@ -109,7 +106,6 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     title: "test",
-
                     width: 90,
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
@@ -118,7 +114,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   ),
@@ -126,7 +121,6 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "test",
-
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
                   )

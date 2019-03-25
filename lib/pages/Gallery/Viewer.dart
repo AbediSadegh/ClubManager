@@ -1,14 +1,11 @@
 import 'package:club_manager/entity/Photograph.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_dummy/finalpack/Photograph.dart';
-
 
 class Viewer extends StatefulWidget {
   final Photograph _photo;
-
   final Size _deviceSize;
 
-  Viewer(this._photo,this._deviceSize);
+  Viewer(this._photo, this._deviceSize);
 
   @override
   ViewerState createState() {
@@ -37,9 +34,8 @@ class ViewerState extends State<Viewer> {
               child: Hero(
                 // using the photograph photo url itself as a tag
                 tag: this.widget._photo.photo,
-//                flightShuttleBuilder: _flightShuttleBuilder,
                 child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/pl.png',
+                  placeholder: 'assets/images/logo.png',
                   image: this.widget._photo.photo,
                   fit: BoxFit.contain,
                 ),
@@ -49,7 +45,7 @@ class ViewerState extends State<Viewer> {
               bottom: 0,
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: 200),
-                opacity: _visibility? 1.0 : 0.0,
+                opacity: _visibility ? 1.0 : 0.0,
                 child: Container(
                   color: Color.fromRGBO(0, 0, 0, 0.4),
                   padding: EdgeInsets.fromLTRB(0.0, 15.0, 10.0, 0.0),
@@ -69,11 +65,8 @@ class ViewerState extends State<Viewer> {
               ),
             ),
           ],
-//          alignment: Alignment.bottomCenter,
         ),
       ),
     );
   }
-
-
 }

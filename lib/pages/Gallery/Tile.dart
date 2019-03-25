@@ -2,6 +2,7 @@ import 'package:club_manager/entity/IntSize.dart';
 import 'package:club_manager/entity/Photograph.dart';
 import 'package:club_manager/pages/Gallery/Viewer.dart';
 import 'package:flutter/material.dart';
+
 //import 'package:flutter_dummy/finalpack/IntSize.dart';
 //import 'package:flutter_dummy/finalpack/Photograph.dart';
 //import 'package:flutter_dummy/finalpack/Viewer.dart';
@@ -32,8 +33,7 @@ class _TileState extends State<Tile> {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  Viewer(widget._photo, widget._deviceSize))),
+              builder: (context) => Viewer(widget._photo, widget._deviceSize))),
       child: Container(
         margin: EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 1.0),
         width: size.width,
@@ -42,7 +42,7 @@ class _TileState extends State<Tile> {
           tag: widget._photo.photo,
           child: Container(
             child: FadeInImage.assetNetwork(
-              placeholder: 'assets/images/pl.png',
+              placeholder: 'assets/images/logo.png',
               image: widget._photo.thumbnail,
               fit: BoxFit.fill,
             ),

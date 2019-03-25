@@ -3,19 +3,13 @@ import 'package:club_manager/entity/Photograph.dart';
 import 'package:club_manager/pages/Gallery/Tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-//import 'package:flutter_dummy/finalpack/IntSize.dart';
-//import 'package:flutter_dummy/finalpack/Photograph.dart';
-//import 'package:flutter_dummy/finalpack/Tile.dart';
-//import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
   final Map<String, List<Photograph>> _photos;
   final Size _deviceSize;
 
-
   PhotoGallery(this._photos, this._deviceSize);
-
 
   State<PhotoGallery> createState() => state;
 }
@@ -29,7 +23,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
           IntSize(width / 2, (i % 6 == 0 || i % 6 == 4) ? height : height / 2));
     return l;
   }
-
 
   List<Photograph> _pics;
 
@@ -47,10 +40,10 @@ class PhotoGalleryState extends State<PhotoGallery> {
       child: Center(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-              List<IntSize> l = generator(
-                  _pics.length, constraints.maxWidth, constraints.maxHeight);
-              return custom(l);
-            }),
+          List<IntSize> l = generator(
+              _pics.length, constraints.maxWidth, constraints.maxHeight);
+          return custom(l);
+        }),
       ),
     );
   }
@@ -65,7 +58,7 @@ class PhotoGalleryState extends State<PhotoGallery> {
           staggeredTileBuilder: (index) => StaggeredTile.fit(2)),
       itemBuilder: (context, index) {
         if (index >= l.length) return null;
-        return Tile(_pics[index], l[index],widget._deviceSize);
+        return Tile(_pics[index], l[index], widget._deviceSize);
       },
     );
   }

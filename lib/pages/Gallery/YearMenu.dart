@@ -1,6 +1,5 @@
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_dummy/finalpack/GalleryMainView.dart';
 
 class YearMenu extends StatefulWidget {
   final List<String> _years;
@@ -43,7 +42,6 @@ class YearMenuState extends State<YearMenu> {
       height: 55.0,
       child: DropdownButton(
         elevation: 0,
-//        isExpanded: true,
         iconSize: 0,
         style: TextStyle(color: Colors.black),
         items: _items,
@@ -56,7 +54,6 @@ class YearMenuState extends State<YearMenu> {
             });
         },
         hint: Container(
-//          alignment: Alignment.center,
           child: Text(
             '...پدیده های ',
           ),

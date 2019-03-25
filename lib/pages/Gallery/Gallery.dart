@@ -6,23 +6,23 @@ import 'package:flutter/material.dart';
 class Gallery extends StatelessWidget {
   final Map<String, List<Photograph>> photos;
   final List<String> years;
-  PhotoGallery _photoGallery;
-  Size _deviceSize;
 
-  Gallery({@required this.photos, @required this.years})
-      : assert(years != null && photos != null);
+  Gallery({@required this.photos, @required this.years}) {
+    assert(years != null && photos != null);
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    _deviceSize = MediaQuery.of(context).size;
-    this._photoGallery = PhotoGallery(photos, _deviceSize);
+    Size _deviceSize = MediaQuery.of(context).size;
+    PhotoGallery _photoGallery = PhotoGallery(photos, _deviceSize);
     assert(photos.isNotEmpty);
     assert(years != null);
     return Scaffold(
       body: Container(
         child: Stack(
           children: <Widget>[
-            YearMenu(this.years, this._photoGallery),
+            YearMenu(this.years, _photoGallery),
             _photoGallery,
           ],
         ),

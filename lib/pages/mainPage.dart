@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/ExercisesScreen.dart';
+import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
 
@@ -105,10 +106,13 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   CircleImage(
                     height: 90,
-                    title: "test",
+                    title: "ورود",
                     width: 90,
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    iconData: Icons.check,
+                    url: FakeData.loginUrl,
+                    gestureTapCallback: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){return loginDialog();}));
+                    },
                   ),
                   CircleImage(
                     height: 90,

@@ -7,7 +7,7 @@ class FakeData{
   static String appNameFarsi ="مدرسه فوتبال";
   static String des ="ورزش خودتان را مدیریت کنید";
   static String newsLogo = 'https://previews.123rf.com/images/dvolkovkir1980/dvolkovkir19801702/dvolkovkir1980170200008/72399951-speaker-in-hand-speaker-megaphone-flat-design-vector-illustration-vector.jpg';
-  static String galleryLogo = 'http://jessicasuarez.com/wp-content/uploads/2017/01/redyellowbg.jpg';
+  static String galleryLogo = 'https://images-na.ssl-images-amazon.com/images/I/61F-Epj6A9L._SX569_.jpg';
   static String honorsLogo = 'http://www.dailyadvent.com/wp-content/uploads/2018/07/Fc-Barcelona.jpg';
   static String news = "https://images.unsplash.com/photo-1483030096298-4ca126b58199?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80";
   static String loginUrl = "http://www.sclance.com/pngs/football-stadium-png/football_stadium_png_524482.png";

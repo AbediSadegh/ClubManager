@@ -4,6 +4,7 @@ import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/ExercisesScreen.dart';
 import 'package:club_manager/pages/about/about_page.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
+import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
 
@@ -75,38 +76,6 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   CircleImage(
                     height: 90,
-                    width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
-                  ),
-                  CircleImage(
-                    height: 90,
-                    width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
-                  ),
-                  CircleImage(
-                    height: 90,
-                    width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CircleImage(
-                    height: 90,
                     title: "ورود",
                     width: 90,
                     iconData: Icons.check,
@@ -130,6 +99,39 @@ class _MainPageState extends State<MainPage> {
                         return AboutPage();
                       }));
                     },
+                  ),
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "test",
+                    iconData: Icons.fiber_new,
+                    url: FakeData.news,
+                  )
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "test",
+                    iconData: Icons.fiber_new,
+                    url: FakeData.news,
+                  ),
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "test",
+                    iconData: Icons.fiber_new,
+                    url: FakeData.news,
                   ),
                   CircleImage(
                     height: 90,

@@ -58,7 +58,7 @@ class _cameraPicker extends State<cameraPicker> {
                       onTap: getImage,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Icon(Icons.add,color: Colors.deepPurpleAccent,),
+                        child: Icon(Icons.add,color: Colors.amber,),
                       ))
                 ],
               )

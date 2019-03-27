@@ -33,7 +33,7 @@ class NoticeForm extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child: Text("insurance.ifsm.ir/useronline/login",style: TextStyle(color: Colors.amber,fontSize: fontSize),),
+                child: Text("insurance.ifsm.ir/useronline/login",style: TextStyle(color: Colors.amberAccent,fontSize: fontSize),),
                 onTap:_launchURL,
               ),
             ),

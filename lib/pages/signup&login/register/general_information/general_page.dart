@@ -24,7 +24,21 @@ class GeneralPage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      color: gradientEnd,
+      //color: gradientEnd,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          // Where the linear gradient begins and ends
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          // Add one stop for each color. Stops should increase from 0 to 1
+          stops: [0.5, 1],
+          colors: [
+            // Colors are easy thanks to Flutter's Colors class.
+            Colors.black.withOpacity(.8),
+            Colors.grey,
+          ],
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
@@ -51,7 +65,7 @@ class GeneralPage extends StatelessWidget {
                 FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white,
+                    color: Colors.amberAccent,
                     onPressed: () {
                       //Navigator.push(context, SlideRightRoute(widget: page2()));
                       if (generalKeyForm.currentState.validate()) {
@@ -65,7 +79,7 @@ class GeneralPage extends StatelessWidget {
                     child: Text(
                       "تایید",
                       style: TextStyle(
-                          color: Colors.deepPurpleAccent, fontSize: 16),
+                          color: Colors.black, fontSize: 16,),
                     )),
               ],
             ),

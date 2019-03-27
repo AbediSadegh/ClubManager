@@ -21,7 +21,7 @@ class EducationForm extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 4),
             child: FormTextField(
               icon: Icons.school,
               onSaved: schoolName,
@@ -37,7 +37,7 @@ class EducationForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 4),
             child: FormTextField(
               onSaved: coachName,
               icon: Icons.person_pin,
@@ -53,7 +53,7 @@ class EducationForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 4),
             child: FormTextField(
               onSaved: lastTeam,
               label: "نام باشگاه قبلی",

@@ -59,7 +59,7 @@ class _loginDialogState extends State<loginDialog>
                                   Container(
                                     height: 175,
                                     //color: Colors.orange,
-                                    color: Color(0xff676bc2),
+                                    color: Colors.blueGrey,
                                   ),
                                   //),
                                   Container(
@@ -155,7 +155,7 @@ class _loginDialogState extends State<loginDialog>
                                     });
                                 },
                                 child: Text("ورود"),
-                                color: Color(0xff676bc2),
+                                color: Colors.blueGrey,
                                 textColor: Colors.white,
                               ),
                               isEnabaledPhoneNumber

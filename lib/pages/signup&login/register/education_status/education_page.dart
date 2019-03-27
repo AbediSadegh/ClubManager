@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class EducationPage extends StatelessWidget {
   //Color gradientStart = Color(0xFFb8adfe);
-  final Color gradientEnd = Color(0xff676bc2);
+  final Color gradientEnd = Color(0xff7859AB);
   final PageController controller;
   static GlobalKey<FormState> eduKey = GlobalKey<FormState>();
 
@@ -19,7 +19,23 @@ class EducationPage extends StatelessWidget {
             duration: Duration(milliseconds: 1400), curve: Curves.linear);
       },
       child: Container(
-        color: gradientEnd,
+        //color: gradientEnd,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.5, 1],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.grey,
+              Colors.black.withOpacity(.8),
+
+            ],
+          ),
+        ),
+
         alignment: Alignment.center,
         child: ListView(
           children: <Widget>[
@@ -30,7 +46,7 @@ class EducationPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 55.0),
                   child: Text(
                     "وضعیت تحصیلی",
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    style: TextStyle(color: Colors.amberAccent, fontSize: 25),
                   ),
                 ),
                 EducationForm(
@@ -44,7 +60,7 @@ class EducationPage extends StatelessWidget {
                   child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
+                      color: Colors.amberAccent,
                       onPressed: () {
                         //Navigator.push(context, SlideRightRoute(widget: page2()));
                         if (eduKey.currentState.validate()) {
@@ -56,7 +72,7 @@ class EducationPage extends StatelessWidget {
                       },
                       child: Text(
                         "تایید",
-                        style: TextStyle(color: Colors.deepPurpleAccent),
+                        style: TextStyle(color: Colors.black),
                       )),
                 ),
               ],

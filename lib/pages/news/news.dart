@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class News extends StatelessWidget{
 
-  final List<BaseItem> news;
+  final List news;
   News({@required this.news}):assert(news!=null);
 
   Widget build(BuildContext context){

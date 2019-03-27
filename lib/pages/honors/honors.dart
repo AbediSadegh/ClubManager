@@ -2,7 +2,7 @@ import 'package:club_manager/widgets/news_honors.dart';
 import 'package:flutter/material.dart';
 
 class HonorView extends StatelessWidget {
-  final List<BaseItem> news;
+  final List news;
 
   HonorView({@required this.news}) : assert(news != null);
 
@@ -20,3 +20,5 @@ class HonorView extends StatelessWidget {
     );
   }
 }
+
+// 1.778645833333333

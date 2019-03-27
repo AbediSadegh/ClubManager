@@ -18,7 +18,7 @@ class BaseItemState extends State<BaseItem> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 1.0, horizontal: 5.0),
+      margin: EdgeInsets.symmetric(vertical: 3.5, horizontal: 7.5),
       elevation: 3.5,
       child: Column(
         children: <Widget>[

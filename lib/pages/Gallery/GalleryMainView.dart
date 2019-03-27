@@ -29,7 +29,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
   galleryPageTrans(String page) {
     setState(() {
       _pics = widget._photos[page];
-      print('PICTURES : $_pics}');
     });
   }
 
@@ -49,7 +48,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
   }
 
   Widget custom(List<IntSize> l) {
-    print('IT IS CUSTOM GALLERY : ${l.length}');
     return StaggeredGridView.builder(
       itemCount: l.length,
       gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(

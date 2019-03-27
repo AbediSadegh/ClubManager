@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/ExercisesScreen.dart';
+import 'package:club_manager/pages/Gallery/Gallery.dart';
 import 'package:club_manager/pages/about/about_page.dart';
+import 'package:club_manager/pages/honors/honors.dart';
+import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
-import 'package:club_manager/pages/signup&login/register/start.dart';
+//import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
 
@@ -122,23 +125,32 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    title: "افتخارات",
+                    gestureTapCallback: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HonorView(news: FakeData.fakeHonors)));
+                    },
+                    iconData: Icons.stars,
+                    url: FakeData.honorsLogo,
                   ),
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    title: "گالری",
+                    gestureTapCallback: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gallery(photos: FakeData.fakeGallery,years: ['1381', '1382', '1383', '1384'],)));
+                    },
+                    iconData: Icons.photo_album,
+                    url: FakeData.galleryLogo,
                   ),
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    title: "اخبار",
+                    gestureTapCallback: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> News(news: FakeData.fakeNews)));
+                    },
+                    iconData: Icons.speaker,
+                    url: FakeData.newsLogo,
                   )
                 ],
               ),

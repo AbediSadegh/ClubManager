@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:club_manager/FakeEntity.dart';
-import 'package:club_manager/pages/ExercisesScreen.dart';
+import 'package:club_manager/pages/Exercises/ExercisesScreen.dart';
 import 'package:club_manager/pages/Gallery/Gallery.dart';
 import 'package:club_manager/pages/about/about_page.dart';
 import 'package:club_manager/pages/honors/honors.dart';
@@ -113,7 +113,6 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 15,
             ),
@@ -126,8 +125,12 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "افتخارات",
-                    gestureTapCallback: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HonorView(news: FakeData.fakeHonors)));
+                    gestureTapCallback: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HonorView(news: FakeData.fakeHonors)));
                     },
                     iconData: Icons.stars,
                     url: FakeData.honorsLogo,
@@ -136,8 +139,14 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "گالری",
-                    gestureTapCallback: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gallery(photos: FakeData.fakeGallery,years: ['1381', '1382', '1383', '1384'],isAdmin: true,)));
+                    gestureTapCallback: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Gallery(
+                                    photos: FakeData.fakeGallery,
+                                    years: ['1381', '1382', '1383', '1384'],
+                                  )));
                     },
                     iconData: Icons.photo_album,
                     url: FakeData.galleryLogo,
@@ -146,8 +155,12 @@ class _MainPageState extends State<MainPage> {
                     height: 90,
                     width: 90,
                     title: "اخبار",
-                    gestureTapCallback: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> News(news: FakeData.fakeNews)));
+                    gestureTapCallback: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  News(news: FakeData.fakeNews)));
                     },
                     iconData: Icons.speaker,
                     url: FakeData.newsLogo,

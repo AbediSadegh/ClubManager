@@ -6,10 +6,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
-  final Map<String, List<Photograph>> _photos;
-  final Size _deviceSize;
+  final Map<String, List<Photograph>> photos;
+  final Size deviceSize;
 
-  PhotoGallery(this._photos, this._deviceSize);
+  PhotoGallery({this.photos, this.deviceSize});
 
   State<PhotoGallery> createState() => state;
 }
@@ -25,10 +25,12 @@ class PhotoGalleryState extends State<PhotoGallery> {
   }
 
   List<Photograph> _pics;
+  String currAlbum = '';
 
   galleryPageTrans(String page) {
     setState(() {
-      _pics = widget._photos[page];
+      currAlbum = page;
+      _pics = widget.photos[page];
     });
   }
 
@@ -56,8 +58,87 @@ class PhotoGalleryState extends State<PhotoGallery> {
           staggeredTileBuilder: (index) => StaggeredTile.fit(2)),
       itemBuilder: (context, index) {
         if (index >= l.length) return null;
-        return Tile(_pics[index], l[index], widget._deviceSize);
+        return Tile(
+          photo: _pics[index],
+          size: l[index],
+          deviceSize: widget.deviceSize,
+          onDelete: () {
+            widget.photos[currAlbum].removeAt(index);
+            galleryPageTrans(currAlbum);
+          },
+          onEdit: () {
+            onEdit(context, index);
+          },
+        );
       },
     );
+  }
+
+  Future onEdit(BuildContext context, int index) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController controller =
+              TextEditingController(text: _pics[index].description);
+          return new Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
+            elevation: 10.0,
+            child: Container(
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                color: Colors.black12,
+              ),
+              height: 3 * widget.deviceSize.height / 7,
+              child: new Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: new TextFormField(
+                      keyboardType: TextInputType.multiline,
+                      controller: controller,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black45),
+                      textDirection: TextDirection.rtl,
+                      decoration: InputDecoration(
+                        border:
+                            UnderlineInputBorder(borderSide: BorderSide.none),
+                        hintText: 'توضیحات',
+                        hintStyle: TextStyle(fontSize: 12),
+                      ),
+                      maxLines:
+                          (3 * widget.deviceSize.height / 7 - 100).floor(),
+                    ),
+                  ),
+                  Container(
+                    decoration: ShapeDecoration(
+                        color: Color.fromRGBO(58, 58, 62, 1.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10.0),
+                              bottomRight: Radius.circular(10.0)),
+                        )),
+                    alignment: Alignment.center,
+                    child: new FlatButton(
+                      child: new Text(
+                        'ذخیره',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          //todo do the change stuff here
+                          _pics[index].description = controller.text;
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                  )
+                ],
+              ),
+//                  ),
+            ),
+          );
+        });
   }
 }

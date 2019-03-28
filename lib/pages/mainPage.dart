@@ -137,7 +137,7 @@ class _MainPageState extends State<MainPage> {
                     width: 90,
                     title: "گالری",
                     gestureTapCallback: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gallery(photos: FakeData.fakeGallery,years: ['1381', '1382', '1383', '1384'],)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gallery(photos: FakeData.fakeGallery,years: ['1381', '1382', '1383', '1384'],isAdmin: true,)));
                     },
                     iconData: Icons.photo_album,
                     url: FakeData.galleryLogo,

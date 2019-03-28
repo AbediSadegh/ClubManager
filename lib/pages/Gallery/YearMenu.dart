@@ -1,21 +1,21 @@
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:flutter/material.dart';
 
-class YearMenu extends StatefulWidget {
+class GalleryBar extends StatefulWidget {
   final List<String> _years;
   final PhotoGallery _photoGallery;
 
-  YearMenu(this._years, this._photoGallery);
+  GalleryBar(this._years, this._photoGallery);
 
-  State<YearMenu> createState() => YearMenuState();
+  State<GalleryBar> createState() => GalleryBarState();
 }
 
-class YearMenuState extends State<YearMenu> {
+class GalleryBarState extends State<GalleryBar> {
   List<DropdownMenuItem<String>> _items;
   String _currVal;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _items = List();
     assert(widget._years != null);

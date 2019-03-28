@@ -130,7 +130,7 @@ class _MainPageState extends State<MainPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HonorView(news: FakeData.fakeHonors)));
+                                  HonorView(honors: FakeData.fakeHonors)));
                     },
                     iconData: Icons.stars,
                     url: FakeData.honorsLogo,
@@ -146,6 +146,7 @@ class _MainPageState extends State<MainPage> {
                               builder: (context) => Gallery(
                                     photos: FakeData.fakeGallery,
                                     years: ['1381', '1382', '1383', '1384'],
+                                isAdmin: true,
                                   )));
                     },
                     iconData: Icons.photo_album,
@@ -160,7 +161,7 @@ class _MainPageState extends State<MainPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  News(news: FakeData.fakeNews)));
+                                  News(news: FakeData.fakeNews,isAdmin: true,)));
                     },
                     iconData: Icons.speaker,
                     url: FakeData.newsLogo,

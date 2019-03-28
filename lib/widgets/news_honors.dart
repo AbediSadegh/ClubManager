@@ -25,7 +25,7 @@ class BaseItemState extends State<BaseItem> {
   Size deviceSize;
 
   Widget build(BuildContext context) {
-    var deviceSize = MediaQuery.of(context).size;
+    deviceSize = MediaQuery.of(context).size;
     return Card(
       margin: EdgeInsets.symmetric(vertical: 3.5, horizontal: 7.5),
       elevation: 3.5,
@@ -52,7 +52,6 @@ class BaseItemState extends State<BaseItem> {
               margin: EdgeInsets.symmetric(horizontal: 15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                textDirection: TextDirection.rtl,
                 children: <Widget>[
                   _changeActive
                       ? RaisedButton(
@@ -81,9 +80,7 @@ class BaseItemState extends State<BaseItem> {
                   _changeActive
                       ? RaisedButton(
                           elevation: 7.5,
-                          onPressed: () {
-                            editDialog(context, deviceSize);
-                          },
+                          onPressed: widget.onEdit,
                           child: Text(
                             'تغییر',
                             style: TextStyle(color: Colors.white),
@@ -153,65 +150,4 @@ class BaseItemState extends State<BaseItem> {
     );
   }
 
-  Future editDialog(BuildContext context, Size deviceSize) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          TextEditingController controller =
-              TextEditingController(text: widget.description);
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0)),
-            child: Container(
-              decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  color: Colors.black12),
-              height: deviceSize.height / 2,
-              child: new Column(
-                children: <Widget>[
-                  Expanded(
-                      flex: 2,
-                      child: new TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          controller: controller,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black45),
-                          textDirection: TextDirection.rtl,
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintText: 'توضیحات',
-                            hintStyle: TextStyle(fontSize: 12),
-                          ),
-                          maxLines: 15)),
-                  Container(
-                    decoration: ShapeDecoration(
-                        color: Color.fromRGBO(58, 58, 62, 1.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10.0),
-                              bottomRight: Radius.circular(10.0)),
-                        )),
-                    alignment: Alignment.center,
-                    child: new FlatButton(
-                      child: new Text(
-                        'ذخیره',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          //todo do the change stuff here
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                  )
-                ],
-              ),
-//                  ),
-            ),
-          );
-        });
-  }
 }

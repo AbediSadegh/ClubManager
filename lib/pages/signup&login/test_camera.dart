@@ -8,6 +8,9 @@ void main() => runApp(MaterialApp(
     ));
 
 File _image;
+final Color gradientEnd = Color(0xff676bc2);
+
+
 class cameraPicker extends StatefulWidget {
 
   File getFile(){
@@ -58,7 +61,7 @@ class _cameraPicker extends State<cameraPicker> {
                       onTap: getImage,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Icon(Icons.add,color: Colors.amber,),
+                        child: Icon(Icons.add,color: gradientEnd,),
                       ))
                 ],
               )

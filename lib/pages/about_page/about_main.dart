@@ -23,19 +23,19 @@ class _AboutTabBarState extends State<AboutTabBar>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.blueGrey,
-        floatingActionButton: FloatingActionButton.extended(
-          elevation: 8,
-          backgroundColor: Colors.redAccent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return updateAbout();
-                  });
-            },
-            icon: Icon(Icons.update),
-            label: Text("آپدیت")),
+//        floatingActionButton: FloatingActionButton.extended(
+//          elevation: 8,
+//          backgroundColor: Colors.redAccent,
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+//            onPressed: () {
+//              showDialog(
+//                  context: context,
+//                  builder: (context) {
+//                    return updateAbout();
+//                  });
+//            },
+//            icon: Icon(Icons.update),
+//            label: Text("آپدیت")),
         appBar:
             TabBar(indicatorColor: Colors.red, controller: controller, tabs: [
           Tab(

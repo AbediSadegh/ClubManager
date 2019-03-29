@@ -46,21 +46,18 @@ class FamilyStatusPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            // Add one stop for each color. Stops should increase from 0 to 1
-            stops: [0.5, 1],
-            colors: [
-              // Colors are easy thanks to Flutter's Colors class.
-              Colors.black.withOpacity(.8),
-              Colors.grey,
-            ],
-          ),
-        ),
-        //color: gradientEnd,
+//        decoration: BoxDecoration(
+//          gradient: LinearGradient(
+//            begin: Alignment.topCenter,
+//            end: Alignment.bottomCenter,
+//            stops: [0.5, 1],
+//            colors: [
+//              Colors.black.withOpacity(.8),
+//              Colors.grey,
+//            ],
+//          ),
+//        ),
+        color: gradientEnd,
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -73,7 +70,7 @@ class FamilyStatusPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 55.0),
                     child: Text(
                       "وضعیت خانوادگی",
-                      style: TextStyle(color: Colors.amberAccent, fontSize: 25),
+                      style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
                   FamilyStatusForm(
@@ -89,7 +86,7 @@ class FamilyStatusPage extends StatelessWidget {
                     child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
-                        color: Colors.amberAccent,
+                        color: Colors.white,
                         onPressed: () {
                           if (familyFormKey.currentState.validate()) {
                               familyFormKey.currentState.save();
@@ -101,7 +98,7 @@ class FamilyStatusPage extends StatelessWidget {
                         },
                         child: Text(
                           "تایید",
-                          style: TextStyle(color: Colors.black,fontSize: 16),
+                          style: TextStyle(color: gradientEnd,fontSize: 16),
                         )),
                   ),
                 ],

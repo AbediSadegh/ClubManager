@@ -10,7 +10,6 @@ import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
 import 'package:club_manager/pages/support/about_page.dart';
 
-//import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
 
@@ -45,53 +44,8 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   CircleImage(
-                    gestureTapCallback: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ExerciseList()));
-                    },
-                    title: "تمرین",
                     height: 90,
-                    width: 90,
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
-                  ),
-                  CircleImage(
-                    height: 90,
-                    width: 90,
-                    title: "مربیان",
-                    iconData: Icons.supervised_user_circle,
-                    url: FakeData.coachLogo,
-                    gestureTapCallback: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CVViewer(
-                                    cvs: FakeData.fakeCVs,
-                                    isAdmin: false,
-                                  )));
-                    },
-                  ),
-                  CircleImage(
-                    height: 90,
-                    width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CircleImage(
-                    height: 90,
-                    title: "ورود",
+                    title: "ورود / ثبت نام",
                     width: 90,
                     iconData: Icons.check,
                     url: FakeData.loginUrl,
@@ -105,29 +59,39 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "تماس با ما",
-                    iconData: Icons.call,
-                    url: FakeData.callUs,
+                    title: "مربیان",
+                    iconData: Icons.supervised_user_circle,
+                    url: FakeData.coachLogo,
                     gestureTapCallback: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return AboutPage();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CVViewer(
+                                cvs: FakeData.fakeCVs,
+                                isAdmin: true,
+                              ),
+                        ),
+                      );
                     },
                   ),
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    title: "اخبار",
                     gestureTapCallback: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return AboutTabBar();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => News(
+                                news: FakeData.fakeNews,
+                                isAdmin: true,
+                              ),
+                        ),
+                      );
                     },
-                  )
+                    iconData: Icons.whatshot,
+                    url: FakeData.newsLogo,
+                  ),
                 ],
               ),
             ),
@@ -142,52 +106,98 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "افتخارات",
-                    gestureTapCallback: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HonorView(
-                                    honors: FakeData.fakeHonors,
-                                    isAdmin: false,
-                                  )));
-                    },
-                    iconData: Icons.stars,
-                    url: FakeData.honorsLogo,
-                  ),
-                  CircleImage(
-                    height: 90,
-                    width: 90,
                     title: "گالری",
                     gestureTapCallback: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Gallery(
-                                    photos: FakeData.fakeGallery,
-                                    years: ['1381', '1382', '1383', '1384'],
-                                    isAdmin: false,
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Gallery(
+                                photos: FakeData.fakeGallery,
+                                years: ['1381', '1382', '1383', '1384'],
+                                isAdmin: true,
+                              ),
+                        ),
+                      );
                     },
                     iconData: Icons.photo_album,
                     url: FakeData.galleryLogo,
                   ),
                   CircleImage(
+                    gestureTapCallback: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ExerciseList()));
+                    },
+                    title: "تمرین",
                     height: 90,
                     width: 90,
-                    title: "اخبار",
+                    iconData: Icons.assignment,
+                    url: FakeData.news,
+                  ),
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "افتخارات",
                     gestureTapCallback: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => News(
-                                    news: FakeData.fakeNews,
-                                    isAdmin: false,
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HonorView(
+                                honors: FakeData.fakeHonors,
+                                isAdmin: true,
+                              ),
+                        ),
+                      );
                     },
-                    iconData: Icons.speaker,
-                    url: FakeData.newsLogo,
-                  )
+                    iconData: Icons.stars,
+                    url: FakeData.honorsLogo,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "پشتیبانی",
+                    iconData: Icons.call,
+                    url: FakeData.callUs,
+                    gestureTapCallback: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return AboutPage();
+                      }));
+                    },
+                  ),
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "درباره ما",
+                    iconData: Icons.info,
+                    url: FakeData.news,
+                    gestureTapCallback: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AboutTabBar();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  CircleImage(
+                    height: 90,
+                    width: 90,
+                    title: "test",
+                    iconData: Icons.fiber_new,
+                    url: FakeData.news,
+                  ),
                 ],
               ),
             ),

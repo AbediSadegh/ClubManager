@@ -1,4 +1,3 @@
-
 import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/support/form.dart';
 import 'package:club_manager/pages/support/update_about.dart';
@@ -38,9 +37,12 @@ class AboutPage extends StatelessWidget {
     GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amberAccent,
+          backgroundColor: Colors.amberAccent,
           tooltip: "update",
-          child: Text("آپدیت",style: TextStyle(color: Colors.black),),
+          child: Text(
+            "آپدیت",
+            style: TextStyle(color: Colors.black),
+          ),
           onPressed: () {
             showDialog(
                 context: context,

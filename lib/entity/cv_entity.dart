@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class CVEntity {
   final String imgURL;
-  final String name;
-  final String license;
-  final String education;
-  final String description;
+  String name;
+  String license;
+  String education;
+  String description;
 
   CVEntity(
       {@required this.imgURL,

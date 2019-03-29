@@ -9,7 +9,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFFF44336),
+        primaryColorDark: Color(0xFFD32F2F),
+        primaryColorLight: Color(0xFFFFCDD2),
+        accentColor: Color(0xFFFFEB3B),
+        dividerColor: Color(0xFFBDBDBD),
       ),
       home: MainPage(),
       initialRoute: "/splash_screen",

@@ -1,5 +1,5 @@
 import 'package:club_manager/entity/news_entity.dart';
-import 'package:club_manager/widgets/news_honors.dart';
+import 'package:club_manager/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 
 class News extends StatefulWidget {
@@ -13,15 +13,27 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
+
+  bool _isChanging = true;
+
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: widget.isAdmin? FloatingActionButton(
+        onPressed: (){
+          setState((){
+            NewsItemPreview.setChange = !NewsItemPreview.setChange;
+            print(NewsItemPreview.setChange);
+          });
+        },
+      ): Container(),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return BaseItem(
+          return NewsItemPreview(
             imgURL: widget.news[index].imgURL,
             title: widget.news[index].title,
             description: widget.news[index].description,
+            shortDesc: widget.news[index].shortDesc,
             onDelete: () {
               setState(() {
                 //todo : delete a piece of news here
@@ -41,8 +53,12 @@ class _NewsState extends State<News> {
     return showDialog(
         context: context,
         builder: (context) {
-          TextEditingController controller =
+          TextEditingController ctrlDesc =
               TextEditingController(text: widget.news[index].description);
+          TextEditingController ctrlTitle =
+              TextEditingController(text: widget.news[index].title);
+          TextEditingController ctrlShortDesc =
+              TextEditingController(text: widget.news[index].shortDesc);
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -55,21 +71,40 @@ class _NewsState extends State<News> {
               child: new Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 2,
-                    child: new TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        controller: controller,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black45),
-                        textDirection: TextDirection.rtl,
-                        decoration: InputDecoration(
-                          border:
-                              UnderlineInputBorder(borderSide: BorderSide.none),
-                          hintText: 'توضیحات',
-                          hintStyle: TextStyle(fontSize: 12),
-                        ),
-                        maxLines: 15),
+                      flex: 2,
+                      child: new TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          controller: ctrlDesc,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black45),
+                          textDirection: TextDirection.rtl,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'توضیحات',
+                            hintStyle: TextStyle(fontSize: 12),
+                          ),
+                          maxLines: 6)),
+                  Container(
+                    width: deviceSize.width,
+                    height: 1.0,
+                    color: Color.fromRGBO(58, 58, 62, 1.0),
                   ),
+                  Expanded(
+                      flex: 2,
+                      child: new TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          controller: ctrlTitle,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black45),
+                          textDirection: TextDirection.rtl,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'تیتر',
+                            hintStyle: TextStyle(fontSize: 12),
+                          ),
+                          maxLines: 6)),
                   Container(
                     decoration: ShapeDecoration(
                         color: Color.fromRGBO(58, 58, 62, 1.0),
@@ -86,7 +121,12 @@ class _NewsState extends State<News> {
                       ),
                       onPressed: () {
                         setState(() {
-                          widget.news[index].description = controller.text;
+                          widget.news[index] = NewsEntity(
+                            imgURL: widget.news[index].imgURL,
+                            title: ctrlTitle.text,
+                            description: ctrlDesc.text,
+                            shortDesc: ctrlShortDesc.text,
+                          );
                           //todo do the change stuff here
                         });
                         Navigator.pop(context);

@@ -1,4 +1,5 @@
 import 'package:club_manager/entity/cv_entity.dart';
+import 'package:club_manager/entity/honors_entity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/entity/news_entity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
@@ -24,9 +25,10 @@ class FakeData {
   static Map<String, List<Photograph>> fakeGallery = map();
   static String srcImageExercise =
       'http://www.knowhowsoccer.com/wp-content/uploads/2015/06/specific_exercise_how_to_become_soccer_fit-2.jpg';
-  static String logo = "https://upload.wikimedia.org/wikipedia/en/5/52/Padideh_Shahr-e_Khodrou_logo.png";
-  static String companyName= "پدیده";
-  static String companyDetail ="درباره ی پدیده";
+  static String logo =
+      "https://upload.wikimedia.org/wikipedia/en/5/52/Padideh_Shahr-e_Khodrou_logo.png";
+  static String companyName = "پدیده";
+  static String companyDetail = "درباره ی پدیده";
   static String programmerName = "برنامه نویسان";
   static String programmerDetail = "درباره برنامه نویسان";
   static String programmerLogo = "";
@@ -38,15 +40,16 @@ class FakeData {
       iconData: Icons.phone,
     ),
     componnent(
-      iconData:Icons.photo_camera,
-      title:'اینستاگرام',
-      subtitle:'@padidehFc',
+      iconData: Icons.photo_camera,
+      title: 'اینستاگرام',
+      subtitle: '@padidehFc',
     ),
     componnent(
-        iconData:Icons.email, title: "ایمیل", subtitle:"*********@gmail.com"
-    ),
+        iconData: Icons.email, title: "ایمیل", subtitle: "*********@gmail.com"),
     componnent(
-      iconData:Icons.send, title:"تلگرام", subtitle:'@shahrkhodrou_fc',
+      iconData: Icons.send,
+      title: "تلگرام",
+      subtitle: '@shahrkhodrou_fc',
     ),
   ];
 
@@ -57,21 +60,18 @@ class FakeData {
       iconData: Icons.phone,
     ),
     componnent(
-      iconData:Icons.photo_camera,
-      title:'اینستاگرام',
-      subtitle:'@padidehFc',
+      iconData: Icons.photo_camera,
+      title: 'اینستاگرام',
+      subtitle: '@padidehFc',
     ),
     componnent(
-        iconData:Icons.email, title: "ایمیل", subtitle:"*********@gmail.com"
-    ),
+        iconData: Icons.email, title: "ایمیل", subtitle: "*********@gmail.com"),
     componnent(
-      iconData:Icons.send, title:"تلگرام", subtitle:'@shahrkhodrou_fc',
+      iconData: Icons.send,
+      title: "تلگرام",
+      subtitle: '@shahrkhodrou_fc',
     ),
   ];
-
-
-
-
 
   static List<Exercise> tasks = [
     Exercise(
@@ -188,24 +188,27 @@ class FakeData {
     return NewsEntity(
         title: "عنوان $i",
         imgURL: 'https://picsum.photos/400/500?image=$i',
+        shortDesc:
+            'جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصو',
         description:
             'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.');
   });
 
-  static List<NewsEntity> fakeHonors = List.generate(25, (i) {
-    return NewsEntity(
+  static List<HonorsEntity> fakeHonors = List.generate(25, (i) {
+    return HonorsEntity(
         title: "عنوان $i",
         imgURL: 'https://picsum.photos/400/500?image=${i + 100}',
         description:
             'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان.');
   });
-  static List<CVEntity> fakeCVs = List.generate(25, (i){
-    return CVEntity(
-        imgURL: 'https://picsum.photos/200/300?image=$i',
-        name: 'آقای مربی $i',
-        license: 'مربی درجه $i ',
-        education: 'کمی تا حدی خوب',
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برایدر ستون و سطرآنچنان که لازم است و برای در ستون و سطرآنچنان که لازم است و برای شرایط');
+  static List<CVEntity> fakeCVs = List.generate(25, (i) {
+    return CVEntity((p) => p
+      ..imgURL = 'https://picsum.photos/200/300?image=$i'
+      ..name = 'آقای مربی $i'
+      ..license = 'مربی درجه $i '
+      ..education = 'کمی تا حدی خوب'
+      ..description =
+          'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برایدر ستون و سطرآنچنان که لازم است و برای در ستون و سطرآنچنان که لازم است و برای شرایط');
   });
 }
 
@@ -217,36 +220,32 @@ Map<String, List<Photograph>> map() {
     '1383': [],
     '1384': []
   };
-String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
+  String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
 
   for (int i = 100; i <= 140; i++) {
-    pics[l[0]].add(Photograph((p) =>
-    p
+    pics[l[0]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
       ..description = str));
   }
   for (int i = 145; i <= 190; i++) {
-    pics[l[1]].add(Photograph((p) =>
-    p
+    pics[l[1]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
       ..description = str));
   }
   for (int i = 200; i <= 250; i++) {
-    pics[l[2]].add(Photograph((p) =>
-    p
+    pics[l[2]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
       ..description = str));
   }
   for (int i = 255; i <= 260; i++) {
-    pics[l[3]].add(Photograph((p) =>
-    p
+    pics[l[3]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
       ..description = str));
   }
 
   return pics;
-  }
+}

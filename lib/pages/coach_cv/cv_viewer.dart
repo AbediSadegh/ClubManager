@@ -148,10 +148,11 @@ class _CVViewerState extends State<CVViewer> {
                       onPressed: () {
                         //todo do the server side for CV edit
                         setState(() {
-                          widget.cvs[index].name = ctrlName.text;
-                          widget.cvs[index].description = ctrlDesc.text;
-                          widget.cvs[index].license = ctrlLicense.text;
-                          widget.cvs[index].education = ctrlEdu.text;
+                          widget.cvs[index] = CVEntity((p) => p
+                            ..description = ctrlDesc.text
+                            ..license = ctrlLicense.text
+                            ..name = ctrlName.text
+                          ..education=ctrlEdu.text);
                         });
                       },
                       child: Text('ذخیره'),

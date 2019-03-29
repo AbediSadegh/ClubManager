@@ -1,19 +1,33 @@
-import 'package:club_manager/widgets/news_honors.dart';
+import 'package:club_manager/entity/honors_entity.dart';
+import 'package:club_manager/widgets/honors_card.dart';
 import 'package:flutter/material.dart';
 
 class HonorView extends StatefulWidget {
-  final List honors;
+  final List<HonorsEntity> honors;
+  final bool isAdmin;
 
-  HonorView({@required this.honors}) : assert(honors != null);
+  HonorView({@required this.honors, @required this.isAdmin})
+      : assert(honors != null);
 
   @override
   _HonorViewState createState() => _HonorViewState();
 }
 
 class _HonorViewState extends State<HonorView> {
+  bool _isChanging = true;
+
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: widget.isAdmin
+          ? FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _isChanging = !_isChanging;
+                });
+              },
+            )
+          : Container(),
       body: ListView.builder(
         itemBuilder: (context, index) {
           return BaseItem(
@@ -39,8 +53,10 @@ class _HonorViewState extends State<HonorView> {
     return showDialog(
         context: context,
         builder: (context) {
-          TextEditingController controller =
+          TextEditingController ctrlDesc =
               TextEditingController(text: widget.honors[index].description);
+          TextEditingController ctrlTitle =
+              TextEditingController(text: widget.honors[index].title);
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -56,8 +72,8 @@ class _HonorViewState extends State<HonorView> {
                       flex: 2,
                       child: new TextFormField(
                           keyboardType: TextInputType.multiline,
-                          controller: controller,
-                          textAlign: TextAlign.center,
+                          controller: ctrlDesc,
+                          textAlign: TextAlign.right,
                           style: TextStyle(color: Colors.black45),
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
@@ -66,7 +82,27 @@ class _HonorViewState extends State<HonorView> {
                             hintText: 'توضیحات',
                             hintStyle: TextStyle(fontSize: 12),
                           ),
-                          maxLines: 15)),
+                          maxLines: 6)),
+                  Container(
+                    width: deviceSize.width,
+                    height: 1.0,
+                    color: Color.fromRGBO(58, 58, 62, 1.0),
+                  ),
+                  Expanded(
+                      flex: 2,
+                      child: new TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          controller: ctrlTitle,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black45),
+                          textDirection: TextDirection.rtl,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'تیتر',
+                            hintStyle: TextStyle(fontSize: 12),
+                          ),
+                          maxLines: 6)),
                   Container(
                     decoration: ShapeDecoration(
                         color: Color.fromRGBO(58, 58, 62, 1.0),
@@ -83,7 +119,10 @@ class _HonorViewState extends State<HonorView> {
                       ),
                       onPressed: () {
                         setState(() {
-                          widget.honors[index].description = controller.text;
+                          widget.honors[index] = HonorsEntity(
+                              imgURL: widget.honors[index].imgURL,
+                              title: ctrlTitle.text,
+                              description: ctrlDesc.text);
                           //todo do the change stuff here
                         });
                         Navigator.pop(context);

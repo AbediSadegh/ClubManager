@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class NewsEntity {
+class HonorsEntity {
   final String imgURL;
   String title;
   String description;
 
-  NewsEntity({@required this.imgURL,@required this.title,@required this.description,});
+  HonorsEntity({@required this.imgURL,@required this.title,@required this.description,});
 }

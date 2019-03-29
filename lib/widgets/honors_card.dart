@@ -33,14 +33,17 @@ class BaseItemState extends State<BaseItem> {
         children: <Widget>[
           Container(
             child: ClipRRect(
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/images/logo.png',
-                image: widget.imgURL,
-                alignment: Alignment.center,
-                height: deviceSize.height / 2,
-                width: deviceSize.width,
-                fit: BoxFit.fill,
-              ),
+              child: Stack(children: <Widget>[
+                FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/logo.png',
+                  image: widget.imgURL,
+                  alignment: Alignment.center,
+                  height: deviceSize.height / 2,
+                  width: deviceSize.width,
+                  fit: BoxFit.fill,
+                ),
+                Visibility(),
+              ]),
               borderRadius: BorderRadius.circular(5.0),
             ),
             margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
@@ -82,7 +85,7 @@ class BaseItemState extends State<BaseItem> {
                           elevation: 7.5,
                           onPressed: widget.onEdit,
                           child: Text(
-                            'تغییر',
+                            'ویرایش',
                             style: TextStyle(color: Colors.white),
                           ),
                           color: Color.fromRGBO(58, 58, 62, 1.0),
@@ -149,5 +152,4 @@ class BaseItemState extends State<BaseItem> {
       ),
     );
   }
-
 }

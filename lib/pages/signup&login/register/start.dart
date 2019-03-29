@@ -7,6 +7,7 @@ import 'package:club_manager/pages/signup&login/register/notice/notice_page.dart
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
+  static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller = PageController();
   GeneralPage generalPage;
   EducationPage educationPage;
@@ -33,8 +34,9 @@ class Start extends StatelessWidget {
           ),
           noticePage = NoticePage(
             controller: controller,
+            formKey: formKey,
             press: () {
-              noticePage.formKey.currentState.save();
+              formKey.currentState.save();
 
               Player play = new Player(
                 reagentCode: noticePage.reagentCode,

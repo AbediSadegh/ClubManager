@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class NoticePage extends StatelessWidget {
   final PageController controller;
   final Color gradientEnd = Color(0xff676bc2);
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey;
   final press;
-  NoticePage({this.controller,this.press});
+  NoticePage({this.controller,this.press,this.formKey});
 
   @override
   Widget build(BuildContext context) {

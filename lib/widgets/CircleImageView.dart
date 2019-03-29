@@ -15,12 +15,13 @@ class CircleImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
-            GestureDetector(
-              onTap: gestureTapCallback,
-              child: Container(
+        GestureDetector(
+          onTap: gestureTapCallback,
+
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: <Widget>[
+              Container(
                 width: width,
                 height: height,
                 decoration: new BoxDecoration(
@@ -40,16 +41,16 @@ class CircleImage extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
 
-            Container(height: height/3,width: width/3,
-                alignment: new FractionalOffset(0.0, 0.0),
-                child: Center(child: Icon(iconData)),
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                )),
-          ],
+              Container(height: height/3,width: width/3,
+                  alignment: new FractionalOffset(0.0, 0.0),
+                  child: Center(child: Icon(iconData)),
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  )),
+            ],
+          ),
         ),
         SizedBox(height: 4,),
         Text(title,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w700),)

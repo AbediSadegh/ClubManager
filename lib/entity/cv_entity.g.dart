@@ -29,6 +29,9 @@ class _$CVEntitySerializer implements StructuredSerializer<CVEntity> {
       'description',
       serializers.serialize(object.description,
           specifiedType: const FullType(String)),
+      'imgURL',
+      serializers.serialize(object.imgURL,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -61,6 +64,10 @@ class _$CVEntitySerializer implements StructuredSerializer<CVEntity> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'imgURL':
+          result.imgURL = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -77,11 +84,14 @@ class _$CVEntity extends CVEntity {
   final String education;
   @override
   final String description;
+  @override
+  final String imgURL;
 
   factory _$CVEntity([void updates(CVEntityBuilder b)]) =>
       (new CVEntityBuilder()..update(updates)).build();
 
-  _$CVEntity._({this.name, this.license, this.education, this.description})
+  _$CVEntity._(
+      {this.name, this.license, this.education, this.description, this.imgURL})
       : super._() {
     if (name == null) {
       throw new BuiltValueNullFieldError('CVEntity', 'name');
@@ -94,6 +104,9 @@ class _$CVEntity extends CVEntity {
     }
     if (description == null) {
       throw new BuiltValueNullFieldError('CVEntity', 'description');
+    }
+    if (imgURL == null) {
+      throw new BuiltValueNullFieldError('CVEntity', 'imgURL');
     }
   }
 
@@ -111,14 +124,18 @@ class _$CVEntity extends CVEntity {
         name == other.name &&
         license == other.license &&
         education == other.education &&
-        description == other.description;
+        description == other.description &&
+        imgURL == other.imgURL;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), license.hashCode), education.hashCode),
-        description.hashCode));
+        $jc(
+            $jc($jc($jc(0, name.hashCode), license.hashCode),
+                education.hashCode),
+            description.hashCode),
+        imgURL.hashCode));
   }
 
   @override
@@ -127,7 +144,8 @@ class _$CVEntity extends CVEntity {
           ..add('name', name)
           ..add('license', license)
           ..add('education', education)
-          ..add('description', description))
+          ..add('description', description)
+          ..add('imgURL', imgURL))
         .toString();
   }
 }
@@ -151,6 +169,10 @@ class CVEntityBuilder implements Builder<CVEntity, CVEntityBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
+  String _imgURL;
+  String get imgURL => _$this._imgURL;
+  set imgURL(String imgURL) => _$this._imgURL = imgURL;
+
   CVEntityBuilder();
 
   CVEntityBuilder get _$this {
@@ -159,6 +181,7 @@ class CVEntityBuilder implements Builder<CVEntity, CVEntityBuilder> {
       _license = _$v.license;
       _education = _$v.education;
       _description = _$v.description;
+      _imgURL = _$v.imgURL;
       _$v = null;
     }
     return this;
@@ -184,7 +207,8 @@ class CVEntityBuilder implements Builder<CVEntity, CVEntityBuilder> {
             name: name,
             license: license,
             education: education,
-            description: description);
+            description: description,
+            imgURL: imgURL);
     replace(_$result);
     return _$result;
   }

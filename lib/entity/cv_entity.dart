@@ -14,6 +14,7 @@ abstract class CVEntity implements Built<CVEntity, CVEntityBuilder> {
   String get license;
   String get education;
   String get description;
+  String get imgURL;
 
   CVEntity._();
 

@@ -31,6 +31,8 @@ class _HonorViewState extends State<HonorView> {
             )
           : Container(),
       body: ListView.builder(
+//        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.65 ),
+        itemCount: widget.honors.length,
         itemBuilder: (context, index) {
           return BaseItem(
             imgURL: widget.honors[index].imgURL,

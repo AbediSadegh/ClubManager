@@ -8,8 +8,9 @@ class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
   final Map<String, List<Photograph>> photos;
   final Size deviceSize;
+  final String initAlbum;
 
-  PhotoGallery({this.photos, this.deviceSize});
+  PhotoGallery({@required this.photos,@required this.deviceSize,this.initAlbum});
 
   State<PhotoGallery> createState() => state;
 }
@@ -25,12 +26,19 @@ class PhotoGalleryState extends State<PhotoGallery> {
   }
 
   List<Photograph> _pics;
-  String currAlbum = '';
+  String currAlbum ;
+
+  void initState(){
+    super.initState();
+    currAlbum = widget.initAlbum;
+    _pics = widget.photos[currAlbum];
+  }
 
   galleryPageTrans(String page) {
     setState(() {
       currAlbum = page;
       _pics = widget.photos[page];
+      print('GOOOOOOOOOO THERE');
     });
   }
 

@@ -2,10 +2,11 @@ import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:flutter/material.dart';
 
 class GalleryBar extends StatefulWidget {
-  final List<String> _years;
-  final PhotoGallery _photoGallery;
+  final List<String> years;
+  final PhotoGallery photoGallery;
+  final String initValue;
 
-  GalleryBar(this._years, this._photoGallery);
+  GalleryBar({this.years, this.photoGallery,this.initValue});
 
   State<GalleryBar> createState() => GalleryBarState();
 }
@@ -17,9 +18,10 @@ class GalleryBarState extends State<GalleryBar> {
   @override
   void initState() {
     super.initState();
+    _currVal = widget.initValue;
     _items = List();
-    assert(widget._years != null);
-    widget._years.forEach((val) {
+    assert(widget.years != null);
+    widget.years.forEach((val) {
       _items.add(DropdownMenuItem<String>(
         value: val,
         child: Container(
@@ -50,14 +52,9 @@ class GalleryBarState extends State<GalleryBar> {
           if (_currVal != newVal)
             setState(() {
               _currVal = newVal;
-              widget._photoGallery.state.galleryPageTrans(newVal);
+              widget.photoGallery.state.galleryPageTrans(newVal);
             });
         },
-        hint: Container(
-          child: Text(
-            '...پدیده های ',
-          ),
-        ),
       ),
     );
   }

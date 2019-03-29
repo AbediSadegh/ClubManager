@@ -60,6 +60,7 @@ class _NewsState extends State<News> {
     return showDialog(
         context: context,
         builder: (context) {
+          // ignore: unused_local_variable
           File image;
           TextEditingController ctrlDesc = TextEditingController(
               text: isAdd ? '' : widget.news[index].description);

@@ -25,7 +25,7 @@ class NewsItemPreview extends StatefulWidget {
 }
 
 class NewsItemPreviewState extends State<NewsItemPreview> {
-  bool changeActive = true;
+  bool changeActive = false;
   Size deviceSize;
 
   Widget build(BuildContext context) {

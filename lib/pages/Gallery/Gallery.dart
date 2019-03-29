@@ -19,10 +19,10 @@ class Gallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _deviceSize = MediaQuery.of(context).size;
-    photoGallery = PhotoGallery(photos: photos, deviceSize: _deviceSize);
     assert(photos.isNotEmpty);
     assert(years != null);
+    Size _deviceSize = MediaQuery.of(context).size;
+    photoGallery = PhotoGallery(photos: photos, deviceSize: _deviceSize,initAlbum: years[0],);
     return Scaffold(
       floatingActionButton: !isAdmin
           ? Container(
@@ -34,9 +34,10 @@ class Gallery extends StatelessWidget {
               child: Icon(Icons.add),
             ),
       body: Container(
+        margin: EdgeInsets.only(top: 10.0),
         child: Stack(
           children: <Widget>[
-            GalleryBar(this.years, photoGallery),
+            GalleryBar(years: years,photoGallery:  photoGallery,initValue: years[0],),
             photoGallery,
           ],
         ),

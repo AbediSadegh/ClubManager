@@ -34,7 +34,7 @@ class CV extends StatefulWidget {
 class _CVState extends State<CV> {
   Size _size;
 
-  bool isEditing = true;
+  bool isEditing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -117,40 +117,43 @@ class _CVState extends State<CV> {
                     image: this.widget.imgURL,
                     fit: BoxFit.cover,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: _size.width / 3,
-                        height: cardHeight / 2 - 10,
-                        child: FlatButton(
-                            color: Color.fromRGBO(247, 223, 9, 0.6),
-                            onPressed: widget.onEdit,
-                            child: Text(
-                              'ویرایش',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
-                      Container(
-                        width: _size.width / 3,
-                        height: cardHeight / 2 - 10,
-                        child: FlatButton(
-                            color: Color.fromRGBO(247, 13, 9, 0.6),
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return DeleteOrNot(
-                                      onDelete: widget.onDelete,
-                                    );
-                                  });
-                            },
-                            child: Text(
-                              'حذف',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
-                    ],
+                  Visibility(
+                    visible: isEditing,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: _size.width / 3,
+                          height: cardHeight / 2 - 10,
+                          child: FlatButton(
+                              color: Color.fromRGBO(247, 223, 9, 0.6),
+                              onPressed: widget.onEdit,
+                              child: Text(
+                                'ویرایش',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          width: _size.width / 3,
+                          height: cardHeight / 2 - 10,
+                          child: FlatButton(
+                              color: Color.fromRGBO(247, 13, 9, 0.6),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return DeleteOrNot(
+                                        onDelete: widget.onDelete,
+                                      );
+                                    });
+                              },
+                              child: Text(
+                                'حذف',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

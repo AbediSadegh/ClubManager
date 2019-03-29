@@ -22,7 +22,7 @@ class _TileState extends State<Tile> {
   static List<double> l = [1.0, 0.0, 1.0, 0.0, 1.0, 1.0];
 
   final IntSize size;
-  bool _changeActive = true;
+  bool _changeActive = false;
   double _fontSize = 15;
 
   _TileState(this.size);

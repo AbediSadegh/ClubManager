@@ -16,7 +16,7 @@ class CVViewer extends StatefulWidget {
 }
 
 class _CVViewerState extends State<CVViewer> {
-  bool isChanging = true;
+  bool isChanging = false;
 
   Widget build(BuildContext context) {
     assert(widget.cvs != null);

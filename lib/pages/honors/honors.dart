@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:club_manager/entity/honors_entity.dart';
 import 'package:club_manager/widgets/honors_card.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HonorView extends StatefulWidget {
   final List<HonorsEntity> honors;
@@ -21,10 +24,9 @@ class _HonorViewState extends State<HonorView> {
     return Scaffold(
       floatingActionButton: widget.isAdmin
           ? FloatingActionButton(
+              child: Icon(Icons.add),
               onPressed: () {
-                setState(() {
-                  _isChanging = !_isChanging;
-                });
+                editAdd(context, 0, deviceSize, true);
               },
             )
           : Container(),
@@ -41,7 +43,7 @@ class _HonorViewState extends State<HonorView> {
               });
             },
             onEdit: () {
-              edit(context, index, deviceSize);
+              editAdd(context, index, deviceSize, false);
             },
           );
         },
@@ -49,14 +51,15 @@ class _HonorViewState extends State<HonorView> {
     );
   }
 
-  Future edit(BuildContext context, int index, Size deviceSize) {
+  Future editAdd(BuildContext context, int index, Size deviceSize, bool isAdd) {
     return showDialog(
         context: context,
         builder: (context) {
-          TextEditingController ctrlDesc =
-              TextEditingController(text: widget.honors[index].description);
-          TextEditingController ctrlTitle =
-              TextEditingController(text: widget.honors[index].title);
+          File image;
+          TextEditingController ctrlDesc = TextEditingController(
+              text: isAdd ? '' : widget.honors[index].description);
+          TextEditingController ctrlTitle = TextEditingController(
+              text: isAdd ? '' : widget.honors[index].title);
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -70,19 +73,22 @@ class _HonorViewState extends State<HonorView> {
                 children: <Widget>[
                   Expanded(
                       flex: 2,
-                      child: new TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          controller: ctrlDesc,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(color: Colors.black45),
-                          textDirection: TextDirection.rtl,
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintText: 'توضیحات',
-                            hintStyle: TextStyle(fontSize: 12),
-                          ),
-                          maxLines: 6)),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: new TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            controller: ctrlDesc,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(color: Colors.black45),
+                            textDirection: TextDirection.rtl,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintText: 'توضیحات',
+                              hintStyle: TextStyle(fontSize: 15),
+                            ),
+                            maxLines: 6),
+                      )),
                   Container(
                     width: deviceSize.width,
                     height: 1.0,
@@ -90,19 +96,49 @@ class _HonorViewState extends State<HonorView> {
                   ),
                   Expanded(
                       flex: 2,
-                      child: new TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          controller: ctrlTitle,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(color: Colors.black45),
-                          textDirection: TextDirection.rtl,
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintText: 'تیتر',
-                            hintStyle: TextStyle(fontSize: 12),
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            child: new TextFormField(
+                                keyboardType: TextInputType.multiline,
+                                controller: ctrlTitle,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(color: Colors.black45),
+                                textDirection: TextDirection.rtl,
+                                decoration: InputDecoration(
+                                  border: UnderlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintText: 'تیتر',
+                                  hintStyle: TextStyle(fontSize: 15),
+                                ),
+                                maxLines: 6),
                           ),
-                          maxLines: 6)),
+                          Visibility(
+                            visible: isAdd,
+                            child: Positioned(
+                              bottom: 5.0,
+                              left: 5.0,
+                              child: Visibility(
+                                visible: isAdd,
+                                child: ClipOval(
+                                  child: FlatButton(
+                                    color: Color.fromRGBO(58, 58, 62, 1.0),
+                                    onPressed: () async {
+                                      image = await ImagePicker.pickImage(
+                                          source: ImageSource.gallery);
+                                    },
+                                    child: Icon(
+                                      Icons.photo_camera,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
                   Container(
                     decoration: ShapeDecoration(
                         color: Color.fromRGBO(58, 58, 62, 1.0),
@@ -118,13 +154,16 @@ class _HonorViewState extends State<HonorView> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        setState(() {
-                          widget.honors[index] = HonorsEntity(
-                              imgURL: widget.honors[index].imgURL,
-                              title: ctrlTitle.text,
-                              description: ctrlDesc.text);
-                          //todo do the change stuff here
-                        });
+                        if (isAdd) {
+                          //todo add image here
+                        } else
+                          setState(() {
+                            widget.honors[index] = HonorsEntity(
+                                imgURL: widget.honors[index].imgURL,
+                                title: ctrlTitle.text,
+                                description: ctrlDesc.text);
+                            //todo do the change stuff here
+                          });
                         Navigator.pop(context);
                       },
                     ),

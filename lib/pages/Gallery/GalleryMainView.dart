@@ -139,7 +139,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
                   )
                 ],
               ),
-//                  ),
             ),
           );
         });

@@ -121,7 +121,6 @@ class _CVState extends State<CV> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-//                        margin: EdgeInsets.symmetric(horizontal: 1.0),
                         width: _size.width / 3,
                         height: cardHeight / 2 - 10,
                         child: FlatButton(
@@ -133,7 +132,6 @@ class _CVState extends State<CV> {
                             )),
                       ),
                       Container(
-//                        margin: EdgeInsets.symmetric(horizontal: 1.0),
                         width: _size.width / 3,
                         height: cardHeight / 2 - 10,
                         child: FlatButton(

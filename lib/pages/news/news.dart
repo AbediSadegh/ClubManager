@@ -23,6 +23,7 @@ class _NewsState extends State<News> {
     return Scaffold(
       floatingActionButton: widget.isAdmin
           ? FloatingActionButton(
+              child: Icon(Icons.add),
               onPressed: () {
                 editAdd(context, 0, deviceSize, true);
               },
@@ -102,6 +103,29 @@ class _NewsState extends State<News> {
                   ),
                   Expanded(
                       flex: 2,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: new TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            controller: ctrlShortDesc,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(color: Colors.black45),
+                            textDirection: TextDirection.rtl,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintText: 'توضیح مختصر',
+                              hintStyle: TextStyle(fontSize: 12),
+                            ),
+                            maxLines: 6),
+                      )),
+                  Container(
+                    width: deviceSize.width,
+                    height: 1.0,
+                    color: Color.fromRGBO(58, 58, 62, 1.0),
+                  ),
+                  Expanded(
+                      flex: 2,
                       child: Stack(
                         children: [
                           Container(
@@ -128,14 +152,16 @@ class _NewsState extends State<News> {
                             child: Visibility(
                               visible: isAdd,
                               child: ClipOval(
-
                                 child: FlatButton(
                                   color: Color.fromRGBO(58, 58, 62, 1.0),
                                   onPressed: () async {
-                                    var image = await ImagePicker.pickImage(
+                                    image = await ImagePicker.pickImage(
                                         source: ImageSource.gallery);
                                   },
-                                  child: Icon(Icons.photo_camera,color: Colors.white,),
+                                  child: Icon(
+                                    Icons.photo_camera,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -159,7 +185,7 @@ class _NewsState extends State<News> {
                       onPressed: () {
                         if (isAdd) {
                           //todo add image here
-                        } else
+                        } else {
                           setState(() {
                             widget.news[index] = NewsEntity(
                               imgURL: widget.news[index].imgURL,
@@ -169,6 +195,7 @@ class _NewsState extends State<News> {
                             );
                             //todo do the change stuff here
                           });
+                        }
                         Navigator.pop(context);
                       },
                     ),

@@ -1,4 +1,7 @@
-import 'package:club_manager/pages/about/form.dart';
+
+import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/pages/support/form.dart';
+import 'package:club_manager/pages/support/update_about.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -34,6 +37,17 @@ class AboutPage extends StatelessWidget {
 
     GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amberAccent,
+          tooltip: "update",
+          child: Text("آپدیت",style: TextStyle(color: Colors.black),),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return UpdateAbout();
+                });
+          }),
       key: key,
       body: Container(
         child: ListView(
@@ -77,7 +91,7 @@ class AboutPage extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onTap: () {
-                                if(Navigator.canPop(context)){
+                                if (Navigator.canPop(context)) {
                                   Navigator.of(context).pop();
                                 }
                               },
@@ -90,8 +104,7 @@ class AboutPage extends StatelessWidget {
                       height: containerHeight * .4,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://upload.wikimedia.org/wikipedia/en/5/52/Padideh_Shahr-e_Khodrou_logo.png"))),
+                              image: NetworkImage(FakeData.logo))),
                     ),
                     Container(
 //                    height: containerHeight * .4,
@@ -99,17 +112,26 @@ class AboutPage extends StatelessWidget {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              rowBuilder(Icons.phone, 'تلفن', '091**********'),
-                              rowBuilder(Icons.photo_camera, 'اینستاگرام',
-                                  '@padidehFc')
+                              rowBuilder(
+                                  FakeData.components[0].iconData,
+                                  FakeData.components[0].title,
+                                  FakeData.components[0].subtitle),
+                              rowBuilder(
+                                  FakeData.components[1].iconData,
+                                  FakeData.components[1].title,
+                                  FakeData.components[1].subtitle)
                             ],
                           ),
                           Row(
                             children: <Widget>[
                               rowBuilder(
-                                  Icons.email, "ایمیل", "*********@gmail.com"),
+                                  FakeData.components[2].iconData,
+                                  FakeData.components[2].title,
+                                  FakeData.components[2].subtitle),
                               rowBuilder(
-                                  Icons.send, "تلگرام", '@shahrkhodrou_fc')
+                                  FakeData.components[3].iconData,
+                                  FakeData.components[3].title,
+                                  FakeData.components[3].subtitle)
                             ],
                           )
                         ],

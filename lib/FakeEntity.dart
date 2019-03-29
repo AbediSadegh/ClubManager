@@ -3,6 +3,7 @@ import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/entity/news_entity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
 import 'package:flutter/material.dart';
+import 'package:club_manager/pages/support/serverAbout.dart';
 
 class FakeData {
   static String appNameFarsi = "مدرسه فوتبال";
@@ -23,6 +24,55 @@ class FakeData {
   static Map<String, List<Photograph>> fakeGallery = map();
   static String srcImageExercise =
       'http://www.knowhowsoccer.com/wp-content/uploads/2015/06/specific_exercise_how_to_become_soccer_fit-2.jpg';
+  static String logo = "https://upload.wikimedia.org/wikipedia/en/5/52/Padideh_Shahr-e_Khodrou_logo.png";
+  static String companyName= "پدیده";
+  static String companyDetail ="درباره ی پدیده";
+  static String programmerName = "برنامه نویسان";
+  static String programmerDetail = "درباره برنامه نویسان";
+  static String programmerLogo = "";
+
+  static List<componnent> components = [
+    componnent(
+      title: 'تلفن',
+      subtitle: '091**********',
+      iconData: Icons.phone,
+    ),
+    componnent(
+      iconData:Icons.photo_camera,
+      title:'اینستاگرام',
+      subtitle:'@padidehFc',
+    ),
+    componnent(
+        iconData:Icons.email, title: "ایمیل", subtitle:"*********@gmail.com"
+    ),
+    componnent(
+      iconData:Icons.send, title:"تلگرام", subtitle:'@shahrkhodrou_fc',
+    ),
+  ];
+
+  static List<componnent> contactProgrammer = [
+    componnent(
+      title: 'تلفن',
+      subtitle: '091**********',
+      iconData: Icons.phone,
+    ),
+    componnent(
+      iconData:Icons.photo_camera,
+      title:'اینستاگرام',
+      subtitle:'@padidehFc',
+    ),
+    componnent(
+        iconData:Icons.email, title: "ایمیل", subtitle:"*********@gmail.com"
+    ),
+    componnent(
+      iconData:Icons.send, title:"تلگرام", subtitle:'@shahrkhodrou_fc',
+    ),
+  ];
+
+
+
+
+
   static List<Exercise> tasks = [
     Exercise(
         title: "تمرین بدنسازی",

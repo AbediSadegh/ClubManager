@@ -4,10 +4,11 @@ import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/Exercises/ExercisesScreen.dart';
 import 'package:club_manager/pages/Gallery/Gallery.dart';
 import 'package:club_manager/pages/about/about_page.dart';
-import 'package:club_manager/pages/coach_cv/cv_viewer.dart';
+import 'package:club_manager/pages/about_us/about_main.dart';
 import 'package:club_manager/pages/honors/honors.dart';
 import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
+import 'package:club_manager/pages/support/about_page.dart';
 //import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
@@ -56,18 +57,9 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "مربیان",
-                    iconData: Icons.supervised_user_circle,
-                    url: FakeData.coachLogo,
-                    gestureTapCallback: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CVViewer(
-                                    cvs: FakeData.fakeCVs,
-                                    isAdmin: true,
-                                  )));
-                    },
+                    title: "test",
+                    iconData: Icons.fiber_new,
+                    url: FakeData.news,
                   ),
                   CircleImage(
                     height: 90,
@@ -119,6 +111,13 @@ class _MainPageState extends State<MainPage> {
                     title: "test",
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
+                    gestureTapCallback: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return AboutTabBar();
+                      }));
+                    },
+
                   )
                 ],
               ),
@@ -156,7 +155,7 @@ class _MainPageState extends State<MainPage> {
                               builder: (context) => Gallery(
                                     photos: FakeData.fakeGallery,
                                     years: ['1381', '1382', '1383', '1384'],
-                                    isAdmin: true,
+                                isAdmin: true,
                                   )));
                     },
                     iconData: Icons.photo_album,
@@ -170,10 +169,8 @@ class _MainPageState extends State<MainPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => News(
-                                    news: FakeData.fakeNews,
-                                    isAdmin: true,
-                                  )));
+                              builder: (context) =>
+                                  News(news: FakeData.fakeNews,isAdmin: true,)));
                     },
                     iconData: Icons.speaker,
                     url: FakeData.newsLogo,

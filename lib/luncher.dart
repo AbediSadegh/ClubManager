@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
       initialRoute: "/splash_screen",
       routes: {
         "/mainPage" : (context) => new Directionality(textDirection: TextDirection.rtl, child: MainPage()),
+        "/splash_screen" : (context) => new Directionality(textDirection: TextDirection.rtl, child: SplashScreen()),
 
       },
 

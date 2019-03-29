@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/splash_screen",
       onGenerateRoute: _getRoute,
       routes: {
-        "/mainPage": (context) => new Directionality(
-            textDirection: TextDirection.rtl, child: MainPage()),
-        "/splash_screen": (context) => new Directionality(
+        "/mainPage": (context) => MainPage(),
+        "/splash_screen": (context) => Directionality(
             textDirection: TextDirection.rtl, child: SplashScreen()),
       },
     );

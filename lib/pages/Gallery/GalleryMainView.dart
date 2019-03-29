@@ -128,7 +128,10 @@ class PhotoGalleryState extends State<PhotoGallery> {
                       onPressed: () {
                         setState(() {
                           //todo do the change stuff here
-                          _pics[index].description = controller.text;
+                          _pics[index] = Photograph((p) => p
+                            ..photo = _pics[index].photo
+                            ..thumbnail = _pics[index].thumbnail
+                            ..description = controller.text);
                         });
                         Navigator.pop(context);
                       },

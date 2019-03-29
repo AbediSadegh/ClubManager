@@ -1,5 +1,4 @@
 import 'package:club_manager/entity/cv_entity.dart';
-import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 import 'package:club_manager/widgets/single_trainer_cv.dart';
 

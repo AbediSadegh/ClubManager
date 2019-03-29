@@ -1,3 +1,4 @@
+import 'package:club_manager/entity/cv_entity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/entity/news_entity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 class FakeData {
   static String appNameFarsi = "مدرسه فوتبال";
   static String des = "ورزش خودتان را مدیریت کنید";
+  static String coachLogo = '';
   static String newsLogo =
       'https://previews.123rf.com/images/dvolkovkir1980/dvolkovkir19801702/dvolkovkir1980170200008/72399951-speaker-in-hand-speaker-megaphone-flat-design-vector-illustration-vector.jpg';
   static String galleryLogo =
@@ -147,6 +149,14 @@ class FakeData {
         description:
             'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان.');
   });
+  static List<CVEntity> fakeCVs = List.generate(25, (i){
+    return CVEntity(
+        imgURL: 'https://picsum.photos/200/300?image=$i',
+        name: 'آقای مربی $i',
+        license: 'مربی درجه $i ',
+        education: 'کمی تا حدی خوب',
+        description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برایدر ستون و سطرآنچنان که لازم است و برای در ستون و سطرآنچنان که لازم است و برای شرایط');
+  });
 }
 
 Map<String, List<Photograph>> map() {
@@ -157,24 +167,36 @@ Map<String, List<Photograph>> map() {
     '1383': [],
     '1384': []
   };
-  String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
+String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
 
   for (int i = 100; i <= 140; i++) {
-    pics[l[0]].add(Photograph('https://picsum.photos/200/300?image=$i',
-        'https://picsum.photos/400/500?image=$i', str));
+    pics[l[0]].add(Photograph((p) =>
+    p
+      ..photo = 'https://picsum.photos/200/300?image=$i'
+      ..thumbnail = 'https://picsum.photos/400/500?image=$i'
+      ..description = str));
   }
   for (int i = 145; i <= 190; i++) {
-    pics[l[1]].add(Photograph('https://picsum.photos/200/300?image=$i',
-        'https://picsum.photos/400/500?image=$i', str));
+    pics[l[1]].add(Photograph((p) =>
+    p
+      ..photo = 'https://picsum.photos/200/300?image=$i'
+      ..thumbnail = 'https://picsum.photos/400/500?image=$i'
+      ..description = str));
   }
   for (int i = 200; i <= 250; i++) {
-    pics[l[2]].add(Photograph('https://picsum.photos/200/300?image=$i',
-        'https://picsum.photos/400/500?image=$i', str));
+    pics[l[2]].add(Photograph((p) =>
+    p
+      ..photo = 'https://picsum.photos/200/300?image=$i'
+      ..thumbnail = 'https://picsum.photos/400/500?image=$i'
+      ..description = str));
   }
   for (int i = 255; i <= 260; i++) {
-    pics[l[3]].add(Photograph('https://picsum.photos/200/300?image=$i',
-        'https://picsum.photos/400/500?image=$i', str));
+    pics[l[3]].add(Photograph((p) =>
+    p
+      ..photo = 'https://picsum.photos/200/300?image=$i'
+      ..thumbnail = 'https://picsum.photos/400/500?image=$i'
+      ..description = str));
   }
 
   return pics;
-}
+  }

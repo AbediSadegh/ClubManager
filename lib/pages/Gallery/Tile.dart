@@ -1,6 +1,7 @@
 import 'package:club_manager/entity/IntSize.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Viewer.dart';
+import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatefulWidget {
@@ -86,7 +87,11 @@ class _TileState extends State<Tile> {
           height: size.height - 10,
           width: size.width / 2 - 10,
           child: FlatButton(
-            onPressed: widget.onDelete,
+            onPressed: (){
+              showDialog(context: context,builder: (context){
+                return DeleteOrNot(onDelete: widget.onDelete,);
+              });
+            },
             child: Text(
               'حذف',
               style: TextStyle(color: Colors.white, fontSize: _fontSize),

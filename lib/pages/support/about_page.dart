@@ -51,7 +51,7 @@ class AboutPage extends StatelessWidget {
 //                  return UpdateAbout();
 //                });
 //          }),
-//      key: key,
+      key: key,
       body: Container(
         child: ListView(
           children: <Widget>[

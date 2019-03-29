@@ -1,4 +1,4 @@
-import 'package:club_manager/entity/Photograph.dart';
+import 'package:club_manager/entity/photograph.dart';
 import 'package:flutter/material.dart';
 
 class Viewer extends StatefulWidget {

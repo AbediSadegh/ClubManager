@@ -1,10 +1,33 @@
-class Photograph {
-  final String thumbnail;
-  final String photo;
-  String description = 'این یک متن آزمایشی برای اجرا در فاز توسعه دادن میباشد. ';
-  Photograph(this.thumbnail, this.photo,this.description);
-}
+library photograph;
 
+import 'dart:convert';
+
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:club_manager/entity/serializers.dart';
+
+part 'photograph.g.dart';
+
+abstract class Photograph implements Built<Photograph, PhotographBuilder> {
+  String get thumbnail;
+  String get photo;
+  String get description;
+  Photograph._();
+
+  factory Photograph([updates(PhotographBuilder b)]) = _$Photograph;
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Photograph.serializer, this));
+  }
+
+  static Photograph fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Photograph.serializer, json.decode(jsonString));
+  }
+
+  static Serializer<Photograph> get serializer => _$photographSerializer;
+}
 //List<Photograph> photos = [
 //  Photograph('',
 //      'http://www.illuminea.com/wp-content/uploads/uploads/2009/02/500px-android-logosvg-300x300.png'),

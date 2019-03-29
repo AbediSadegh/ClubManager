@@ -1,4 +1,4 @@
-import 'package:club_manager/entity/Photograph.dart';
+import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:flutter/material.dart';
@@ -9,23 +9,25 @@ class Gallery extends StatelessWidget {
   final bool isAdmin;
   static PhotoGallery photoGallery;
 
-  Gallery({@required this.photos, @required this.years,@required this.isAdmin}) {
+  Gallery(
+      {@required this.photos, @required this.years, @required this.isAdmin}) {
     assert(years != null && photos != null);
   }
 
   @override
   Widget build(BuildContext context) {
     Size _deviceSize = MediaQuery.of(context).size;
-    photoGallery = PhotoGallery(photos:photos, deviceSize: _deviceSize);
+    photoGallery = PhotoGallery(photos: photos, deviceSize: _deviceSize);
     assert(photos.isNotEmpty);
     assert(years != null);
     return Scaffold(
       floatingActionButton: !isAdmin
-          ? Container(width:0.0,height:0.0,)
+          ? Container(
+              width: 0.0,
+              height: 0.0,
+            )
           : FloatingActionButton.extended(
-              onPressed: (){
-
-              },
+              onPressed: () {},
               icon: Icon(Icons.mode_edit),
               label: Text('تغییرات'),
             ),

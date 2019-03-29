@@ -20,7 +20,7 @@ class BaseItem extends StatefulWidget {
 }
 
 class BaseItemState extends State<BaseItem> {
-  final _changeActive = true;
+  final _editActive = true;
 
   Size deviceSize;
 
@@ -33,17 +33,14 @@ class BaseItemState extends State<BaseItem> {
         children: <Widget>[
           Container(
             child: ClipRRect(
-              child: Stack(children: <Widget>[
-                FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/logo.png',
-                  image: widget.imgURL,
-                  alignment: Alignment.center,
-                  height: deviceSize.height / 2,
-                  width: deviceSize.width,
-                  fit: BoxFit.fill,
-                ),
-                Visibility(),
-              ]),
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/images/logo.png',
+                image: widget.imgURL,
+                alignment: Alignment.center,
+                height: deviceSize.height / 2,
+                width: deviceSize.width,
+                fit: BoxFit.fill,
+              ),
               borderRadius: BorderRadius.circular(5.0),
             ),
             margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
@@ -56,7 +53,7 @@ class BaseItemState extends State<BaseItem> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  _changeActive
+                  _editActive
                       ? RaisedButton(
                           elevation: 7.5,
                           onPressed: () {
@@ -80,7 +77,7 @@ class BaseItemState extends State<BaseItem> {
                   Container(
                     width: deviceSize.width / 15,
                   ),
-                  _changeActive
+                  _editActive
                       ? RaisedButton(
                           elevation: 7.5,
                           onPressed: widget.onEdit,

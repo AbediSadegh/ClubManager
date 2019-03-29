@@ -142,7 +142,9 @@ class _CVState extends State<CV> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return DeleteOrNot(onDelete: widget.onDelete,);
+                                    return DeleteOrNot(
+                                      onDelete: widget.onDelete,
+                                    );
                                   });
                             },
                             child: Text(

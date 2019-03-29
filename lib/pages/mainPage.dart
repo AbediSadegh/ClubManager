@@ -147,8 +147,10 @@ class _MainPageState extends State<MainPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  HonorView(honors: FakeData.fakeHonors,isAdmin: true,)));
+                              builder: (context) => HonorView(
+                                    honors: FakeData.fakeHonors,
+                                    isAdmin: true,
+                                  )));
                     },
                     iconData: Icons.stars,
                     url: FakeData.honorsLogo,

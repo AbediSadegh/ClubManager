@@ -1,4 +1,5 @@
 import 'package:club_manager/pages/mainPage.dart';
+import 'package:club_manager/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,7 +11,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: SplashScreen(),
+      initialRoute: "/splash_screen",
+      routes: {
+        "/mainPage" : (context) => new Directionality(textDirection: TextDirection.rtl, child: MainPage()),
+
+      },
+
     );
   }
 }

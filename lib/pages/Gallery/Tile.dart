@@ -1,5 +1,5 @@
 import 'package:club_manager/entity/IntSize.dart';
-import 'package:club_manager/entity/Photograph.dart';
+import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Viewer.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:club_manager/entity/IntSize.dart';
-import 'package:club_manager/entity/Photograph.dart';
+import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

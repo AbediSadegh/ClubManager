@@ -55,20 +55,21 @@ class _NewsState extends State<News> {
               child: new Column(
                 children: <Widget>[
                   Expanded(
-                      flex: 2,
-                      child: new TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          controller: controller,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black45),
-                          textDirection: TextDirection.rtl,
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintText: 'توضیحات',
-                            hintStyle: TextStyle(fontSize: 12),
-                          ),
-                          maxLines: 15)),
+                    flex: 2,
+                    child: new TextFormField(
+                        keyboardType: TextInputType.multiline,
+                        controller: controller,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black45),
+                        textDirection: TextDirection.rtl,
+                        decoration: InputDecoration(
+                          border:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: 'توضیحات',
+                          hintStyle: TextStyle(fontSize: 12),
+                        ),
+                        maxLines: 15),
+                  ),
                   Container(
                     decoration: ShapeDecoration(
                         color: Color.fromRGBO(58, 58, 62, 1.0),

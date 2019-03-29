@@ -1,20 +1,23 @@
+import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 
-class CV extends StatelessWidget {
-  Size _size;
-
+class CV extends StatefulWidget {
   final String imgURL;
   final String name;
   final String license;
   final String education;
   final String description;
+  final GestureTapCallback onEdit;
+  final GestureTapCallback onDelete;
 
   CV(
       {@required this.imgURL,
       @required this.name,
       @required this.license,
       this.education,
-      @required this.description})
+      @required this.description,
+      this.onEdit,
+      this.onDelete})
       : assert(imgURL != null &&
             imgURL.isNotEmpty &&
             name != null &&
@@ -25,15 +28,25 @@ class CV extends StatelessWidget {
             description.isNotEmpty);
 
   @override
+  _CVState createState() => _CVState();
+}
+
+class _CVState extends State<CV> {
+  Size _size;
+
+  bool isEditing = true;
+
+  @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
+    double cardHeight = 2 * _size.height / 7;
     return Card(
       color: Color(0xFFd9d9d9),
       elevation: 7.5,
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
       child: Container(
         width: _size.width,
-        height: 2 * _size.height / 7,
+        height: cardHeight,
         margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,44 +59,46 @@ class CV extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   _rowBuilder(
-                      _size.width / 8,
-                      _size.width / 8,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            this.name,
+                    width: _size.width / 8,
+                    height: _size.width / 8,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          this.widget.name,
+                          style: TextStyle(fontSize: 14.0, color: Colors.white),
+                        ),
+                        Text(this.widget.education,
                             style:
-                                TextStyle(fontSize: 14.0, color: Colors.white),
-                          ),
-                          Text(this.education,
-                              style: TextStyle(
-                                  fontSize: 11.0, color: Colors.white)),
-                        ],
-                      ),
-                      Icons.person),
+                                TextStyle(fontSize: 11.0, color: Colors.white)),
+                      ],
+                    ),
+                    icon: Icons.person,
+                  ),
                   _rowBuilder(
-                      _size.width / 8,
-                      _size.width / 8,
-                      Text(
-                        this.license,
-                        style: TextStyle(color: Colors.white, fontSize: 15.0),
-                      ),
-                      Icons.rate_review),
+                    width: _size.width / 8,
+                    height: _size.width / 8,
+                    child: Text(
+                      this.widget.license,
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                    icon: Icons.rate_review,
+                  ),
                   Expanded(
                     flex: 3,
                     child: _rowBuilder(
-                        _size.width / 8,
-                        double.infinity,
-                        Text(
-                          this.description,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Colors.white, fontSize: 10.0),
-                          softWrap: true,
-                          maxLines: 5,
-                        ),
-                        Icons.description),
+                      width: _size.width / 8,
+                      height: double.infinity,
+                      child: Text(
+                        this.widget.description,
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(color: Colors.white, fontSize: 10.0),
+                        softWrap: true,
+                        maxLines: 5,
+                      ),
+                      icon: Icons.description,
+                    ),
                   ),
                 ],
               ),
@@ -94,11 +109,50 @@ class CV extends StatelessWidget {
                 color: Color(0xFFcf3030),
               ),
               margin: EdgeInsets.only(left: 3.0, bottom: 2.0),
-              child: FadeInImage.assetNetwork(
-                width: _size.width / 3,
-                placeholder: 'assets/images/vip.png',
-                image: this.imgURL,
-                fit: BoxFit.contain,
+              child: Stack(
+                children: <Widget>[
+                  FadeInImage.assetNetwork(
+                    width: _size.width / 3,
+                    placeholder: 'assets/images/vip.png',
+                    image: this.widget.imgURL,
+                    fit: BoxFit.cover,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+//                        margin: EdgeInsets.symmetric(horizontal: 1.0),
+                        width: _size.width / 3,
+                        height: cardHeight / 2 - 10,
+                        child: FlatButton(
+                            color: Color.fromRGBO(247, 223, 9, 0.6),
+                            onPressed: widget.onEdit,
+                            child: Text(
+                              'ویرایش',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                      Container(
+//                        margin: EdgeInsets.symmetric(horizontal: 1.0),
+                        width: _size.width / 3,
+                        height: cardHeight / 2 - 10,
+                        child: FlatButton(
+                            color: Color.fromRGBO(247, 13, 9, 0.6),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return DeleteOrNot(onDelete: widget.onDelete,);
+                                  });
+                            },
+                            child: Text(
+                              'حذف',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -107,7 +161,12 @@ class CV extends StatelessWidget {
     );
   }
 
-  Widget _rowBuilder(double width, double height, Widget child, IconData icon) {
+  Widget _rowBuilder({
+    double width,
+    double height,
+    Widget child,
+    IconData icon,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,11 +178,20 @@ class CV extends StatelessWidget {
           width: width,
           margin: EdgeInsets.only(bottom: 2.0),
           color: Color(0xFFe88a1a),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 15.0,
-          ),
+          child: isEditing
+              ? FlatButton(
+                  child: Icon(
+                    Icons.mode_edit,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                  onPressed: () {},
+                )
+              : Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 15.0,
+                ),
         ),
         Container(
           width: 2.0,

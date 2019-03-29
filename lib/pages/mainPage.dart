@@ -4,9 +4,11 @@ import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/Exercises/ExercisesScreen.dart';
 import 'package:club_manager/pages/Gallery/Gallery.dart';
 import 'package:club_manager/pages/about/about_page.dart';
+import 'package:club_manager/pages/about_us/about_main.dart';
 import 'package:club_manager/pages/honors/honors.dart';
 import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
+import 'package:club_manager/pages/support/about_page.dart';
 //import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +111,13 @@ class _MainPageState extends State<MainPage> {
                     title: "test",
                     iconData: Icons.fiber_new,
                     url: FakeData.news,
+                    gestureTapCallback: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return AboutTabBar();
+                      }));
+                    },
+
                   )
                 ],
               ),

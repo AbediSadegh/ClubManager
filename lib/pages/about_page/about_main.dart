@@ -1,6 +1,6 @@
 import 'package:club_manager/FakeEntity.dart';
-import 'package:club_manager/pages/about_us/about_us.dart';
-import 'package:club_manager/pages/about_us/update_about.dart';
+import 'package:club_manager/pages/about_page/about_us.dart';
+import 'package:club_manager/pages/about_page/update_about.dart';
 import 'package:flutter/material.dart';
 
 class AboutTabBar extends StatefulWidget {

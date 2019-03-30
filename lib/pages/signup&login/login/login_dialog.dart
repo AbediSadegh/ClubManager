@@ -13,9 +13,9 @@ class _loginDialogState extends State<loginDialog>
   GlobalKey<FormState> phoneNumberKey= GlobalKey<FormState>();
   GlobalKey<FormState> smsNumberKey= GlobalKey<FormState>();
 
-
+  final Color gradientEnd = Color(0xff676bc2);
   bool isEnabaledPhoneNumber = true;
-
+  bool isEnableSmsNumber = false;
   AnimationController controller;
   Animation<double> animation;
 
@@ -59,7 +59,7 @@ class _loginDialogState extends State<loginDialog>
                                   Container(
                                     height: 175,
                                     //color: Colors.orange,
-                                    color: Colors.blueGrey,
+                                    color: gradientEnd,
                                   ),
                                   //),
                                   Container(
@@ -148,14 +148,15 @@ class _loginDialogState extends State<loginDialog>
                                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){return Start();}));
                                   }else
                                     setState(() async{
-                                      if(isEnabaledPhoneNumber && phoneNumberKey.currentState.validate()){
+                                      if(isEnabaledPhoneNumber && phoneNumberKey.currentState.validate() && !isEnableSmsNumber){
                                         await controller.forward();
+                                        isEnableSmsNumber = true;
                                         isEnabaledPhoneNumber = false;
-                                      }else isEnabaledPhoneNumber = true;
+                                      }else if(!isEnableSmsNumber){isEnabaledPhoneNumber = true;}
                                     });
                                 },
                                 child: Text("ورود"),
-                                color: Colors.blueGrey,
+                                color: gradientEnd,
                                 textColor: Colors.white,
                               ),
                               isEnabaledPhoneNumber
@@ -168,6 +169,7 @@ class _loginDialogState extends State<loginDialog>
                                   setState(() async {
                                     await controller.reverse();
                                     isEnabaledPhoneNumber = true;
+                                    isEnableSmsNumber = false;
                                   });
                                 },
                               ),

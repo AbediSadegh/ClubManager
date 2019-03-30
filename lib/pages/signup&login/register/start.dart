@@ -7,6 +7,7 @@ import 'package:club_manager/pages/signup&login/register/notice/notice_page.dart
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
+  static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller = PageController();
   GeneralPage generalPage;
   EducationPage educationPage;
@@ -33,8 +34,12 @@ class Start extends StatelessWidget {
           ),
           noticePage = NoticePage(
             controller: controller,
+            formKey: formKey,
             press: () {
+              formKey.currentState.save();
+
               Player play = new Player(
+                reagentCode: noticePage.reagentCode,
                 address: familyStatusPage.address,
                 birthday: generalPage.birthDay,
                 coachName: educationPage.coachName,
@@ -42,15 +47,15 @@ class Start extends StatelessWidget {
                 family: generalPage.family,
                 fatherPhone: familyStatusPage.fatherPhone,
                 fatherWorks: familyStatusPage.fatherWorks,
-                //favoritePos: health.favoritePos,
+                favoritePos: health.favorite,
                 homePhone: familyStatusPage.homePhone,
                 lastTeam: educationPage.lastTeam,
                 motherPhone: familyStatusPage.motherPhone,
                 name: generalPage.name,
                 passport: generalPage.id,
-                //patientHistory: health.patientHistory,
+                patientHistory: health.patient,
                 schoolName: educationPage.schoolName,
-                //technicalFoot: health.technicalFoot,
+                technicalFoot: health.technical,
               );
               Navigator.pop(context);
               print("success");

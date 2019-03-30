@@ -1,6 +1,7 @@
 import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/support/form.dart';
 import 'package:club_manager/pages/support/update_about.dart';
+import 'package:club_manager/widgets/new_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -15,7 +16,8 @@ class AboutPage extends StatelessWidget {
       return Container(
         height: containerHeight * .18,
         width: containerWidth * .5,
-        child: ListTile(
+        child: newListTile(
+          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
           title: Text(
             title,
             style: TextStyle(fontSize: 15.0, color: Colors.white),
@@ -24,32 +26,31 @@ class AboutPage extends StatelessWidget {
             desc,
             style: TextStyle(fontSize: 11.0, color: Colors.white),
           ),
-          leading: Icon(
+          icon: Icon(
             icon,
             size: 15.0,
             color: Colors.white,
           ),
-          isThreeLine: false,
         ),
       );
     }
 
     GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.amberAccent,
-          tooltip: "update",
-          child: Text(
-            "آپدیت",
-            style: TextStyle(color: Colors.black),
-          ),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return UpdateAbout();
-                });
-          }),
+//      floatingActionButton: FloatingActionButton(
+//          backgroundColor: Colors.amberAccent,
+//          tooltip: "update",
+//          child: Text(
+//            "آپدیت",
+//            style: TextStyle(color: Colors.black),
+//          ),
+//          onPressed: () {
+//            showDialog(
+//                context: context,
+//                builder: (context) {
+//                  return UpdateAbout();
+//                });
+//          }),
       key: key,
       body: Container(
         child: ListView(
@@ -59,20 +60,21 @@ class AboutPage extends StatelessWidget {
                 Container(
                   height: containerHeight,
                   width: containerWidth,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      // Where the linear gradient begins and ends
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      // Add one stop for each color. Stops should increase from 0 to 1
-                      stops: [0.5, 1],
-                      colors: [
-                        // Colors are easy thanks to Flutter's Colors class.
-                        Colors.black.withOpacity(.9),
-                        Colors.grey,
-                      ],
-                    ),
-                  ),
+                  color: Theme.of(context).primaryColor,
+//                  decoration: BoxDecoration(
+//                    gradient: LinearGradient(
+//                      // Where the linear gradient begins and ends
+//                      begin: Alignment.topCenter,
+//                      end: Alignment.bottomCenter,
+//                      // Add one stop for each color. Stops should increase from 0 to 1
+//                      //stops: [0.5, 1],
+//                      colors: [
+//                        // Colors are easy thanks to Flutter's Colors class.
+//                        Colors.redAccent.withOpacity(.5),
+//                        Theme.of(context).primaryColor,
+//                      ],
+//                    ),
+//                  ),
                 ),
                 Column(
                   children: <Widget>[
@@ -83,21 +85,35 @@ class AboutPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              "تماس با ما",
-                              style: TextStyle(color: Colors.white),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "پشتیبانی",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
-                            GestureDetector(
-                              child: Icon(
+                            IconButton(
+                              icon: Icon(
                                 Icons.arrow_forward_ios,
                                 color: Colors.white,
                               ),
-                              onTap: () {
+                              onPressed: () {
                                 if (Navigator.canPop(context)) {
                                   Navigator.of(context).pop();
                                 }
                               },
                             ),
+//                            GestureDetector(
+//                              child: Icon(
+//                                Icons.arrow_forward_ios,
+//                                color: Colors.white,
+//                              ),
+//                              onTap: () {
+//                                if (Navigator.canPop(context)) {
+//                                  Navigator.of(context).pop();
+//                                }
+//                              },
+//                            ),
                           ],
                         ),
                       ),
@@ -155,7 +171,7 @@ class AboutPage extends StatelessWidget {
               child: FlatButton(
                 onPressed: () {
                   if (keys.currentState.validate()) {
-                    print("succrss");
+                    print("success");
                     keys.currentState.save();
                     keys.currentState.reset();
                     key.currentState.showSnackBar(SnackBar(
@@ -169,7 +185,7 @@ class AboutPage extends StatelessWidget {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                color: Colors.grey,
+                color: Colors.redAccent,
               ),
             )
           ],

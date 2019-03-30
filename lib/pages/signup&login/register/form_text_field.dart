@@ -34,7 +34,7 @@ class FormTextField extends StatelessWidget {
           ),
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: new UnderlineInputBorder(
-              borderSide: new BorderSide(color: Colors.black)),
+              borderSide: new BorderSide(color: Colors.white)),
           focusedBorder: new UnderlineInputBorder(
               borderSide: new BorderSide(color: Colors.white)),
           errorStyle: new TextStyle(color: Colors.amber),

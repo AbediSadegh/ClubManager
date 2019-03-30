@@ -180,7 +180,7 @@ class _CVState extends State<CV> {
           height: height,
           width: width,
           margin: EdgeInsets.only(bottom: 2.0),
-          color: Color(0xFFe88a1a),
+          color: Theme.of(context).primaryColor,
           child: isEditing
               ? FlatButton(
                   child: Icon(
@@ -206,7 +206,7 @@ class _CVState extends State<CV> {
               padding: EdgeInsets.only(right: 10.0, left: 10.0),
               margin: EdgeInsets.only(bottom: 2.0),
               height: height,
-              color: Color(0xFFe88a1a),
+              color: Theme.of(context).primaryColor,
               child: child),
         ),
       ],

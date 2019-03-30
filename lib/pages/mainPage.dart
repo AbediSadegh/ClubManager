@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
                           MaterialPageRoute(
                               builder: (context) => CVViewer(
                                     cvs: FakeData.fakeCVs,
-                                    isAdmin: true,
+                                    isAdmin: false,
                                   )));
                     },
                   ),
@@ -149,7 +149,7 @@ class _MainPageState extends State<MainPage> {
                           MaterialPageRoute(
                               builder: (context) => HonorView(
                                     honors: FakeData.fakeHonors,
-                                    isAdmin: true,
+                                    isAdmin: false,
                                   )));
                     },
                     iconData: Icons.stars,
@@ -166,7 +166,7 @@ class _MainPageState extends State<MainPage> {
                               builder: (context) => Gallery(
                                     photos: FakeData.fakeGallery,
                                     years: ['1381', '1382', '1383', '1384'],
-                                    isAdmin: true,
+                                    isAdmin: false,
                                   )));
                     },
                     iconData: Icons.photo_album,
@@ -182,7 +182,7 @@ class _MainPageState extends State<MainPage> {
                           MaterialPageRoute(
                               builder: (context) => News(
                                     news: FakeData.fakeNews,
-                                    isAdmin: true,
+                                    isAdmin: false,
                                   )));
                     },
                     iconData: Icons.speaker,

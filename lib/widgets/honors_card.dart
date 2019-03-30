@@ -29,6 +29,7 @@ class BaseItemState extends State<BaseItem> {
     return Container(
 //      height: deviceSize.height*0.65,
       child: Card(
+        color: Color.fromRGBO(240, 240, 240, 1.0),
         margin: EdgeInsets.symmetric(vertical: 3.5, horizontal: 7.5),
         elevation: 3.5,
         child: Column(
@@ -110,7 +111,7 @@ class BaseItemState extends State<BaseItem> {
               collapsed: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    color: Colors.white),
+                  color: Color.fromRGBO(240, 240, 240, 1.0),),
                 padding: EdgeInsets.all(5.0),
                 margin: EdgeInsets.all(10.0),
                 child: Column(
@@ -123,7 +124,7 @@ class BaseItemState extends State<BaseItem> {
                     Container(
                       width: deviceSize.width,
                       alignment: Alignment.center,
-                      child: Icon(Icons.expand_more),
+                      child: Icon(Icons.expand_more,color: Theme.of(context).dividerColor,),
                     )
                   ],
                 ),
@@ -133,7 +134,7 @@ class BaseItemState extends State<BaseItem> {
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        color: Colors.white),
+                      color: Color.fromRGBO(240, 240, 240, 1.0),),
                     margin: EdgeInsets.all(10.0),
                     padding: EdgeInsets.all(5.0),
                     child: Text(
@@ -142,7 +143,7 @@ class BaseItemState extends State<BaseItem> {
                       textDirection: TextDirection.rtl,
                     ),
                   ),
-                  Icon(Icons.expand_less)
+                  Icon(Icons.expand_less,color: Theme.of(context).dividerColor)
                 ],
               ),
               hasIcon: false,

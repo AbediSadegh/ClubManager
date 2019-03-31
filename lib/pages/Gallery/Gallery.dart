@@ -22,7 +22,11 @@ class Gallery extends StatelessWidget {
     assert(photos.isNotEmpty);
     assert(years != null);
     Size _deviceSize = MediaQuery.of(context).size;
-    photoGallery = PhotoGallery(photos: photos, deviceSize: _deviceSize,initAlbum: years[0],);
+    photoGallery = PhotoGallery(
+      photos: photos,
+      deviceSize: _deviceSize,
+      initAlbum: years[0],
+    );
     return Scaffold(
       floatingActionButton: !isAdmin
           ? Container(
@@ -30,14 +34,20 @@ class Gallery extends StatelessWidget {
               height: 0.0,
             )
           : FloatingActionButton(
-              onPressed: () {add(context,_deviceSize);},
+              onPressed: () {
+                add(context, _deviceSize);
+              },
               child: Icon(Icons.add),
             ),
       body: Container(
         margin: EdgeInsets.only(top: 10.0),
         child: Stack(
           children: <Widget>[
-            GalleryBar(years: years,photoGallery:  photoGallery,initValue: years[0],),
+            GalleryBar(
+              years: years,
+              photoGallery: photoGallery,
+              initValue: years[0],
+            ),
             photoGallery,
           ],
         ),
@@ -82,21 +92,44 @@ class Gallery extends StatelessWidget {
                             ),
                             maxLines: 6),
                       )),
-                  Container(
-                    alignment: Alignment.center,
-                    child: ClipOval(
-                      child: FlatButton(
-                        color: Color.fromRGBO(58, 58, 62, 1.0),
-                        onPressed: () async {
-                          image = await ImagePicker.pickImage(
-                              source: ImageSource.gallery);
-                        },
-                        child: Icon(
-                          Icons.photo_camera,
-                          color: Colors.white,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: deviceSize.width / 6,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(0.0))),
+                          color: Theme.of(context).accentColor,
+                          onPressed: () async {
+                            image = await ImagePicker.pickImage(
+                                source: ImageSource.gallery);
+                          },
+                          child: Icon(
+                            Icons.photo_camera,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
+                      Container(
+                        width: deviceSize.width / 6,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(0.0))),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () async {
+                            image = await ImagePicker.pickImage(
+                                source: ImageSource.gallery);
+                          },
+                          child: Icon(
+                            Icons.photo_camera,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     decoration: ShapeDecoration(

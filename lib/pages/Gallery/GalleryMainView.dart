@@ -146,7 +146,7 @@ class PhotoGalleryState extends State<PhotoGallery> {
                         Navigator.pop(context);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

@@ -87,10 +87,14 @@ class _TileState extends State<Tile> {
           height: size.height - 10,
           width: size.width / 2 - 10,
           child: FlatButton(
-            onPressed: (){
-              showDialog(context: context,builder: (context){
-                return DeleteOrNot(onDelete: widget.onDelete,);
-              });
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return DeleteOrNot(
+                      onDelete: widget.onDelete,
+                    );
+                  });
             },
             child: Text(
               'حذف',

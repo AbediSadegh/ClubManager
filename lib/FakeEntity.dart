@@ -228,6 +228,10 @@ Map<String, List<Photograph>> map() {
   };
   String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
 
+  pics[l[0]].add(Photograph((p) => p
+    ..photo = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
+    ..thumbnail = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
+    ..description = str)..isVideo = true);
   for (int i = 100; i <= 140; i++) {
     pics[l[0]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'

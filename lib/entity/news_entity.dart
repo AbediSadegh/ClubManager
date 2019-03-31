@@ -10,10 +10,12 @@ import 'package:club_manager/entity/serializers.dart';
 part 'news_entity.g.dart';
 
 abstract class NewsEntity implements Built<NewsEntity, NewsEntityBuilder> {
-  String get imgURL;
+  int get id;
+  String get url;
   String get title;
-  String get description;
-  String get shortDesc;
+  String get image;
+  String get content;
+  BuiltList<String> get newsImages;
 
   NewsEntity._();
 

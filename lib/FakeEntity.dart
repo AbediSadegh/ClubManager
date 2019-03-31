@@ -231,30 +231,30 @@ Map<String, List<Photograph>> map() {
   pics[l[0]].add(Photograph((p) => p
     ..photo = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
     ..thumbnail = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
-    ..description = str)..isVideo = true);
+    ..description = str..isVideo = true));
   for (int i = 100; i <= 140; i++) {
     pics[l[0]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str));
+      ..description = str..isVideo = false));
   }
   for (int i = 145; i <= 190; i++) {
     pics[l[1]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str));
+      ..description = str..isVideo = false));
   }
   for (int i = 200; i <= 250; i++) {
     pics[l[2]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str));
+      ..description = str..isVideo = false));
   }
   for (int i = 255; i <= 260; i++) {
     pics[l[3]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str));
+      ..description = str..isVideo = false));
   }
 
   return pics;

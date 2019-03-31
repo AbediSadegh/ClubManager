@@ -22,7 +22,7 @@ class _TileState extends State<Tile> {
   static List<double> l = [1.0, 0.0, 1.0, 0.0, 1.0, 1.0];
 
   final IntSize size;
-  bool _changeActive = false;
+  bool _changeActive = true;
   double _fontSize = 15;
 
   _TileState(this.size);
@@ -46,11 +46,18 @@ class _TileState extends State<Tile> {
             child: Hero(
               tag: widget.photo.photo,
               child: Container(
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/logo.png',
-                  image: widget.photo.thumbnail,
-                  fit: BoxFit.fill,
-                ),
+                child: widget.photo.isVideo
+                    ? Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2.0),
+                        ),
+                        child: Image.asset('assets/images/video-player.png'),
+                      )
+                    : FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/logo.png',
+                        image: widget.photo.thumbnail,
+                        fit: BoxFit.fill,
+                      ),
               ),
             ),
           ),

@@ -10,7 +10,8 @@ class PhotoGallery extends StatefulWidget {
   final Size deviceSize;
   final String initAlbum;
 
-  PhotoGallery({@required this.photos,@required this.deviceSize,this.initAlbum});
+  PhotoGallery(
+      {@required this.photos, @required this.deviceSize, this.initAlbum});
 
   State<PhotoGallery> createState() => state;
 }
@@ -26,9 +27,9 @@ class PhotoGalleryState extends State<PhotoGallery> {
   }
 
   List<Photograph> _pics;
-  String currAlbum ;
+  String currAlbum;
 
-  void initState(){
+  void initState() {
     super.initState();
     currAlbum = widget.initAlbum;
     _pics = widget.photos[currAlbum];
@@ -139,7 +140,8 @@ class PhotoGalleryState extends State<PhotoGallery> {
                           _pics[index] = Photograph((p) => p
                             ..photo = _pics[index].photo
                             ..thumbnail = _pics[index].thumbnail
-                            ..description = controller.text);
+                            ..description = controller.text
+                            ..isVideo = _pics[index].isVideo);
                         });
                         Navigator.pop(context);
                       },

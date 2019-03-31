@@ -38,23 +38,30 @@ class GalleryBarState extends State<GalleryBar> {
 
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+      padding: EdgeInsets.fromLTRB(0, 10.0, 20.0, 0),
       alignment: Alignment.centerRight,
       width: 550.0,
       height: 55.0,
-      child: DropdownButton(
-        elevation: 0,
-        iconSize: 0,
-        style: TextStyle(color: Colors.black),
-        items: _items,
-        value: _currVal,
-        onChanged: (String newVal) {
-          if (_currVal != newVal)
-            setState(() {
-              _currVal = newVal;
-              widget.photoGallery.state.galleryPageTrans(newVal);
-            });
-        },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          DropdownButton(
+            elevation: 15,
+            iconSize: 25.0,
+            style: TextStyle(color: Colors.black),
+            items: _items,
+            value: _currVal,
+            onChanged: (String newVal) {
+              if (_currVal != newVal)
+                setState(() {
+                  _currVal = newVal;
+                  widget.photoGallery.state.galleryPageTrans(newVal);
+                });
+            },
+          ),
+          Container(width: 15.0,),
+          Text(': سن '),
+        ],
       ),
     );
   }

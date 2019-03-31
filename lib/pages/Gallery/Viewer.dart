@@ -1,5 +1,6 @@
 import 'package:club_manager/entity/photograph.dart';
 import 'package:flutter/material.dart';
+import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
 class Viewer extends StatefulWidget {
@@ -17,15 +18,20 @@ class Viewer extends StatefulWidget {
 class ViewerState extends State<Viewer> {
   bool _visibility = true;
   VideoPlayerController _controller;
-  bool _clicked = false;
+  ChewieController chewieController;
+  bool _clicked;
 
   void initState() {
+    _clicked = false;
     super.initState();
     if (widget._photo.isVideo) {
-      _controller = VideoPlayerController.network(widget._photo.photo)
-        ..initialize().then((_) {
-          setState(() {});
-        });
+      _controller = VideoPlayerController.network(widget._photo.photo);
+      chewieController = ChewieController(
+        videoPlayerController: _controller,
+        aspectRatio: 3.0 / 2.0,
+        autoPlay: false,
+        looping: false,
+      );
     }
   }
 
@@ -47,7 +53,11 @@ class ViewerState extends State<Viewer> {
               child: Hero(
                 // using the photograph photo url itself as a tag
                 tag: this.widget._photo.photo,
-                child: widget._photo.isVideo ? videoPlayer() : fadeInImage(),
+                child: widget._photo.isVideo
+                    ? Chewie(
+                        controller: chewieController,
+                      )
+                    : fadeInImage(),
               ),
             ),
             Positioned(
@@ -79,32 +89,40 @@ class ViewerState extends State<Viewer> {
     );
   }
 
-  Widget videoPlayer() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _controller.value.isPlaying
-              ? _controller.pause()
-              : _controller.play();
-        });
-      },
-      child: Stack(children: <Widget>[
-        _controller.value.initialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : Container(),
-        AnimatedOpacity(
-          opacity: _clicked ? 1.0 : 0.0,
-          duration: Duration(microseconds: 400),
-          child: _controller.value.isPlaying
-              ? Icon(Icons.play_arrow)
-              : Icon(Icons.pause),
-        )
-      ]),
-    );
-  }
+//  Widget videoPlayer() {
+//    return GestureDetector(
+//      onTap: () {
+//        setState(() {
+//          _controller.value.isPlaying
+//              ? _controller.pause()
+//              : _controller.play();
+//        });
+//      },
+//      child: Stack(alignment: Alignment.center, children: <Widget>[
+//        _controller.value.initialized
+//            ? AspectRatio(
+//                aspectRatio: _controller.value.aspectRatio,
+//                child: VideoPlayer(_controller),
+//              )
+//            : Container(),
+//        AnimatedOpacity(
+//          opacity: _clicked ? 1.0 : 0.0,
+//          duration: Duration(microseconds: 400),
+//          child: _controller.value.isPlaying
+//              ? Icon(
+//                  Icons.play_arrow,
+//                  size: 25.0,
+//                  color: Colors.white,
+//                )
+//              : Icon(
+//                  Icons.pause,
+//                  size: 25.0,
+//                  color: Colors.white,
+//                ),
+//        )
+//      ]),
+//    );
+//  }
 
   FadeInImage fadeInImage() {
     return FadeInImage.assetNetwork(

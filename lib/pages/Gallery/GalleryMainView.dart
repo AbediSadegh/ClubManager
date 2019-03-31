@@ -38,7 +38,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
     setState(() {
       currAlbum = page;
       _pics = widget.photos[page];
-      print('GOOOOOOOOOO THERE');
     });
   }
 

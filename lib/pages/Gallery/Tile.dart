@@ -45,13 +45,21 @@ class _TileState extends State<Tile> {
             height: size.height,
             child: Hero(
               tag: widget.photo.photo,
-              child: Container(
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/logo.png',
-                  image: widget.photo.thumbnail,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              child: widget.photo.isVideo
+                  ? Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey,width: 1.5)
+                    ),
+                      child: Image.asset(
+                        'assets/images/video-player.png',
+//                        fit: BoxFit.contain,
+                      ),
+                    )
+                  : FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/logo.png',
+                      image: widget.photo.thumbnail,
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
         ),

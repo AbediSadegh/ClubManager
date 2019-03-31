@@ -14,7 +14,7 @@ abstract class Photograph implements Built<Photograph, PhotographBuilder> {
   String get photo;
   String get description;
   Photograph._();
-  bool isVideo;
+  bool isVideo = false;
 
   factory Photograph([updates(PhotographBuilder b)]) = _$Photograph;
 

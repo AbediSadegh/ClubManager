@@ -27,6 +27,9 @@ class _$PhotographSerializer implements StructuredSerializer<Photograph> {
       'description',
       serializers.serialize(object.description,
           specifiedType: const FullType(String)),
+      'isVideo',
+      serializers.serialize(object.isVideo,
+          specifiedType: const FullType(bool)),
     ];
 
     return result;
@@ -55,6 +58,10 @@ class _$PhotographSerializer implements StructuredSerializer<Photograph> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'isVideo':
+          result.isVideo = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
       }
     }
 
@@ -69,11 +76,14 @@ class _$Photograph extends Photograph {
   final String photo;
   @override
   final String description;
+  @override
+  final bool isVideo;
 
   factory _$Photograph([void updates(PhotographBuilder b)]) =>
       (new PhotographBuilder()..update(updates)).build();
 
-  _$Photograph._({this.thumbnail, this.photo, this.description}) : super._() {
+  _$Photograph._({this.thumbnail, this.photo, this.description, this.isVideo})
+      : super._() {
     if (thumbnail == null) {
       throw new BuiltValueNullFieldError('Photograph', 'thumbnail');
     }
@@ -82,6 +92,9 @@ class _$Photograph extends Photograph {
     }
     if (description == null) {
       throw new BuiltValueNullFieldError('Photograph', 'description');
+    }
+    if (isVideo == null) {
+      throw new BuiltValueNullFieldError('Photograph', 'isVideo');
     }
   }
 
@@ -98,13 +111,16 @@ class _$Photograph extends Photograph {
     return other is Photograph &&
         thumbnail == other.thumbnail &&
         photo == other.photo &&
-        description == other.description;
+        description == other.description &&
+        isVideo == other.isVideo;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, thumbnail.hashCode), photo.hashCode), description.hashCode));
+        $jc($jc($jc(0, thumbnail.hashCode), photo.hashCode),
+            description.hashCode),
+        isVideo.hashCode));
   }
 
   @override
@@ -112,7 +128,8 @@ class _$Photograph extends Photograph {
     return (newBuiltValueToStringHelper('Photograph')
           ..add('thumbnail', thumbnail)
           ..add('photo', photo)
-          ..add('description', description))
+          ..add('description', description)
+          ..add('isVideo', isVideo))
         .toString();
   }
 }
@@ -132,6 +149,10 @@ class PhotographBuilder implements Builder<Photograph, PhotographBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
+  bool _isVideo;
+  bool get isVideo => _$this._isVideo;
+  set isVideo(bool isVideo) => _$this._isVideo = isVideo;
+
   PhotographBuilder();
 
   PhotographBuilder get _$this {
@@ -139,6 +160,7 @@ class PhotographBuilder implements Builder<Photograph, PhotographBuilder> {
       _thumbnail = _$v.thumbnail;
       _photo = _$v.photo;
       _description = _$v.description;
+      _isVideo = _$v.isVideo;
       _$v = null;
     }
     return this;
@@ -161,7 +183,10 @@ class PhotographBuilder implements Builder<Photograph, PhotographBuilder> {
   _$Photograph build() {
     final _$result = _$v ??
         new _$Photograph._(
-            thumbnail: thumbnail, photo: photo, description: description);
+            thumbnail: thumbnail,
+            photo: photo,
+            description: description,
+            isVideo: isVideo);
     replace(_$result);
     return _$result;
   }

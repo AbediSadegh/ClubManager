@@ -1,5 +1,7 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:club_manager/entity/cv_entity.dart';
 import 'package:club_manager/entity/honors_entity.dart';
+import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/entity/news_entity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
@@ -28,7 +30,8 @@ class FakeData {
   static String logo =
       "https://upload.wikimedia.org/wikipedia/en/5/52/Padideh_Shahr-e_Khodrou_logo.png";
   static String companyName = "پدیده";
-  static String companyDetail = "باشگاه فوتبال پدیده در سال (۱۳۹۲ خورشیدی) - (۲۰۱۳ میلادی) با خرید امتیاز باشگاه فوتبال مس سرچشمه تأسیس و در مسابقات لیگ آزادگان شرکت کرد. "
+  static String companyDetail =
+      "باشگاه فوتبال پدیده در سال (۱۳۹۲ خورشیدی) - (۲۰۱۳ میلادی) با خرید امتیاز باشگاه فوتبال مس سرچشمه تأسیس و در مسابقات لیگ آزادگان شرکت کرد. "
       "باشگاه پدیده با قهرمانی در گروه الف لیگ آزادگان فصل ۹۳–۱۳۹۲ به لیگ برتر ایران صعود کرد. "
       "در خرداد ۱۳۹۳ به پاس حمایت و همراهی مردم خراسان با این تیم جهت راهیابی به لیگ برتر خلیج فارس، نام این تیم از «پدیده مشهد» به «پدیده خراسان» تغییر کرد. "
       "باشگاه پدیده خراسان در پایان هفته ششم لیگ چهاردهم که اولین حضور این تیم در لیگ برتر خلیج فارس است تنها تیم بدون شکست مسابقات باقی ماند و در رده سوم لیگ قرار گرفت."
@@ -190,15 +193,40 @@ class FakeData {
         completed: false),
   ];
 
-  static List<NewsEntity> fakeNews = List.generate(25, (i) {
-    return NewsEntity(
-        title: "عنوان $i",
-        imgURL: 'https://picsum.photos/500/500?image=${i+1000}',
-        shortDesc:
-            'جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصو',
-        description:
-            'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.');
-  });
+  static List<NewsEntity> fakeNewsEntity(int quantity, int firstId) {
+    List<NewsEntity> result = List();
+    result = List.generate(quantity, (i) {
+      return NewsEntity(
+        (p) => p
+          ..title = 'عنوان ${firstId + i}'
+          ..image =
+              'https://picsum.photos/500/500?image=${firstId + i}'
+          ..subtitle =
+              'آنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد'
+          ..url = 'https://picsum.photos/500/500?image=${i * 30}',
+      );
+    });
+    return result;
+  }
+
+  static List<NewsFieldEntity> fakeNewsFieldEntity(int quantity, int firstId) {
+    List<NewsFieldEntity> result = List();
+    var content =
+        'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.';
+    result = List.generate(quantity, (i) {
+      return NewsFieldEntity(
+        (b) => b
+          ..title = 'عنوان ${firstId + i}'
+          ..content = content
+          ..newsImages = ListBuilder(List.generate(quantity * (i+1), (index) {
+            return 'https://picsum.photos/500/500?image=${index + i + firstId}';
+          }))
+          ..id = i + firstId
+        ..url='',
+      );
+    });
+    return result;
+  }
 
   static List<HonorsEntity> fakeHonors = List.generate(25, (i) {
     return HonorsEntity(
@@ -229,32 +257,39 @@ Map<String, List<Photograph>> map() {
   String str = 'این یک متن آزمایشی برای فاز توسعه میباشد.';
 
   pics[l[0]].add(Photograph((p) => p
-    ..photo = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
-    ..thumbnail = 'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
-    ..description = str..isVideo = true));
+    ..photo =
+        'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
+    ..thumbnail =
+        'https://hw18.cdn.asset.aparat.com/aparat-video/911beda0aa70ca03505077c34075faa111151596-240p__82786.mp4'
+    ..description = str
+    ..isVideo = true));
   for (int i = 100; i <= 140; i++) {
     pics[l[0]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str..isVideo = false));
+      ..description = str
+      ..isVideo = false));
   }
   for (int i = 145; i <= 190; i++) {
     pics[l[1]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str..isVideo = false));
+      ..description = str
+      ..isVideo = false));
   }
   for (int i = 200; i <= 250; i++) {
     pics[l[2]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str..isVideo = false));
+      ..description = str
+      ..isVideo = false));
   }
   for (int i = 255; i <= 260; i++) {
     pics[l[3]].add(Photograph((p) => p
       ..photo = 'https://picsum.photos/200/300?image=$i'
       ..thumbnail = 'https://picsum.photos/400/500?image=$i'
-      ..description = str..isVideo = false));
+      ..description = str
+      ..isVideo = false));
   }
 
   return pics;

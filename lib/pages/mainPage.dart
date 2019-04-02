@@ -83,7 +83,7 @@ class _MainPageState extends State<MainPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => News(
-                                news: FakeData.fakeNews,
+                                pager: null,
                                 isAdmin: false,
                               ),
                         ),

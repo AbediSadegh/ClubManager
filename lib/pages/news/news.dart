@@ -1,22 +1,42 @@
 import 'dart:io';
 
+import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/entity/news_entity.dart';
+import 'package:club_manager/entity/news_field_entity.dart';
+import 'package:club_manager/entity/news_page_entity.dart';
 import 'package:club_manager/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class News extends StatefulWidget {
-  final List<NewsEntity> news;
+  final NewsPageEntity pager;
   final bool isAdmin;
 
-  News({@required this.news, @required this.isAdmin}) : assert(news != null);
+  News({@required this.pager, @required this.isAdmin});
 
   @override
   _NewsState createState() => _NewsState();
+
+  ///the following lines of code are for testing
+  List newsEntity = [
+    FakeData.fakeNewsEntity(10, 0),
+    FakeData.fakeNewsEntity(10, 10),
+    FakeData.fakeNewsEntity(5, 20)
+  ];
 }
 
 class _NewsState extends State<News> {
   bool _isChanging = true;
+  List<NewsEntity> news;
+  int _lastItems;
+
+  @override
+  void initState() {
+    super.initState();
+//    news = // todo initialize the first pieces of news to be shown
+    news = widget.newsEntity[0];
+    _lastItems = 0;
+  }
 
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
@@ -25,7 +45,11 @@ class _NewsState extends State<News> {
           ? FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                editAdd(context, 0, deviceSize, true);
+                editAdd(
+                    context: context,
+                    index: 0,
+                    deviceSize: deviceSize,
+                    isAdd: true);
               },
             )
           : Container(),
@@ -33,21 +57,38 @@ class _NewsState extends State<News> {
 //        margin: EdgeInsets.only(top: 15.0),
         padding: EdgeInsets.symmetric(vertical: 5.0),
         child: ListView.builder(
-          itemCount: widget.news.length,
+//          itemCount: widget.pager.count, todo uncomment this statement and remove the following one
+        itemCount: 25,
           itemBuilder: (context, index) {
+            if (index % 10 == 0 && index != 0) {
+              if (index > _lastItems) {
+//                news = todo get the next set of NewsEntity
+                _lastItems++;
+                news = widget.newsEntity[_lastItems];
+              } else {
+                //news = todo get the previous set of NewsEntity
+                _lastItems--;
+                news = widget.newsEntity[_lastItems];
+              }
+            }
             return NewsItemPreview(
-              imgURL: widget.news[index].imgURL,
-              title: widget.news[index].title,
-              description: widget.news[index].description,
-              shortDesc: widget.news[index].shortDesc,
+              title: news[index%10].title,
+              image: news[index%10].image,
+              subtitle: news[index%10].subtitle,
+              url: news[index%10].url,
+              id: index,
               onDelete: () {
                 setState(() {
                   //todo : delete a piece of news here
-                  widget.news.removeAt(index);
                 });
               },
               onEdit: () {
-                editAdd(context, index, deviceSize, false);
+                editAdd(
+                    context: context,
+                    index: index,
+                    deviceSize: deviceSize,
+                    isAdd: false,
+                    item: news[index%10]);
               },
             );
           },
@@ -56,18 +97,25 @@ class _NewsState extends State<News> {
     );
   }
 
-  Future editAdd(BuildContext context, int index, Size deviceSize, bool isAdd) {
+  Future editAdd(
+      {BuildContext context,
+      int index,
+      Size deviceSize,
+      bool isAdd,
+      NewsEntity item}) {
+    //NewsFieldEntity newsField = todo get the NewsFieldEntity for editing
+    NewsFieldEntity newsField;
+    List<File> images = List();
     return showDialog(
         context: context,
         builder: (context) {
           // ignore: unused_local_variable
-          File image;
-          TextEditingController ctrlDesc = TextEditingController(
-              text: isAdd ? '' : widget.news[index].description);
-          TextEditingController ctrlTitle = TextEditingController(
-              text: isAdd ? '' : widget.news[index].title);
-          TextEditingController ctrlShortDesc = TextEditingController(
-              text: isAdd ? '' : widget.news[index].shortDesc);
+          TextEditingController ctrlDesc =
+              TextEditingController(text: isAdd ? '' : newsField.content);
+          TextEditingController ctrlTitle =
+              TextEditingController(text: isAdd ? '' : item.title);
+          TextEditingController ctrlSubtitle =
+              TextEditingController(text: isAdd ? '' : item.subtitle);
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -108,7 +156,7 @@ class _NewsState extends State<News> {
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                         child: new TextFormField(
                             keyboardType: TextInputType.multiline,
-                            controller: ctrlShortDesc,
+                            controller: ctrlSubtitle,
                             textAlign: TextAlign.right,
                             style: TextStyle(color: Colors.black45),
                             textDirection: TextDirection.rtl,
@@ -156,11 +204,11 @@ class _NewsState extends State<News> {
                                 child: FlatButton(
                                   color: Color.fromRGBO(58, 58, 62, 1.0),
                                   onPressed: () async {
-                                    image = await ImagePicker.pickImage(
-                                        source: ImageSource.gallery);
+                                    images.add(await ImagePicker.pickImage(
+                                        source: ImageSource.gallery));
                                   },
                                   child: Icon(
-                                    Icons.photo_camera,
+                                    Icons.add_a_photo,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -185,16 +233,46 @@ class _NewsState extends State<News> {
                       ),
                       onPressed: () {
                         if (isAdd) {
-                          //todo add image here
+                          item = NewsEntity((b) => b
+                                ..title = ctrlTitle.text
+                                ..subtitle = ctrlSubtitle.text
+//                              ..url = item.url todo specify a url
+//                              ..image = item.image, todo set something for newsEntity image
+                              );
+                          newsField = NewsFieldEntity(
+                            (b) => b
+                              ..url = item.url
+                              ..title = item.title
+                              ..id = newsField.id
+                              ..content = ctrlDesc.text
+                              ..newsImages = newsField.newsImages.toBuilder(),
+                          );
+                          //todo handle adding process here
                         } else {
+                          // if edit
                           setState(() {
-                            widget.news[index] = NewsEntity(
-                              imgURL: widget.news[index].imgURL,
-                              title: ctrlTitle.text,
-                              description: ctrlDesc.text,
-                              shortDesc: ctrlShortDesc.text,
+                            item = NewsEntity(
+                              (b) => b
+                                ..title = ctrlTitle.text
+                                ..subtitle = ctrlSubtitle.text
+                                ..url = item.url
+                                ..image = item.image,
                             );
-                            //todo do the change stuff here
+                            newsField = NewsFieldEntity(
+                              (b) => b
+                                ..url = item.url
+                                ..title = item.title
+                                ..id = newsField.id
+                                ..content = ctrlDesc.text
+                                ..newsImages = newsField.newsImages.toBuilder(),
+                            );
+                            //todo save these two for editing News
+//                            widget.pager[index] = NewsEntity(
+//                              imgURL: widget.pager[index].imgURL,
+//                              title: ctrlTitle.text,
+//                              description: ctrlDesc.text,
+//                              shortDesc: ctrlSubtitle.text,
+//                            );
                           });
                         }
                         Navigator.pop(context);

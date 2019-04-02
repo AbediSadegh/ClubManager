@@ -126,10 +126,10 @@ class _$Photograph extends Photograph {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Photograph')
-          ..add('thumbnail', thumbnail)
-          ..add('photo', photo)
-          ..add('description', description)
-          ..add('isVideo', isVideo))
+      ..add('thumbnail', thumbnail)
+      ..add('photo', photo)
+      ..add('description', description)
+      ..add('isVideo', isVideo))
         .toString();
   }
 }

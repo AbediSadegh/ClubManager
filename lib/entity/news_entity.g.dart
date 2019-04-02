@@ -18,8 +18,6 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
   Iterable serialize(Serializers serializers, NewsEntity object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
       'url',
       serializers.serialize(object.url, specifiedType: const FullType(String)),
       'title',
@@ -28,13 +26,9 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
       'image',
       serializers.serialize(object.image,
           specifiedType: const FullType(String)),
-      'content',
-      serializers.serialize(object.content,
+      'subtitle',
+      serializers.serialize(object.subtitle,
           specifiedType: const FullType(String)),
-      'newsImages',
-      serializers.serialize(object.newsImages,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
     ];
 
     return result;
@@ -51,10 +45,6 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
         case 'url':
           result.url = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -67,15 +57,9 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
           result.image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'content':
-          result.content = serializers.deserialize(value,
+        case 'subtitle':
+          result.subtitle = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'newsImages':
-          result.newsImages.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList);
           break;
       }
     }
@@ -86,32 +70,19 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
 
 class _$NewsEntity extends NewsEntity {
   @override
-  final int id;
-  @override
   final String url;
   @override
   final String title;
   @override
   final String image;
   @override
-  final String content;
-  @override
-  final BuiltList<String> newsImages;
+  final String subtitle;
 
   factory _$NewsEntity([void updates(NewsEntityBuilder b)]) =>
       (new NewsEntityBuilder()..update(updates)).build();
 
-  _$NewsEntity._(
-      {this.id,
-      this.url,
-      this.title,
-      this.image,
-      this.content,
-      this.newsImages})
+  _$NewsEntity._({this.url, this.title, this.image, this.subtitle})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('NewsEntity', 'id');
-    }
     if (url == null) {
       throw new BuiltValueNullFieldError('NewsEntity', 'url');
     }
@@ -121,11 +92,8 @@ class _$NewsEntity extends NewsEntity {
     if (image == null) {
       throw new BuiltValueNullFieldError('NewsEntity', 'image');
     }
-    if (content == null) {
-      throw new BuiltValueNullFieldError('NewsEntity', 'content');
-    }
-    if (newsImages == null) {
-      throw new BuiltValueNullFieldError('NewsEntity', 'newsImages');
+    if (subtitle == null) {
+      throw new BuiltValueNullFieldError('NewsEntity', 'subtitle');
     }
   }
 
@@ -140,43 +108,32 @@ class _$NewsEntity extends NewsEntity {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NewsEntity &&
-        id == other.id &&
         url == other.url &&
         title == other.title &&
         image == other.image &&
-        content == other.content &&
-        newsImages == other.newsImages;
+        subtitle == other.subtitle;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc(
-            $jc($jc($jc($jc(0, id.hashCode), url.hashCode), title.hashCode),
-                image.hashCode),
-            content.hashCode),
-        newsImages.hashCode));
+        $jc($jc($jc(0, url.hashCode), title.hashCode), image.hashCode),
+        subtitle.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('NewsEntity')
-          ..add('id', id)
           ..add('url', url)
           ..add('title', title)
           ..add('image', image)
-          ..add('content', content)
-          ..add('newsImages', newsImages))
+          ..add('subtitle', subtitle))
         .toString();
   }
 }
 
 class NewsEntityBuilder implements Builder<NewsEntity, NewsEntityBuilder> {
   _$NewsEntity _$v;
-
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
 
   String _url;
   String get url => _$this._url;
@@ -190,26 +147,18 @@ class NewsEntityBuilder implements Builder<NewsEntity, NewsEntityBuilder> {
   String get image => _$this._image;
   set image(String image) => _$this._image = image;
 
-  String _content;
-  String get content => _$this._content;
-  set content(String content) => _$this._content = content;
-
-  ListBuilder<String> _newsImages;
-  ListBuilder<String> get newsImages =>
-      _$this._newsImages ??= new ListBuilder<String>();
-  set newsImages(ListBuilder<String> newsImages) =>
-      _$this._newsImages = newsImages;
+  String _subtitle;
+  String get subtitle => _$this._subtitle;
+  set subtitle(String subtitle) => _$this._subtitle = subtitle;
 
   NewsEntityBuilder();
 
   NewsEntityBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
       _url = _$v.url;
       _title = _$v.title;
       _image = _$v.image;
-      _content = _$v.content;
-      _newsImages = _$v.newsImages?.toBuilder();
+      _subtitle = _$v.subtitle;
       _$v = null;
     }
     return this;
@@ -230,27 +179,9 @@ class NewsEntityBuilder implements Builder<NewsEntity, NewsEntityBuilder> {
 
   @override
   _$NewsEntity build() {
-    _$NewsEntity _$result;
-    try {
-      _$result = _$v ??
-          new _$NewsEntity._(
-              id: id,
-              url: url,
-              title: title,
-              image: image,
-              content: content,
-              newsImages: newsImages.build());
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'newsImages';
-        newsImages.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'NewsEntity', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$NewsEntity._(
+            url: url, title: title, image: image, subtitle: subtitle);
     replace(_$result);
     return _$result;
   }

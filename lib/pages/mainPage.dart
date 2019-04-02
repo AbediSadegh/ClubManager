@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage> {
                           builder: (context) => Gallery(
                                 photos: FakeData.fakeGallery,
                                 years: ['1381', '1382', '1383', '1384'],
-                                isAdmin: false,
+                                isAdmin: true,
                               ),
                         ),
                       );

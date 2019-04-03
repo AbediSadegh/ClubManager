@@ -11,7 +11,6 @@ class Gallery extends StatelessWidget {
   final List<String> years;
   final bool isAdmin;
   static PhotoGallery photoGallery;
-
   Gallery(
       {@required this.photos, @required this.years, @required this.isAdmin}) {
     assert(years != null && photos != null);
@@ -43,11 +42,11 @@ class Gallery extends StatelessWidget {
         margin: EdgeInsets.only(top: 10.0),
         child: Stack(
           children: <Widget>[
-            GalleryBar(
-              years: years,
-              photoGallery: photoGallery,
-              initValue: years[0],
-            ),
+//            GalleryBar(
+//              years: years,
+//              photoGallery: photoGallery,
+//              initValue: years[0],
+//            ),
             photoGallery,
           ],
         ),

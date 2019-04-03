@@ -1,10 +1,11 @@
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
 class Viewer extends StatefulWidget {
-  final Photograph _photo;
+  final PhotoEntityList _photo;
   final Size _deviceSize;
 
   Viewer(this._photo, this._deviceSize);
@@ -24,8 +25,8 @@ class ViewerState extends State<Viewer> {
   void initState() {
     _clicked = false;
     super.initState();
-    if (widget._photo.isVideo) {
-      _controller = VideoPlayerController.network(widget._photo.photo);
+    if (widget._photo.is_video) {
+      _controller = VideoPlayerController.network(widget._photo.file);
       chewieController = ChewieController(
         videoPlayerController: _controller,
         aspectRatio: 3.0 / 2.0,
@@ -52,8 +53,8 @@ class ViewerState extends State<Viewer> {
               },
               child: Hero(
                 // using the photograph photo url itself as a tag
-                tag: this.widget._photo.photo,
-                child: widget._photo.isVideo
+                tag: this.widget._photo.file,
+                child: widget._photo.is_video
                     ? Chewie(
                         controller: chewieController,
                       )
@@ -72,7 +73,7 @@ class ViewerState extends State<Viewer> {
                   height: widget._deviceSize.height / 4.0,
                   width: widget._deviceSize.width,
                   child: Text(
-                    widget._photo.description,
+                    widget._photo.content,
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                         color: Colors.white,
@@ -127,7 +128,7 @@ class ViewerState extends State<Viewer> {
   FadeInImage fadeInImage() {
     return FadeInImage.assetNetwork(
       placeholder: 'assets/images/logo.png',
-      image: this.widget._photo.photo,
+      image: this.widget._photo.file,
       fit: BoxFit.contain,
     );
   }

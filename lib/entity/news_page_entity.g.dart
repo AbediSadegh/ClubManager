@@ -22,16 +22,26 @@ class _$NewsPageEntitySerializer
     final result = <Object>[
       'count',
       serializers.serialize(object.count, specifiedType: const FullType(int)),
-      'next',
-      serializers.serialize(object.next, specifiedType: const FullType(String)),
-      'previous',
-      serializers.serialize(object.previous,
-          specifiedType: const FullType(String)),
-      'results',
-      serializers.serialize(object.results,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(NewsEntity)])),
     ];
+    if (object.next != null) {
+      result
+        ..add('next')
+        ..add(serializers.serialize(object.next,
+            specifiedType: const FullType(String)));
+    }
+    if (object.previous != null) {
+      result
+        ..add('previous')
+        ..add(serializers.serialize(object.previous,
+            specifiedType: const FullType(String)));
+    }
+    if (object.results != null) {
+      result
+        ..add('results')
+        ..add(serializers.serialize(object.results,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(NewsEntity)])));
+    }
 
     return result;
   }
@@ -88,15 +98,6 @@ class _$NewsPageEntity extends NewsPageEntity {
       : super._() {
     if (count == null) {
       throw new BuiltValueNullFieldError('NewsPageEntity', 'count');
-    }
-    if (next == null) {
-      throw new BuiltValueNullFieldError('NewsPageEntity', 'next');
-    }
-    if (previous == null) {
-      throw new BuiltValueNullFieldError('NewsPageEntity', 'previous');
-    }
-    if (results == null) {
-      throw new BuiltValueNullFieldError('NewsPageEntity', 'results');
     }
   }
 
@@ -192,12 +193,12 @@ class NewsPageEntityBuilder
               count: count,
               next: next,
               previous: previous,
-              results: results.build());
+              results: _results?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'results';
-        results.build();
+        _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'NewsPageEntity', _$failedField, e.toString());

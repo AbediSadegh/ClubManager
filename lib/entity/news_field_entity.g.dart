@@ -30,11 +30,14 @@ class _$NewsFieldEntitySerializer
       'content',
       serializers.serialize(object.content,
           specifiedType: const FullType(String)),
-      'newsImages',
-      serializers.serialize(object.newsImages,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
     ];
+    if (object.newsImages != null) {
+      result
+        ..add('newsImages')
+        ..add(serializers.serialize(object.newsImages,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
 
     return result;
   }
@@ -108,9 +111,6 @@ class _$NewsFieldEntity extends NewsFieldEntity {
     }
     if (content == null) {
       throw new BuiltValueNullFieldError('NewsFieldEntity', 'content');
-    }
-    if (newsImages == null) {
-      throw new BuiltValueNullFieldError('NewsFieldEntity', 'newsImages');
     }
   }
 
@@ -216,12 +216,12 @@ class NewsFieldEntityBuilder
               id: id,
               title: title,
               content: content,
-              newsImages: newsImages.build());
+              newsImages: _newsImages?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'newsImages';
-        newsImages.build();
+        _newsImages?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'NewsFieldEntity', _$failedField, e.toString());

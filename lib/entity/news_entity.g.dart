@@ -23,13 +23,16 @@ class _$NewsEntitySerializer implements StructuredSerializer<NewsEntity> {
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(String)),
       'subtitle',
       serializers.serialize(object.subtitle,
           specifiedType: const FullType(String)),
     ];
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(String)));
+    }
 
     return result;
   }
@@ -88,9 +91,6 @@ class _$NewsEntity extends NewsEntity {
     }
     if (title == null) {
       throw new BuiltValueNullFieldError('NewsEntity', 'title');
-    }
-    if (image == null) {
-      throw new BuiltValueNullFieldError('NewsEntity', 'image');
     }
     if (subtitle == null) {
       throw new BuiltValueNullFieldError('NewsEntity', 'subtitle');

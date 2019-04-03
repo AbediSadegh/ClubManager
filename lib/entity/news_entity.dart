@@ -12,6 +12,7 @@ part 'news_entity.g.dart';
 abstract class NewsEntity implements Built<NewsEntity, NewsEntityBuilder> {
   String get url;
   String get title;
+  @nullable
   String get image;
   String get subtitle;
   NewsEntity._();

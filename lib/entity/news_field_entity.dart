@@ -15,6 +15,7 @@ abstract class NewsFieldEntity
   int get id;
   String get title;
   String get content;
+  @nullable
   BuiltList<String> get newsImages;
 
   NewsFieldEntity._();

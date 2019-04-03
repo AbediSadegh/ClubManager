@@ -13,8 +13,11 @@ part 'news_page_entity.g.dart';
 abstract class NewsPageEntity
     implements Built<NewsPageEntity, NewsPageEntityBuilder> {
   int get count;
+  @nullable
   String get next;
+  @nullable
   String get previous;
+  @nullable
   BuiltList<NewsEntity> get results;
 
   NewsPageEntity._();

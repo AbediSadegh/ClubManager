@@ -43,16 +43,16 @@ class PhotoGalleryState extends State<PhotoGallery>
   void initState() {
     currAlbum = widget.initAlbum;
     _pics  = new List();
-//    _listScrollController.addListener(() {
-//      double maxScroll = _listScrollController.position.maxScrollExtent;
-//      double currentScroll = _listScrollController.position.pixels;
-//
-//      if (maxScroll - currentScroll <= 200) {
-//        if (!_isLoading && nextPage != null) {
-//          getPhotoes(page: nextPage);
-//        }
-//      }
-//    });
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getPhotoes(page: nextPage);
+        }
+      }
+    });
     super.initState();
 
   }
@@ -97,7 +97,7 @@ class PhotoGalleryState extends State<PhotoGallery>
 
   Widget custom(List<IntSize> l) {
     return StaggeredGridView.builder(
-//      controller: _listScrollController,
+      controller: _listScrollController,
       itemCount: l.length,
       gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
           staggeredTileCount: l.length,

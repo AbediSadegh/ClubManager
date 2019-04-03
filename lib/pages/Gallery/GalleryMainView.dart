@@ -1,22 +1,31 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/IntSize.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:path/path.dart';
 
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
   final Map<String, List<Photograph>> photos;
   final Size deviceSize;
   final String initAlbum;
-
   PhotoGallery(
       {@required this.photos, @required this.deviceSize, this.initAlbum});
 
   State<PhotoGallery> createState() => state;
 }
 
-class PhotoGalleryState extends State<PhotoGallery> {
+class PhotoGalleryState extends State<PhotoGallery>
+//    with AutomaticKeepAliveClientMixin<PhotoGallery>
+{
+  bool _isLoading = true;
+  ScrollController _listScrollController = new ScrollController();
+  bool fistLoad = true;
+
   List<IntSize> generator(int quantity, double width, double height) {
     List<IntSize> l = List();
     height = height / 2;
@@ -26,39 +35,69 @@ class PhotoGalleryState extends State<PhotoGallery> {
     return l;
   }
 
-  List<Photograph> _pics;
+  List<PhotoEntityList> _pics;
   String currAlbum;
+  PhotoList photoList;
+  String nextPage;
 
   void initState() {
-    super.initState();
     currAlbum = widget.initAlbum;
-    _pics = widget.photos[currAlbum];
+    _pics  = new List();
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getPhotoes(page: nextPage);
+        }
+      }
+    });
+    super.initState();
+
+  }
+
+  getPhotoes({String page: URL.urlGalley}) async {
+    _isLoading = true;
+    photoList = await loadGallery(page);
+    setState(() {
+      _pics.addAll(photoList.results);
+      nextPage = photoList.next;
+      _isLoading = false;
+    });
   }
 
   galleryPageTrans(String page) {
     setState(() {
       currAlbum = page;
-      _pics = widget.photos[page];
     });
   }
 
   Widget build(BuildContext context) {
-    if (_pics == null) return SizedBox();
-    return Container(
-      padding: EdgeInsets.only(top: 45.0),
-      child: Center(
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          List<IntSize> l = generator(
-              _pics.length, constraints.maxWidth, constraints.maxHeight);
-          return custom(l);
-        }),
-      ),
+  if (fistLoad) {
+    getPhotoes();
+    fistLoad = false;
+  }
+    return Center(
+      child: _isLoading
+          ? CircularProgressIndicator()
+          : Container(
+              padding: EdgeInsets.only(top: 45.0),
+              child: Center(
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  List<IntSize> l = generator(_pics.length,
+                      constraints.maxWidth, constraints.maxHeight);
+                  return custom(l);
+                }),
+              ),
+            ),
     );
   }
 
   Widget custom(List<IntSize> l) {
     return StaggeredGridView.builder(
+      controller: _listScrollController,
       itemCount: l.length,
       gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
           staggeredTileCount: l.length,
@@ -87,7 +126,7 @@ class PhotoGalleryState extends State<PhotoGallery> {
         context: context,
         builder: (context) {
           TextEditingController controller =
-              TextEditingController(text: _pics[index].description);
+              TextEditingController(text: _pics[index].content);
           return new Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -136,11 +175,11 @@ class PhotoGalleryState extends State<PhotoGallery> {
                       onPressed: () {
                         setState(() {
                           //todo do the change stuff here
-                          _pics[index] = Photograph((p) => p
-                            ..photo = _pics[index].photo
-                            ..thumbnail = _pics[index].thumbnail
-                            ..description = controller.text
-                            ..isVideo = _pics[index].isVideo);
+//                          _pics[index] = PhotoEntityList((p) => p
+//                            ..photo = _pics[index].file
+//                            ..thumbnail = _pics[index].image
+//                            ..description = controller.text
+//                            ..isVideo = _pics[index].is_video);
                         });
                         Navigator.pop(context);
                       },
@@ -152,4 +191,6 @@ class PhotoGalleryState extends State<PhotoGallery> {
           );
         });
   }
+
+
 }

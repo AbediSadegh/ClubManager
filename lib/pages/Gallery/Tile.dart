@@ -1,4 +1,5 @@
 import 'package:club_manager/entity/IntSize.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Viewer.dart';
 import 'package:club_manager/widgets/deletePermission.dart';
@@ -8,7 +9,7 @@ class Tile extends StatefulWidget {
   Tile({this.photo, this.size, this.deviceSize, this.onDelete, this.onEdit});
 
   final IntSize size;
-  final Photograph photo;
+  final PhotoEntityList photo;
   final Size deviceSize;
   final GestureTapCallback onDelete;
   final GestureTapCallback onEdit;
@@ -44,8 +45,8 @@ class _TileState extends State<Tile> {
             width: size.width,
             height: size.height,
             child: Hero(
-              tag: widget.photo.photo,
-              child: widget.photo.isVideo
+              tag: widget.photo.file,
+              child: widget.photo.is_video
                   ? Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey,width: 1.5)
@@ -57,7 +58,7 @@ class _TileState extends State<Tile> {
                     )
                   : FadeInImage.assetNetwork(
                       placeholder: 'assets/images/logo.png',
-                      image: widget.photo.thumbnail,
+                      image: widget.photo.image,
                       fit: BoxFit.fill,
                     ),
             ),

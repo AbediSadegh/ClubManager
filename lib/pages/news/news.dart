@@ -58,7 +58,7 @@ class _NewsState extends State<News> {
         padding: EdgeInsets.symmetric(vertical: 5.0),
         child: ListView.builder(
 //          itemCount: widget.pager.count, todo uncomment this statement and remove the following one
-        itemCount: 25,
+          itemCount: 25,
           itemBuilder: (context, index) {
             if (index % 10 == 0 && index != 0) {
               if (index > _lastItems) {
@@ -72,10 +72,10 @@ class _NewsState extends State<News> {
               }
             }
             return NewsItemPreview(
-              title: news[index%10].title,
-              image: news[index%10].image,
-              subtitle: news[index%10].subtitle,
-              url: news[index%10].url,
+              title: news[index % 10].title,
+              image: news[index % 10].image,
+              subtitle: news[index % 10].subtitle,
+              url: news[index % 10].url,
               id: index,
               onDelete: () {
                 setState(() {
@@ -88,7 +88,7 @@ class _NewsState extends State<News> {
                     index: index,
                     deviceSize: deviceSize,
                     isAdd: false,
-                    item: news[index%10]);
+                    item: news[index % 10]);
               },
             );
           },

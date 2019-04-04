@@ -4,6 +4,7 @@ import 'package:club_manager/pages/signup&login/register/family_status/FamilySta
 import 'package:club_manager/pages/signup&login/register/general_information/general_page.dart';
 import 'package:club_manager/pages/signup&login/register/health/health_page.dart';
 import 'package:club_manager/pages/signup&login/register/notice/notice_page.dart';
+import 'package:club_manager/pages/signup&login/register/select_time_period/time_period.dart';
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
@@ -14,7 +15,8 @@ class Start extends StatelessWidget {
   FamilyStatusPage familyStatusPage;
   healthPage health;
   NoticePage noticePage;
-
+  timePeriod timePer;
+  Player play;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +39,7 @@ class Start extends StatelessWidget {
             formKey: formKey,
             press: () {
               formKey.currentState.save();
-
-              Player play = new Player(
+              play = new Player(
                 reagentCode: noticePage.reagentCode,
                 address: familyStatusPage.address,
                 birthday: generalPage.birthDay,
@@ -57,16 +58,21 @@ class Start extends StatelessWidget {
                 schoolName: educationPage.schoolName,
                 technicalFoot: health.technical,
               );
-              Navigator.pop(context);
-              print("success");
+              //Navigator.pop(context);
+              //print("success");
+              controller.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
 //            Scaffold.of(context).showSnackBar(SnackBar(
 //              content: Text("ثبت نام موفقیت آمیز بود"),
 //              duration: Duration(seconds: 5),
 //            ));
             },
           ),
+          timePer = timePeriod(controller: controller,func: (){
+            play.timePeriod = timePer.selectedTime;
+          },),
         ],
       ),
     );
   }
+
 }

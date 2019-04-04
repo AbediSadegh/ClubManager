@@ -4,6 +4,7 @@ import 'package:club_manager/entity/honors_entity.dart';
 import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/entity/news_entity.dart';
+import 'package:club_manager/pages/signup&login/player.dart';
 import 'package:club_manager/widgets/Exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:club_manager/pages/support/serverAbout.dart';
@@ -41,6 +42,10 @@ class FakeData {
   static String programmerName = "برنامه نویسان";
   static String programmerDetail = "درباره برنامه نویسان";
   static String programmerLogo = "";
+  static String yerarCost = "840000 T";
+  static String sixMonthCost = "420000 T";
+  static String summerCost = "120000 T";
+  static int minimumCost = 300000;
 
   static List<componnent> components = [
     componnent(
@@ -294,3 +299,101 @@ Map<String, List<Photograph>> map() {
 
   return pics;
 }
+
+Player player1 = Player(
+  name: "alexis",
+  family: "texas",
+  fatherPhone: 0915555555,
+  fatherWorks: "کارمند",
+  favoritePos: "دربازه بان",
+  lastTeam: "Brazzers",
+  homePhone: 38888888888,
+  motherPhone: 0915555555555,
+  passport: 09155555555555,
+  patientHistory: "ندارد",
+  schoolName: "BrazzersHouse",
+  technicalFoot: "چپ",
+  email: "alexisTexas@gmail.com",
+  coachName: "ندارد",
+  birthday: 78,
+  address: "مشهد",
+);
+Player player5 = Player(
+  name: "مهدی",
+  family: "کنویسی",
+  fatherPhone: 0915555555,
+  fatherWorks: "کارمند",
+  favoritePos: "دربازه",
+  lastTeam: "ندارد",
+  homePhone: 38888888888,
+  motherPhone: 0915555555555,
+  passport: 09155555555555,
+  patientHistory: "ندارد",
+  schoolName: "مبین",
+  technicalFoot: "راست",
+  email: "zmmmken@gmail.com",
+  coachName: "ندارد",
+  birthday: 78,
+  address: "مشهد",
+);
+Player player2 = Player(
+  name: "امیرحسین",
+  family: "ابراهیمی",
+  fatherPhone: 09166666666666,
+  fatherWorks: "کارمند",
+  favoritePos: "دربازه",
+  lastTeam: "ندارد",
+  homePhone: 36666666666666,
+  motherPhone: 09166666666,
+  passport: 091666666666,
+  patientHistory: "ندارد",
+  schoolName: "بعثت",
+  technicalFoot: "راست",
+  email: "amirhossein@gmail.com",
+  coachName: "ندارد",
+  birthday: 78,
+  address: "مشهد",
+);
+Player player3 = Player(
+  name: "صادق",
+  family: "عابدی",
+  fatherPhone: 09177777777,
+  fatherWorks: "کارمند",
+  favoritePos: "دربازه",
+  lastTeam: "ندارد",
+  homePhone: 37777777,
+  motherPhone: 091777777777,
+  passport: 09177777777777,
+  patientHistory: "ندارد",
+  schoolName: "نامشخص",
+  technicalFoot: "چپ",
+  email: "sadeghAbedi@gmail.com",
+  coachName: "ندارد",
+  birthday: 77,
+  address: "مشهد",
+);
+Player player4 = Player(
+  name: "حامد",
+  family: "واعظی",
+  fatherPhone: 0915555555,
+  fatherWorks: "کارمند",
+  favoritePos: "دربازه",
+  lastTeam: "ندارد",
+  homePhone: 3999999999,
+  motherPhone: 091999999999,
+  passport: 091999999999,
+  patientHistory: "ندارد",
+  schoolName: "نامشخص",
+  technicalFoot: "راست",
+  email: "hamedVaezi@gmail.com",
+  coachName: "ندارد",
+  birthday: 77,
+  address: "مشهد",
+);
+List<Player> players = [
+  player1,
+  player2,
+  player3,
+  player4,
+  player5,
+];

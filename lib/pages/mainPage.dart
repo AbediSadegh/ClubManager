@@ -67,7 +67,6 @@ class _MainPageState extends State<MainPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CVViewer(
-                                cvs: FakeData.fakeCVs,
                                 isAdmin: false,
                               ),
                         ),

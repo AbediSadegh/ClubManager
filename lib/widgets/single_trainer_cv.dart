@@ -104,7 +104,7 @@ class _CVState extends State<CV> {
               ),
             ),
             Container(
-              height: 2 * _size.height / 7,
+              height: double.infinity,
               decoration: BoxDecoration(
                 color: Color(0xFFcf3030),
               ),
@@ -113,6 +113,7 @@ class _CVState extends State<CV> {
                 children: <Widget>[
                   FadeInImage.assetNetwork(
                     width: _size.width / 3,
+                    height: double.infinity,
                     placeholder: 'assets/images/vip.png',
                     image: this.widget.imgURL,
                     fit: BoxFit.cover,

@@ -17,13 +17,13 @@ class PhotoEntityList {
         image: parsedJson['image']);
   }
 }
+
 class FameEntity {
   String content;
   String title;
   String image;
 
-  FameEntity(
-      {this.content, this.title, this.image});
+  FameEntity({this.content, this.title, this.image});
 
   factory FameEntity.fromJson(Map<String, dynamic> parsedJson) {
     return FameEntity(
@@ -32,6 +32,7 @@ class FameEntity {
         image: parsedJson['image']);
   }
 }
+
 class FameList {
   int count;
   String next;
@@ -42,7 +43,7 @@ class FameList {
     List<FameEntity> convert() {
       var list = parsedJson['results'] as List;
       List<FameEntity> imagesList =
-      list.map((i) => FameEntity.fromJson(i)).toList();
+          list.map((i) => FameEntity.fromJson(i)).toList();
       return imagesList;
     }
 
@@ -115,5 +116,58 @@ class ImageEntity {
     return ImageEntity(
       newsImage: parsedJson['image'],
     );
+  }
+}
+
+class CoachListEntity {
+  int count;
+  String next;
+  String previous;
+  List<CoachEntity> results;
+
+  factory CoachListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<CoachEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<CoachEntity> imagesList =
+          list.map((i) => CoachEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return CoachListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  CoachListEntity({this.count, this.next, this.previous, this.results});
+}
+
+class UserEntity {
+  String first_name;
+  String last_name;
+
+  factory UserEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return UserEntity(
+        first_name: parsedJson['first_name'],
+        last_name: parsedJson['last_name']);
+  }
+
+  UserEntity({this.first_name, this.last_name});
+}
+
+class CoachEntity {
+  String level;
+  String content;
+  String image;
+  UserEntity user;
+
+  CoachEntity({this.level, this.content, this.image, this.user});
+  factory CoachEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return CoachEntity(
+        level: parsedJson['level'],
+        content: parsedJson['content'],
+        image: parsedJson['image'],
+        user: UserEntity.fromJson(parsedJson['user']));
   }
 }

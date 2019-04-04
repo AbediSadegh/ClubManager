@@ -32,6 +32,19 @@ class FameEntity {
         image: parsedJson['image']);
   }
 }
+class AboutEntity {
+  String image;
+  String content;
+
+
+  AboutEntity({this.image, this.content});
+
+  factory AboutEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return AboutEntity(
+        content: parsedJson['content'],
+        image: parsedJson['image']);
+  }
+}
 
 class FameList {
   int count;
@@ -170,4 +183,27 @@ class CoachEntity {
         image: parsedJson['image'],
         user: UserEntity.fromJson(parsedJson['user']));
   }
+}
+class AboutProgrammerListEntity {
+  int count;
+  String next;
+  String previous;
+  List<AboutEntity> results;
+
+  factory AboutProgrammerListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<AboutEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<AboutEntity> imagesList =
+      list.map((i) => AboutEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return AboutProgrammerListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  AboutProgrammerListEntity({this.count, this.next, this.previous, this.results});
 }

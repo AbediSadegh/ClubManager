@@ -54,15 +54,8 @@ class _AboutTabBarState extends State<AboutTabBar>
         body: Container(
           color: Color(0xff37474f),
           child: TabBarView(controller: controller, children: [
-            AboutUs(
-                text: FakeData.companyDetail,
-                srcImage: FakeData.logo,
-                title: FakeData.companyName),
-            AboutUs(
-              text: FakeData.programmerDetail,
-              srcImage: FakeData.programmerLogo,
-              title: FakeData.programmerName,
-            ),
+            AboutUs("pa"),
+            AboutUs("po"),
           ]),
         ));
   }

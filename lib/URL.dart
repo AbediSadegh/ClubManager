@@ -3,4 +3,6 @@ class URL {
   static const String urlNews = 'http://46.4.233.56/api/news';
   static const String urlFame = 'http://46.4.233.56/api/fame';
   static const String urlcoachList = 'http://46.4.233.56/api/users/coach-list';
+  static const String urlAboutProgremmer = 'http://46.4.233.56/api/about-us/programmer';
+  static const String urlAboutPadideh = 'http://46.4.233.56/api/about-us/information';
 }

@@ -40,3 +40,10 @@ Future<CoachListEntity> loadCoachList(String url) async {
   var product = new CoachListEntity.fromJson(jsonResPonse);
   return product;
 }
+
+Future<AboutProgrammerListEntity> loadAboutProgrammer(String url) async {
+  final response = await http.get(url);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new AboutProgrammerListEntity.fromJson(jsonResPonse);
+  return product;
+}

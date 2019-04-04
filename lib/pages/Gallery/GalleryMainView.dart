@@ -48,7 +48,6 @@ class PhotoGalleryState extends State<
     _listScrollController.addListener(() {
       double maxScroll = _listScrollController.position.maxScrollExtent;
       double currentScroll = _listScrollController.position.pixels;
-
       if (maxScroll - currentScroll <= 200) {
         if (!_isLoading && nextPage != null) {
           getPhotos(page: nextPage);

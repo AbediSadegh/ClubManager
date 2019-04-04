@@ -142,7 +142,6 @@ class _MainPageState extends State<MainPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => HonorView(
-                                honors: FakeData.fakeHonors,
                                 isAdmin: false,
                               ),
                         ),

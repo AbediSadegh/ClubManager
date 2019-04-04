@@ -10,22 +10,25 @@ import 'package:path/path.dart';
 
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
-  final Map<String, List<Photograph>> photos;
-  final Size deviceSize;
-  final String initAlbum;
 
+//  final Map<String, List<Photograph>> photos;
+  final Size deviceSize;
+  final String currAlbum; //todo use this field to get the album you want
   PhotoGallery(
-      {@required this.photos, @required this.deviceSize, this.initAlbum});
+      {
+        @required this.currAlbum,
+        @required this.deviceSize});
 
   State<PhotoGallery> createState() => state;
 }
 
 class PhotoGalleryState extends State<
     PhotoGallery> //    with AutomaticKeepAliveClientMixin<PhotoGallery>
-{
+    {
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
   bool fistLoad = true;
+  List<IntSize> l;
 
   List<IntSize> generator(int quantity, double width, double height) {
     List<IntSize> l = List();
@@ -37,12 +40,10 @@ class PhotoGalleryState extends State<
   }
 
   List<PhotoEntityList> _pics;
-  String currAlbum;
   PhotoList photoList;
   String nextPage;
 
   void initState() {
-    currAlbum = widget.initAlbum;
     _pics = new List();
     _listScrollController.addListener(() {
       double maxScroll = _listScrollController.position.maxScrollExtent;
@@ -50,14 +51,14 @@ class PhotoGalleryState extends State<
 
       if (maxScroll - currentScroll <= 200) {
         if (!_isLoading && nextPage != null) {
-          getPhotoes(page: nextPage);
+          getPhotos(page: nextPage);
         }
       }
     });
     super.initState();
   }
 
-  getPhotoes({String page: URL.urlGalley}) async {
+  getPhotos({String page: URL.urlGalley}) async {
     _isLoading = true;
     photoList = await loadGallery(page);
     setState(() {
@@ -65,34 +66,21 @@ class PhotoGalleryState extends State<
       nextPage = photoList.next;
       _isLoading = false;
     });
-  }
-
-  galleryPageTrans(String page) {
-    setState(() {
-      currAlbum = page;
-    });
+    l = generator(
+        _pics.length, widget.deviceSize.width, widget.deviceSize.height);
   }
 
   Widget build(BuildContext context) {
     if (fistLoad) {
-      getPhotoes();
+      getPhotos();
       fistLoad = false;
     }
+    print('IT IS GALLERY MAIN VIEW');
     return Center(
-      child: Center(
-        child: _isLoading
-            ? CircularProgressIndicator()
-            : Container(
-                padding: EdgeInsets.only(top: 45.0),
-                child: Center(
-                  child: LayoutBuilder(builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                    List<IntSize> l = generator(_pics.length,
-                        constraints.maxWidth, constraints.maxHeight);
-                    return custom(l);
-                  }),
-                ),
-              ),
+      child: _isLoading
+          ? CircularProgressIndicator()
+          : Container(
+        child: custom(l),
       ),
     );
   }
@@ -112,8 +100,7 @@ class PhotoGalleryState extends State<
           size: l[index],
           deviceSize: widget.deviceSize,
           onDelete: () {
-            widget.photos[currAlbum].removeAt(index);
-            galleryPageTrans(currAlbum);
+//            widget.photos[currAlbum].removeAt(index);
           },
           onEdit: () {
             onEdit(context, index);
@@ -128,7 +115,7 @@ class PhotoGalleryState extends State<
         context: context,
         builder: (context) {
           TextEditingController controller =
-              TextEditingController(text: _pics[index].content);
+          TextEditingController(text: _pics[index].content);
           return new Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -152,12 +139,12 @@ class PhotoGalleryState extends State<
                       textDirection: TextDirection.rtl,
                       decoration: InputDecoration(
                         border:
-                            UnderlineInputBorder(borderSide: BorderSide.none),
+                        UnderlineInputBorder(borderSide: BorderSide.none),
                         hintText: 'توضیحات',
                         hintStyle: TextStyle(fontSize: 12),
                       ),
                       maxLines:
-                          (3 * widget.deviceSize.height / 7 - 100).floor(),
+                      (3 * widget.deviceSize.height / 7 - 100).floor(),
                     ),
                   ),
                   Container(

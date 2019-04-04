@@ -1,24 +1,23 @@
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:flutter/material.dart';
 
-class GalleryBar extends StatefulWidget {
+class GalleryTopBar extends StatefulWidget {
   final List<String> years;
   final PhotoGallery photoGallery;
-  final String initValue;
+  final String currVal;
+  final ValueChanged<String> onChange;
 
-  GalleryBar({this.years, this.photoGallery,this.initValue});
+  GalleryTopBar({this.years, this.photoGallery, this.currVal, this.onChange});
 
-  State<GalleryBar> createState() => GalleryBarState();
+  State<GalleryTopBar> createState() => GalleryTopBarState();
 }
 
-class GalleryBarState extends State<GalleryBar> {
+class GalleryTopBarState extends State<GalleryTopBar> {
   List<DropdownMenuItem<String>> _items;
-  String _currVal;
 
   @override
   void initState() {
     super.initState();
-    _currVal = widget.initValue;
     _items = List();
     assert(widget.years != null);
     widget.years.forEach((val) {
@@ -29,7 +28,7 @@ class GalleryBarState extends State<GalleryBar> {
             val,
             textDirection: TextDirection.rtl,
           ),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           alignment: Alignment.center,
         ),
       ));
@@ -40,8 +39,6 @@ class GalleryBarState extends State<GalleryBar> {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10.0, 20.0, 0),
       alignment: Alignment.centerRight,
-      width: 550.0,
-      height: 55.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -50,17 +47,16 @@ class GalleryBarState extends State<GalleryBar> {
             iconSize: 25.0,
             style: TextStyle(color: Colors.black),
             items: _items,
-            value: _currVal,
-            onChanged: (String newVal) {
-              if (_currVal != newVal)
-                setState(() {
-                  _currVal = newVal;
-                  widget.photoGallery.state.galleryPageTrans(newVal);
-                });
-            },
+            value: widget.currVal,
+            onChanged: widget.onChange,
           ),
-          Container(width: 15.0,),
-          Text(': سن '),
+          Container(
+            width: 15.0,
+          ),
+          Text(
+            ': سن ',
+            style: TextStyle(color: Colors.black),
+          ),
         ],
       ),
     );

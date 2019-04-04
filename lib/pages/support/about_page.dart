@@ -1,58 +1,79 @@
 import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/support/form.dart';
 import 'package:club_manager/pages/support/update_about.dart';
 import 'package:club_manager/widgets/new_list_tile.dart';
 import 'package:flutter/material.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
+  @override
+  _AboutPageState createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
   static final keys = GlobalKey<FormState>();
+  bool first;
+  bool isLoading;
+  SocailListEntity socailListEntity;
+  String name;
+  String family;
+  String des;
+  @override
+  void initState() {
+    first = true;
+    isLoading = true;
+    super.initState();
+  }
+
+  getSocial({String page: URL.urlSocail}) async {
+    isLoading = true;
+    socailListEntity = await loadSocail(page);
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final containerHeight = MediaQuery.of(context).size.height * .485;
     final containerWidth = MediaQuery.of(context).size.width;
-
-    Widget rowBuilder(IconData icon, String title, String desc) {
-      return Container(
-        height: containerHeight * .18,
-        width: containerWidth * .5,
-        child: newListTile(
-          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          title: Text(
-            title,
-            style: TextStyle(fontSize: 15.0, color: Colors.white),
-          ),
-          subtitle: Text(
-            desc,
-            style: TextStyle(fontSize: 11.0, color: Colors.white),
-          ),
-          icon: Icon(
-            icon,
-            size: 15.0,
-            color: Colors.white,
-          ),
-        ),
-      );
+    if (first) {
+      first = false;
+      getSocial();
     }
-
+    Widget rowBuilder(IconData icon, String title, String desc) {
+      return  Container(
+              height: containerHeight * .18,
+              width: containerWidth * .5,
+              child: newListTile(
+                //contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                title: Text(
+                  title,
+                  style: TextStyle(fontSize: 15.0, color: Colors.white),
+                ),
+                subtitle: Text(
+                  desc,
+                  style: TextStyle(fontSize: 11.0, color: Colors.white),
+                ),
+                icon: Icon(
+                  icon,
+                  size: 15.0,
+                  color: Colors.white,
+                ),
+              ),
+            );
+    }
     GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+
     return Scaffold(
-//      floatingActionButton: FloatingActionButton(
-//          backgroundColor: Colors.amberAccent,
-//          tooltip: "update",
-//          child: Text(
-//            "آپدیت",
-//            style: TextStyle(color: Colors.black),
-//          ),
-//          onPressed: () {
-//            showDialog(
-//                context: context,
-//                builder: (context) {
-//                  return UpdateAbout();
-//                });
-//          }),
       key: key,
-      body: Container(
+      body: isLoading
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          : Container(
         child: ListView(
           children: <Widget>[
             Stack(
@@ -61,20 +82,6 @@ class AboutPage extends StatelessWidget {
                   height: containerHeight,
                   width: containerWidth,
                   color: Theme.of(context).primaryColor,
-//                  decoration: BoxDecoration(
-//                    gradient: LinearGradient(
-//                      // Where the linear gradient begins and ends
-//                      begin: Alignment.topCenter,
-//                      end: Alignment.bottomCenter,
-//                      // Add one stop for each color. Stops should increase from 0 to 1
-//                      //stops: [0.5, 1],
-//                      colors: [
-//                        // Colors are easy thanks to Flutter's Colors class.
-//                        Colors.redAccent.withOpacity(.5),
-//                        Theme.of(context).primaryColor,
-//                      ],
-//                    ),
-//                  ),
                 ),
                 Column(
                   children: <Widget>[
@@ -103,17 +110,6 @@ class AboutPage extends StatelessWidget {
                                 }
                               },
                             ),
-//                            GestureDetector(
-//                              child: Icon(
-//                                Icons.arrow_forward_ios,
-//                                color: Colors.white,
-//                              ),
-//                              onTap: () {
-//                                if (Navigator.canPop(context)) {
-//                                  Navigator.of(context).pop();
-//                                }
-//                              },
-//                            ),
                           ],
                         ),
                       ),
@@ -125,7 +121,6 @@ class AboutPage extends StatelessWidget {
                               image: NetworkImage(FakeData.logo))),
                     ),
                     Container(
-//                    height: containerHeight * .4,
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -133,11 +128,11 @@ class AboutPage extends StatelessWidget {
                               rowBuilder(
                                   FakeData.components[0].iconData,
                                   FakeData.components[0].title,
-                                  FakeData.components[0].subtitle),
+                                  socailListEntity.results[0].phone),
                               rowBuilder(
                                   FakeData.components[1].iconData,
                                   FakeData.components[1].title,
-                                  FakeData.components[1].subtitle)
+                                  socailListEntity.results[0].instagram)
                             ],
                           ),
                           Row(
@@ -145,11 +140,11 @@ class AboutPage extends StatelessWidget {
                               rowBuilder(
                                   FakeData.components[2].iconData,
                                   FakeData.components[2].title,
-                                  FakeData.components[2].subtitle),
+                                  socailListEntity.results[0].telegram),
                               rowBuilder(
                                   FakeData.components[3].iconData,
                                   FakeData.components[3].title,
-                                  FakeData.components[3].subtitle)
+                                  socailListEntity.results[0].email)
                             ],
                           )
                         ],
@@ -171,7 +166,6 @@ class AboutPage extends StatelessWidget {
               child: FlatButton(
                 onPressed: () {
                   if (keys.currentState.validate()) {
-                    print("success");
                     keys.currentState.save();
                     keys.currentState.reset();
                     key.currentState.showSnackBar(SnackBar(
@@ -196,14 +190,14 @@ class AboutPage extends StatelessWidget {
   }
 
   namedOnSave(String str) {
-    print(str);
+    name=str;
   }
 
   familyOnSave(String str) {
-    print(str);
+    family=str;
   }
 
   descriptionOnSave(String str) {
-    print(str);
+    des=str;
   }
 }

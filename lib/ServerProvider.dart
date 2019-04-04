@@ -47,3 +47,9 @@ Future<AboutProgrammerListEntity> loadAboutProgrammer(String url) async {
   var product = new AboutProgrammerListEntity.fromJson(jsonResPonse);
   return product;
 }
+Future<SocailListEntity> loadSocail(String url) async {
+  final response = await http.get(url);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new SocailListEntity.fromJson(jsonResPonse);
+  return product;
+}

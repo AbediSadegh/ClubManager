@@ -32,17 +32,16 @@ class FameEntity {
         image: parsedJson['image']);
   }
 }
+
 class AboutEntity {
   String image;
   String content;
-
 
   AboutEntity({this.image, this.content});
 
   factory AboutEntity.fromJson(Map<String, dynamic> parsedJson) {
     return AboutEntity(
-        content: parsedJson['content'],
-        image: parsedJson['image']);
+        content: parsedJson['content'], image: parsedJson['image']);
   }
 }
 
@@ -176,6 +175,7 @@ class CoachEntity {
   UserEntity user;
 
   CoachEntity({this.level, this.content, this.image, this.user});
+
   factory CoachEntity.fromJson(Map<String, dynamic> parsedJson) {
     return CoachEntity(
         level: parsedJson['level'],
@@ -184,6 +184,7 @@ class CoachEntity {
         user: UserEntity.fromJson(parsedJson['user']));
   }
 }
+
 class AboutProgrammerListEntity {
   int count;
   String next;
@@ -194,7 +195,7 @@ class AboutProgrammerListEntity {
     List<AboutEntity> convert() {
       var list = parsedJson['results'] as List;
       List<AboutEntity> imagesList =
-      list.map((i) => AboutEntity.fromJson(i)).toList();
+          list.map((i) => AboutEntity.fromJson(i)).toList();
       return imagesList;
     }
 
@@ -205,5 +206,47 @@ class AboutProgrammerListEntity {
         results: convert());
   }
 
-  AboutProgrammerListEntity({this.count, this.next, this.previous, this.results});
+  AboutProgrammerListEntity(
+      {this.count, this.next, this.previous, this.results});
+}
+
+class SocailListEntity {
+  int count;
+  String next;
+  String previous;
+  List<SocailEntity> results;
+
+  factory SocailListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<SocailEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<SocailEntity> imagesList =
+          list.map((i) => SocailEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return SocailListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  SocailListEntity({this.count, this.next, this.previous, this.results});
+}
+
+class SocailEntity {
+  String instagram;
+  String telegram;
+  String phone;
+  String email;
+  SocailEntity({this.instagram, this.telegram, this.phone, this.email});
+
+  factory SocailEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return SocailEntity(
+      instagram: parsedJson['instagram'],
+      telegram: parsedJson['telegram'],
+      phone: parsedJson['phone'],
+      email: parsedJson['email'],
+    );
+  }
 }

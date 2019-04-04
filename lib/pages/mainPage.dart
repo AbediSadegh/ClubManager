@@ -130,7 +130,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CVViewer(
-                                cvs: FakeData.fakeCVs,
                                 isAdmin: false,
                               ),
                         ),
@@ -179,7 +178,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Gallery(
-                                photos: FakeData.fakeGallery,
+//                                photos: FakeData.fakeGallery,
                                 years: ['1381', '1382', '1383', '1384'],
                                 isAdmin: true,
                               ),
@@ -211,7 +210,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         context,
                         MaterialPageRoute(
                           builder: (context) => HonorView(
-                                honors: FakeData.fakeHonors,
                                 isAdmin: false,
                               ),
                         ),

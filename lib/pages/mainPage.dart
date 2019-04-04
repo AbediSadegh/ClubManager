@@ -16,9 +16,67 @@ import 'package:flutter/material.dart';
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
+
+  static const itemNames = <String>[
+    'ورود / ثبت نام',
+    'مربیان',
+    'اخبار',
+    'گالری',
+    'تمرین',
+    'افتخارات',
+    'پشتیبانی',
+    'درباره ما',
+    'test',
+  ];
+  static const itemIcons = <IconData>[
+    Icons.check,
+    Icons.supervised_user_circle,
+    Icons.whatshot,
+    Icons.photo_album,
+    Icons.assignment,
+    Icons.stars,
+    Icons.call,
+    Icons.info,
+    Icons.fiber_new,
+  ];
+  static const itemImages = <String>[
+    'assets/images/1.png',
+    'assets/images/2.png',
+    'assets/images/3.png',
+    'assets/images/4.png',
+    'assets/images/5.png',
+    'assets/images/6.png',
+    'assets/images/7.png',
+    'assets/images/8.png',
+    'assets/images/9.png',
+  ];
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  AnimationController _controller;
+  List<Animation> intervals = <Animation>[];
+  @override
+  void initState() {
+    super.initState();
+    Duration duration = const Duration(seconds: 9);
+    int itemsCount = 9;
+    _controller = AnimationController(duration: duration, vsync: this)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    for (int i = 0; i < itemsCount; i++) {
+      intervals.add(Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Interval(i / itemsCount, (i + 1) / itemsCount,
+              curve: Curves.bounceInOut))));
+    }
+    _controller.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,23 +103,28 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   CircleImage(
                     height: 90,
-                    title: "ورود / ثبت نام",
                     width: 90,
-                    iconData: Icons.check,
-                    url: FakeData.loginUrl,
+                    title: MainPage.itemNames[0],
+                    iconData: MainPage.itemIcons[0],
+                    animation: intervals[0],
+                    url: MainPage.itemImages[0],
                     gestureTapCallback: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return loginDialog();
-                      }));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return loginDialog();
+                          },
+                        ),
+                      );
                     },
                   ),
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "مربیان",
-                    iconData: Icons.supervised_user_circle,
-                    url: FakeData.srcImageExercise,
+                    title: MainPage.itemNames[1],
+                    iconData: MainPage.itemIcons[1],
+                    animation: intervals[1],
+                    url: MainPage.itemImages[1],
                     gestureTapCallback: () {
                       Navigator.push(
                         context,
@@ -77,7 +140,10 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "اخبار",
+                    title: MainPage.itemNames[2],
+                    iconData: MainPage.itemIcons[2],
+                    animation: intervals[2],
+                    url: MainPage.itemImages[2],
                     gestureTapCallback: () {
                       Navigator.push(
                         context,
@@ -89,8 +155,6 @@ class _MainPageState extends State<MainPage> {
                         ),
                       );
                     },
-                    iconData: Icons.whatshot,
-                    url: FakeData.newsLogo,
                   ),
                 ],
               ),
@@ -106,7 +170,10 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "گالری",
+                    title: MainPage.itemNames[3],
+                    iconData: MainPage.itemIcons[3],
+                    animation: intervals[3],
+                    url: MainPage.itemImages[3],
                     gestureTapCallback: () {
                       Navigator.push(
                         context,
@@ -119,24 +186,26 @@ class _MainPageState extends State<MainPage> {
                         ),
                       );
                     },
-                    iconData: Icons.photo_album,
-                    url: FakeData.galleryLogo,
                   ),
                   CircleImage(
                     gestureTapCallback: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ExerciseList()));
                     },
-                    title: "تمرین",
                     height: 90,
                     width: 90,
-                    iconData: Icons.assignment,
-                    url: FakeData.news,
+                    title: MainPage.itemNames[4],
+                    iconData: MainPage.itemIcons[4],
+                    animation: intervals[4],
+                    url: MainPage.itemImages[4],
                   ),
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "افتخارات",
+                    title: MainPage.itemNames[5],
+                    iconData: MainPage.itemIcons[5],
+                    animation: intervals[5],
+                    url: MainPage.itemImages[5],
                     gestureTapCallback: () {
                       Navigator.push(
                         context,
@@ -148,8 +217,6 @@ class _MainPageState extends State<MainPage> {
                         ),
                       );
                     },
-                    iconData: Icons.stars,
-                    url: FakeData.honorsLogo,
                   ),
                 ],
               ),
@@ -165,9 +232,10 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "پشتیبانی",
-                    iconData: Icons.call,
-                    url: FakeData.callUs,
+                    title: MainPage.itemNames[6],
+                    iconData: MainPage.itemIcons[6],
+                    animation: intervals[6],
+                    url: MainPage.itemImages[6],
                     gestureTapCallback: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
@@ -178,9 +246,10 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "درباره ما",
-                    iconData: Icons.info,
-                    url: FakeData.news,
+                    title: MainPage.itemNames[7],
+                    iconData: MainPage.itemIcons[7],
+                    animation: intervals[7],
+                    url: MainPage.itemImages[7],
                     gestureTapCallback: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -194,9 +263,10 @@ class _MainPageState extends State<MainPage> {
                   CircleImage(
                     height: 90,
                     width: 90,
-                    title: "test",
-                    iconData: Icons.fiber_new,
-                    url: FakeData.news,
+                    title: MainPage.itemNames[8],
+                    iconData: MainPage.itemIcons[8],
+                    animation: intervals[8],
+                    url: MainPage.itemImages[8],
                   ),
                 ],
               ),

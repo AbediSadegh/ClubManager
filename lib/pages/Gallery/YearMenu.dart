@@ -54,7 +54,7 @@ class GalleryTopBarState extends State<GalleryTopBar> {
             width: 15.0,
           ),
           Text(
-            ': سن ',
+            ': متولدین سال ',
             style: TextStyle(color: Colors.black),
           ),
         ],

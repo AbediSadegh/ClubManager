@@ -68,3 +68,14 @@ Future<SendCommentEntity> postComment(
   var product = new SendCommentEntity.fromJson(jsonResPonse);
   return product;
 }
+
+Future<SendCodEntity> sendCode({String url, String mobile}) async {
+  Map data = {
+    'mobile': mobile,
+  };
+
+  final response = await http.post(url, body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new SendCodEntity.fromJson(jsonResPonse);
+  return product;
+}

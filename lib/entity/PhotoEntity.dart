@@ -263,3 +263,13 @@ class SendCommentEntity {
     );
   }
 }
+
+class SendCodEntity {
+  int pin;
+  SendCodEntity({this.pin});
+  factory SendCodEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return SendCodEntity(
+      pin: parsedJson['pin'],
+    );
+  }
+}

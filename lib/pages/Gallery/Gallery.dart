@@ -6,28 +6,58 @@ import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Gallery extends StatelessWidget {
+class Gallery extends StatefulWidget {
   final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
   static PhotoGallery photoGallery;
+
   Gallery(
       {@required this.photos, @required this.years, @required this.isAdmin}) {
-    assert(years != null && photos != null);
+    assert(years != null);
+  }
+
+  @override
+  _GalleryState createState() => _GalleryState();
+}
+
+class _GalleryState extends State<Gallery> {
+  String currAlbum;
+
+  @override
+  void initState() {
+    currAlbum = widget.years[0];
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    assert(photos.isNotEmpty);
-    assert(years != null);
+//    assert(photos.isNotEmpty);
+    assert(widget.years != null);
     Size _deviceSize = MediaQuery.of(context).size;
-    photoGallery = PhotoGallery(
-      photos: photos,
+    Gallery.photoGallery = PhotoGallery(
+      currAlbum: currAlbum,
+//      photos: photos,
       deviceSize: _deviceSize,
-      initAlbum: years[0],
     );
     return Scaffold(
-      floatingActionButton: !isAdmin
+      appBar: AppBar(
+        actions: <Widget>[
+          GalleryTopBar(
+            currVal: currAlbum,
+            photoGallery: Gallery.photoGallery,
+            years: widget.years,
+            onChange: (str) {
+              if (str != currAlbum) {
+                this.setState(() {
+                  currAlbum = str;
+                });
+              }
+            },
+          )
+        ],
+      ),
+      floatingActionButton: !widget.isAdmin
           ? Container(
               width: 0.0,
               height: 0.0,
@@ -39,17 +69,8 @@ class Gallery extends StatelessWidget {
               child: Icon(Icons.add),
             ),
       body: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        child: Stack(
-          children: <Widget>[
-//            GalleryBar(
-//              years: years,
-//              photoGallery: photoGallery,
-//              initValue: years[0],
-//            ),
-            photoGallery,
-          ],
-        ),
+//        margin: EdgeInsets.only(top: 10.0),
+        child: Gallery.photoGallery,
       ),
     );
   }

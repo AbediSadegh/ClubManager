@@ -7,5 +7,6 @@ class URL {
   static const String urlAboutPadideh = 'http://46.4.233.56/api/about-us/information';
   static const String urlSocail = 'http://46.4.233.56/api/support/social/';
   static const String sendComment = 'http://46.4.233.56/api/support/create/';
-  static const String sendCod = 'http://46.4.233.56/api/users/create-pin/';
+  static const String sendPhone = 'http://46.4.233.56/api/users/create-pin/';
+  static const String sendCod = 'http://46.4.233.56/api/users/verify-pin/';
 }

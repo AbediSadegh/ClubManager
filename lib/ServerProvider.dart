@@ -69,11 +69,22 @@ Future<SendCommentEntity> postComment(
   return product;
 }
 
-Future<SendCodEntity> sendCode({String url, String mobile}) async {
+Future<SendPhoneEntity> sendCode({String url, String mobile}) async {
   Map data = {
     'mobile': mobile,
   };
 
+  final response = await http.post(url, body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new SendPhoneEntity.fromJson(jsonResPonse);
+  return product;
+}
+
+Future<SendCodEntity> checkCode({String url, String mobile,String code}) async {
+  Map data = {
+    'mobile': mobile,
+    'pin': code,
+  };
   final response = await http.post(url, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new SendCodEntity.fromJson(jsonResPonse);

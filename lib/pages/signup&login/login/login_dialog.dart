@@ -1,6 +1,7 @@
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
+import 'package:club_manager/pages/mainPage.dart';
 import 'package:club_manager/pages/signup&login/login/timer.dart';
 import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,9 @@ class _loginDialogState extends State<loginDialog>
   AnimationController controller;
   Animation<double> animation;
   bool isLoading;
-  SendCodEntity sendCodEntity;
-
+  String phone;
+  SendPhoneEntity sendCodEntity;
+  SendCodEntity  codEntity;
   @override
   void initState() {
     super.initState();
@@ -154,11 +156,7 @@ class _loginDialogState extends State<loginDialog>
                                   //نیازمند مدیریت بعد از صفحه sms verfication
                                   if (!isEnabaledPhoneNumber &&
                                       smsNumberKey.currentState.validate()) {
-                                    //await controller.forward();
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(builder: (context) {
-                                      return Start();
-                                    }));
+                                    smsNumberKey.currentState.save();
                                   } else
                                     setState(() {
                                       getPhone();
@@ -170,7 +168,9 @@ class _loginDialogState extends State<loginDialog>
                                   child: Center(
                                     child: isLoading
                                         ? Center(
-                                            child: FittedBox(child: CircularProgressIndicator()),
+                                            child: FittedBox(
+                                                child:
+                                                    CircularProgressIndicator()),
                                           )
                                         : Text("ورود"),
                                   ),
@@ -216,7 +216,7 @@ class _loginDialogState extends State<loginDialog>
   sendPhone({String phone}) async {
     isLoading = true;
     click = true;
-    sendCodEntity = await sendCode(mobile: phone, url: URL.sendCod);
+    sendCodEntity = await sendCode(mobile: phone, url: URL.sendPhone);
     setState(() {
       isLoading = false;
     });
@@ -227,7 +227,6 @@ class _loginDialogState extends State<loginDialog>
     await controller.forward();
     isEnableSmsNumber = true;
     isEnabaledPhoneNumber = false;
-
   }
 
   int phoneNumber;
@@ -235,6 +234,7 @@ class _loginDialogState extends State<loginDialog>
   phoneNumberOnSave(String str) {
     phoneNumber = int.parse(str);
     print(str);
+    this.phone = str;
     if (!click) sendPhone(phone: str);
   }
 
@@ -242,7 +242,8 @@ class _loginDialogState extends State<loginDialog>
 
   smsNumberOnSave(String str) {
     sms = int.parse(str);
-    print(sms);
+    if (!click) checkCod(code: str);
+
   }
 
   void getPhone() async {
@@ -250,9 +251,34 @@ class _loginDialogState extends State<loginDialog>
         phoneNumberKey.currentState.validate() &&
         !isEnableSmsNumber) {
       phoneNumberKey.currentState.save();
-
     } else if (!isEnableSmsNumber) {
       isEnabaledPhoneNumber = true;
     }
+  }
+
+  checkCod({String code}) async {
+    setState(() {
+      isLoading = true;
+    });
+    click = true;
+    codEntity = await  checkCode(mobile: phone,code:code , url: URL.sendPhone);
+    setState(() {
+      isLoading = false;
+    });
+   if (codEntity.is_registered=="true"){
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) => MainPage(),
+       ),
+     );
+   }else{
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) => Start(),
+       ),
+     );
+   }
   }
 }

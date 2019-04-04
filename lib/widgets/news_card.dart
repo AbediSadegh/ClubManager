@@ -28,12 +28,7 @@ class NewsItemPreview extends StatefulWidget {
 
   State<NewsItemPreview> createState() => NewsItemPreviewState();
 
-  /// the following codes are for testing
-  List<List<NewsFieldEntity>> fieldsEntity = [
-    FakeData.fakeNewsFieldEntity(10, 0),
-    FakeData.fakeNewsFieldEntity(10, 10),
-    FakeData.fakeNewsFieldEntity(5, 20)
-  ];
+
   final int id;
 }
 
@@ -53,17 +48,9 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //NewsFieldEntity _temp = todo get the NewsFieldEntity of this item
-            NewsFieldEntity _temp =
-                widget.fieldsEntity[(widget.id / 10).floor()][widget.id % 10];
-            print('LOLOLOLO');
-            print(_temp.newsImages.toList().toString());
-            print('DONE DONE');
             return NewsViewer(
               tag: widget.url,
-              title: _temp.title,
-              images: _temp.newsImages.toList(),
-              description: _temp.content,
+              title: widget.title,
             );
           }));
         },

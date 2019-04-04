@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/news_entity.dart';
 import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/entity/news_page_entity.dart';
@@ -16,29 +18,50 @@ class News extends StatefulWidget {
 
   @override
   _NewsState createState() => _NewsState();
-
-  ///the following lines of code are for testing
-  List newsEntity = [
-    FakeData.fakeNewsEntity(10, 0),
-    FakeData.fakeNewsEntity(10, 10),
-    FakeData.fakeNewsEntity(5, 20)
-  ];
 }
 
 class _NewsState extends State<News> {
   bool _isChanging = true;
-  List<NewsEntity> news;
   int _lastItems;
+  bool _isLoading;
+  String nextPage;
+  List<NewsEntity> list;
+  bool firstLoad = true;
+  ScrollController _listScrollController = new ScrollController();
 
   @override
   void initState() {
-    super.initState();
-//    news = // todo initialize the first pieces of news to be shown
-    news = widget.newsEntity[0];
     _lastItems = 0;
+    list = new List();
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getNews(page: nextPage);
+        }
+      }
+    });
+
+    super.initState();
+  }
+
+  getNews({String page: URL.urlNews}) async {
+    _isLoading = true;
+    NewsPageEntity newsList = await loadNewsList(page);
+    setState(() {
+      list.addAll(newsList.results.toList());
+      nextPage = newsList.next;
+      _isLoading = false;
+    });
   }
 
   Widget build(BuildContext context) {
+    if (firstLoad) {
+      getNews();
+      firstLoad = false;
+    }
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: widget.isAdmin
@@ -54,44 +77,45 @@ class _NewsState extends State<News> {
             )
           : Container(),
       body: Container(
-//        margin: EdgeInsets.only(top: 15.0),
         padding: EdgeInsets.symmetric(vertical: 5.0),
-        child: ListView.builder(
-//          itemCount: widget.pager.count, todo uncomment this statement and remove the following one
-          itemCount: 25,
-          itemBuilder: (context, index) {
-            if (index % 10 == 0 && index != 0) {
-              if (index > _lastItems) {
-//                news = todo get the next set of NewsEntity
-                _lastItems++;
-                news = widget.newsEntity[_lastItems];
-              } else {
-                //news = todo get the previous set of NewsEntity
-                _lastItems--;
-                news = widget.newsEntity[_lastItems];
-              }
-            }
-            return NewsItemPreview(
-              title: news[index % 10].title,
-              image: news[index % 10].image,
-              subtitle: news[index % 10].subtitle,
-              url: news[index % 10].url,
-              id: index,
-              onDelete: () {
-                setState(() {
-                  //todo : delete a piece of news here
-                });
-              },
-              onEdit: () {
-                editAdd(
-                    context: context,
-                    index: index,
-                    deviceSize: deviceSize,
-                    isAdd: false,
-                    item: news[index % 10]);
-              },
-            );
-          },
+        child: Center(
+          child: _isLoading ? CircularProgressIndicator() : ListView.builder(
+            itemCount: list.length,
+            controller: _listScrollController,
+            itemBuilder: (context, index) {
+//            if (index % 10 == 0 && index != 0) {e
+//              if (index > _lastItems) {
+////                news = todo get the next set of NewsEntity
+//                _lastItems++;
+//                news = widget.newsEntity[_lastItems];
+//              } else {
+//                //news = todo get the previous set of NewsEntity
+//                _lastItems--;
+//                news = widget.newsEntity[_lastItems];
+//              }
+//            }
+              return NewsItemPreview(
+                title: list[index].title,
+                image: list[index].image,
+                subtitle: list[index].subtitle,
+                url: list[index].url,
+                id: index,
+                onDelete: () {
+                  setState(() {
+                    //todo : delete a piece of news here
+                  });
+                },
+                onEdit: () {
+                  editAdd(
+                      context: context,
+                      index: index,
+                      deviceSize: deviceSize,
+                      isAdd: false,
+                      item: list[index]);
+                },
+              );
+            },
+          ),
         ),
       ),
     );

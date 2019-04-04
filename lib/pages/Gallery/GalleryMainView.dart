@@ -13,14 +13,15 @@ class PhotoGallery extends StatefulWidget {
   final Map<String, List<Photograph>> photos;
   final Size deviceSize;
   final String initAlbum;
+
   PhotoGallery(
       {@required this.photos, @required this.deviceSize, this.initAlbum});
 
   State<PhotoGallery> createState() => state;
 }
 
-class PhotoGalleryState extends State<PhotoGallery>
-//    with AutomaticKeepAliveClientMixin<PhotoGallery>
+class PhotoGalleryState extends State<
+    PhotoGallery> //    with AutomaticKeepAliveClientMixin<PhotoGallery>
 {
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
@@ -42,7 +43,7 @@ class PhotoGalleryState extends State<PhotoGallery>
 
   void initState() {
     currAlbum = widget.initAlbum;
-    _pics  = new List();
+    _pics = new List();
     _listScrollController.addListener(() {
       double maxScroll = _listScrollController.position.maxScrollExtent;
       double currentScroll = _listScrollController.position.pixels;
@@ -54,7 +55,6 @@ class PhotoGalleryState extends State<PhotoGallery>
       }
     });
     super.initState();
-
   }
 
   getPhotoes({String page: URL.urlGalley}) async {
@@ -74,24 +74,26 @@ class PhotoGalleryState extends State<PhotoGallery>
   }
 
   Widget build(BuildContext context) {
-  if (fistLoad) {
-    getPhotoes();
-    fistLoad = false;
-  }
+    if (fistLoad) {
+      getPhotoes();
+      fistLoad = false;
+    }
     return Center(
-      child: _isLoading
-          ? CircularProgressIndicator()
-          : Container(
-              padding: EdgeInsets.only(top: 45.0),
-              child: Center(
-                child: LayoutBuilder(builder:
-                    (BuildContext context, BoxConstraints constraints) {
-                  List<IntSize> l = generator(_pics.length,
-                      constraints.maxWidth, constraints.maxHeight);
-                  return custom(l);
-                }),
+      child: Center(
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                padding: EdgeInsets.only(top: 45.0),
+                child: Center(
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    List<IntSize> l = generator(_pics.length,
+                        constraints.maxWidth, constraints.maxHeight);
+                    return custom(l);
+                  }),
+                ),
               ),
-            ),
+      ),
     );
   }
 
@@ -191,6 +193,4 @@ class PhotoGalleryState extends State<PhotoGallery>
           );
         });
   }
-
-
 }

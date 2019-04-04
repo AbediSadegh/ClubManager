@@ -41,6 +41,10 @@ class FakeData {
   static String programmerName = "برنامه نویسان";
   static String programmerDetail = "درباره برنامه نویسان";
   static String programmerLogo = "";
+  static String yerarCost = "840000 T";
+  static String sixMonthCost = "420000 T";
+  static String summerCost = "120000 T";
+  static int minimumCost = 300000;
 
   static List<componnent> components = [
     componnent(

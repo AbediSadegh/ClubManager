@@ -18,8 +18,9 @@ class Player{
   String coachName;
   String lastTeam;
   String reagentCode;
+  String timePeriod;
 
-  Player({this.name, this.family, this.birthday, this.passport, this.email,
+  Player({this.timePeriod,this.name, this.family, this.birthday, this.passport, this.email,
       this.patientHistory, this.technicalFoot, this.favoritePos,
       this.fatherPhone, this.fatherWorks, this.motherPhone, this.homePhone,
       this.address, this.schoolName, this.coachName, this.lastTeam,this.reagentCode});

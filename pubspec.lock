@@ -193,6 +193,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.3"
   front_end:
     dependency: transitive
     description:
@@ -256,6 +263,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.3"
+  jalali_date:
+    dependency: "direct main"
+    description:
+      name: jalali_date
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.3"
   js:
     dependency: transitive
     description:
@@ -347,6 +361,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  persian_datepicker:
+    dependency: "direct main"
+    description:
+      name: persian_datepicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   pool:
     dependency: transitive
     description:

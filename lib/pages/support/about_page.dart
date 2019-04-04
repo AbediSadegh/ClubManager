@@ -18,14 +18,19 @@ class _AboutPageState extends State<AboutPage> {
   bool isLoading;
   SocailListEntity socailListEntity;
   String name;
+  bool sendCommentLoading;
   String family;
   String des;
+
   @override
   void initState() {
     first = true;
     isLoading = true;
+    sendCommentLoading = false;
     super.initState();
   }
+
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
   getSocial({String page: URL.urlSocail}) async {
     isLoading = true;
@@ -44,160 +49,187 @@ class _AboutPageState extends State<AboutPage> {
       getSocial();
     }
     Widget rowBuilder(IconData icon, String title, String desc) {
-      return  Container(
-              height: containerHeight * .18,
-              width: containerWidth * .5,
-              child: newListTile(
-                //contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                title: Text(
-                  title,
-                  style: TextStyle(fontSize: 15.0, color: Colors.white),
-                ),
-                subtitle: Text(
-                  desc,
-                  style: TextStyle(fontSize: 11.0, color: Colors.white),
-                ),
-                icon: Icon(
-                  icon,
-                  size: 15.0,
-                  color: Colors.white,
-                ),
-              ),
-            );
+      return Container(
+        height: containerHeight * .18,
+        width: containerWidth * .5,
+        child: newListTile(
+          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          title: Text(
+            title,
+            style: TextStyle(fontSize: 15.0, color: Colors.white),
+          ),
+          subtitle: Text(
+            desc,
+            style: TextStyle(fontSize: 11.0, color: Colors.white),
+          ),
+          icon: Icon(
+            icon,
+            size: 15.0,
+            color: Colors.white,
+          ),
+        ),
+      );
     }
-    GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
     return Scaffold(
       key: key,
       body: isLoading
           ? Center(
-        child: CircularProgressIndicator(),
-      )
+              child: CircularProgressIndicator(),
+            )
           : Container(
-        child: ListView(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: containerHeight,
-                  width: containerWidth,
-                  color: Theme.of(context).primaryColor,
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: containerHeight * .2,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "پشتیبانی",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                if (Navigator.canPop(context)) {
-                                  Navigator.of(context).pop();
-                                }
-                              },
-                            ),
-                          ],
-                        ),
+              child: ListView(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: containerHeight,
+                        width: containerWidth,
+                        color: Theme.of(context).primaryColor,
                       ),
-                    ),
-                    Container(
-                      height: containerHeight * .4,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(FakeData.logo))),
-                    ),
-                    Container(
-                      child: Column(
+                      Column(
                         children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              rowBuilder(
-                                  FakeData.components[0].iconData,
-                                  FakeData.components[0].title,
-                                  socailListEntity.results[0].phone),
-                              rowBuilder(
-                                  FakeData.components[1].iconData,
-                                  FakeData.components[1].title,
-                                  socailListEntity.results[0].instagram)
-                            ],
+                          Container(
+                            height: containerHeight * .2,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      "پشتیبانی",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      if (Navigator.canPop(context)) {
+                                        Navigator.of(context).pop();
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          Row(
-                            children: <Widget>[
-                              rowBuilder(
-                                  FakeData.components[2].iconData,
-                                  FakeData.components[2].title,
-                                  socailListEntity.results[0].telegram),
-                              rowBuilder(
-                                  FakeData.components[3].iconData,
-                                  FakeData.components[3].title,
-                                  socailListEntity.results[0].email)
-                            ],
+                          Container(
+                            height: containerHeight * .4,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(FakeData.logo))),
+                          ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    rowBuilder(
+                                        FakeData.components[0].iconData,
+                                        FakeData.components[0].title,
+                                        socailListEntity.results[0].phone),
+                                    rowBuilder(
+                                        FakeData.components[1].iconData,
+                                        FakeData.components[1].title,
+                                        socailListEntity.results[0].instagram)
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    rowBuilder(
+                                        FakeData.components[2].iconData,
+                                        FakeData.components[2].title,
+                                        socailListEntity.results[0].telegram),
+                                    rowBuilder(
+                                        FakeData.components[3].iconData,
+                                        FakeData.components[3].title,
+                                        socailListEntity.results[0].email)
+                                  ],
+                                )
+                              ],
+//                    )
+                            ),
                           )
                         ],
-//                    )
                       ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            CommentForm(
-              formKey: keys,
-              nameOnSaved: namedOnSave,
-              descriptionOnSaved: descriptionOnSave,
-              familyOnSaved: familyOnSave,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: FlatButton(
-                onPressed: () {
-                  if (keys.currentState.validate()) {
-                    keys.currentState.save();
-                    keys.currentState.reset();
-                    key.currentState.showSnackBar(SnackBar(
-                      content: Text("پیام شما با موفقیت ارسال شد"),
-                    ));
-                  }
-                },
-                child: Text(
-                  "ارسال پیام",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                color: Colors.redAccent,
+                    ],
+                  ),
+                  CommentForm(
+                    formKey: keys,
+                    nameOnSaved: namedOnSave,
+                    descriptionOnSaved: descriptionOnSave,
+                    familyOnSaved: familyOnSave,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        if (keys.currentState.validate()) {
+                          keys.currentState.save();
+                          if (!sendCommentLoading){
+                            this.sendComment();
+                          }
+//                          keys.currentState.reset();
+//                          key.currentState.showSnackBar(SnackBar(
+//                            content: Text("پیام شما با موفقیت ارسال شد"),
+//                          ));
+                        }
+                      },
+                      child: sendCommentLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Text(
+                              "ارسال پیام",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.redAccent,
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
     );
     // );
   }
 
   namedOnSave(String str) {
-    name=str;
+    name = str;
   }
 
   familyOnSave(String str) {
-    family=str;
+    family = str;
   }
 
   descriptionOnSave(String str) {
-    des=str;
+    des = str;
+  }
+
+  sendComment() async {
+    setState(() {
+      sendCommentLoading = true;
+    });
+    SendCommentEntity sendCommentEntity = await postComment(
+        name: name, content: des, family: family, url: URL.sendComment);
+
+    setState(() {
+      sendCommentLoading = false;
+      if (sendCommentEntity.success=="true") {
+        keys.currentState.reset();
+        key.currentState.showSnackBar(SnackBar(
+          content: Text("پیام شما با موفقیت ارسال شد"),
+        ));
+      }
+    });
   }
 }

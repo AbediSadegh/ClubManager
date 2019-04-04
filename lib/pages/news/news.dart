@@ -83,17 +83,6 @@ class _NewsState extends State<News> {
             itemCount: list.length,
             controller: _listScrollController,
             itemBuilder: (context, index) {
-//            if (index % 10 == 0 && index != 0) {e
-//              if (index > _lastItems) {
-////                news = todo get the next set of NewsEntity
-//                _lastItems++;
-//                news = widget.newsEntity[_lastItems];
-//              } else {
-//                //news = todo get the previous set of NewsEntity
-//                _lastItems--;
-//                news = widget.newsEntity[_lastItems];
-//              }
-//            }
               return NewsItemPreview(
                 title: list[index].title,
                 image: list[index].image,

@@ -6,4 +6,5 @@ class URL {
   static const String urlAboutProgremmer = 'http://46.4.233.56/api/about-us/programmer';
   static const String urlAboutPadideh = 'http://46.4.233.56/api/about-us/information';
   static const String urlSocail = 'http://46.4.233.56/api/support/social/';
+  static const String sendComment = 'http://46.4.233.56/api/support/create/';
 }

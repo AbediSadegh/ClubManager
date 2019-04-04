@@ -239,6 +239,7 @@ class SocailEntity {
   String telegram;
   String phone;
   String email;
+
   SocailEntity({this.instagram, this.telegram, this.phone, this.email});
 
   factory SocailEntity.fromJson(Map<String, dynamic> parsedJson) {
@@ -247,6 +248,18 @@ class SocailEntity {
       telegram: parsedJson['telegram'],
       phone: parsedJson['phone'],
       email: parsedJson['email'],
+    );
+  }
+}
+
+class SendCommentEntity {
+  String success;
+
+  SendCommentEntity({this.success});
+
+  factory SendCommentEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return SendCommentEntity(
+      success: parsedJson['success'],
     );
   }
 }

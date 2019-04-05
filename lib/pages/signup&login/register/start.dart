@@ -58,6 +58,9 @@ class Start extends StatelessWidget {
                 schoolName: educationPage.schoolName,
                 technicalFoot: health.technical,
               );
+              print(generalPage.birthDay);
+              print(play.name);
+              print(play.family);
               //Navigator.pop(context);
               //print("success");
               controller.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
@@ -67,9 +70,7 @@ class Start extends StatelessWidget {
 //            ));
             },
           ),
-          timePer = timePeriod(controller: controller,func: (){
-            play.timePeriod = timePer.selectedTime;
-          },),
+          timePer = timePeriod(controller: controller),
         ],
       ),
     );

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 
 class EducationPage extends StatelessWidget {
-  //Color gradientStart = Color(0xFFb8adfe);
- // final Color gradientEnd = Color(0xff7859AB);
   final Color gradientEnd = Color(0xff676bc2);
   final PageController controller;
   static GlobalKey<FormState> eduKey = GlobalKey<FormState>();
@@ -21,19 +19,6 @@ class EducationPage extends StatelessWidget {
       },
       child: Container(
         color: gradientEnd,
-//        decoration: BoxDecoration(
-//          gradient: LinearGradient(
-//            begin: Alignment.topCenter,
-//            end: Alignment.bottomCenter,
-//            stops: [0.5, 1],
-//            colors: [
-//              Colors.grey,
-//              Colors.black.withOpacity(.8),
-//
-//            ],
-//          ),
-//        ),
-
         alignment: Alignment.center,
         child: ListView(
           children: <Widget>[

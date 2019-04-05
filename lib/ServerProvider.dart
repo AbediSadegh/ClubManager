@@ -86,7 +86,11 @@ Future<SendCodEntity> checkCode({String url, String mobile,String code}) async {
     'pin': code,
   };
   final response = await http.post(url, body: data);
-  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new SendCodEntity.fromJson(jsonResPonse);
-  return product;
+  try{
+    final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+    var product = new SendCodEntity.fromJson(jsonResPonse);
+    return product;
+  }catch(ex){
+    return null;
+  }
 }

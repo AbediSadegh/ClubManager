@@ -25,7 +25,8 @@ class _loginDialogState extends State<loginDialog>
   bool isLoading;
   String phone;
   SendPhoneEntity sendCodEntity;
-  SendCodEntity  codEntity;
+  SendCodEntity codEntity;
+
   @override
   void initState() {
     super.initState();
@@ -57,18 +58,12 @@ class _loginDialogState extends State<loginDialog>
                           return Column(
                             children: <Widget>[
                               Stack(
-//                          alignment: Alignment(
-//                              MediaQuery.of(context).size.width / 2, 2.1),
                                 alignment: Alignment(
                                     MediaQuery.of(context).size.width / 2, 3),
-
                                 children: <Widget>[
-                                  //new ClipPath(
-                                  //clipper: CustomShapeClipper(),
                                   //    child:
                                   Container(
                                     height: 175,
-                                    //color: Colors.orange,
                                     color: gradientEnd,
                                   ),
                                   //),
@@ -243,7 +238,6 @@ class _loginDialogState extends State<loginDialog>
   smsNumberOnSave(String str) {
     sms = int.parse(str);
     if (!click) checkCod(code: str);
-
   }
 
   void getPhone() async {
@@ -261,24 +255,29 @@ class _loginDialogState extends State<loginDialog>
       isLoading = true;
     });
     click = true;
-    codEntity = await  checkCode(mobile: phone,code:code , url: URL.sendPhone);
+    codEntity = await checkCode(mobile: phone, code: code, url: URL.sendCod);
     setState(() {
       isLoading = false;
     });
-   if (codEntity.is_registered=="true"){
-     Navigator.push(
-       context,
-       MaterialPageRoute(
-         builder: (context) => MainPage(),
-       ),
-     );
-   }else{
-     Navigator.push(
-       context,
-       MaterialPageRoute(
-         builder: (context) => Start(),
-       ),
-     );
-   }
+    if (null == codEntity) {
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("کد نادرست است "),
+      ));
+    } else if (codEntity.is_registered == "true") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainPage(),
+        ),
+      );
+    } else if (codEntity.is_registered == "false") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Start(),
+        ),
+      );
+    }
+    click = false;
   }
 }

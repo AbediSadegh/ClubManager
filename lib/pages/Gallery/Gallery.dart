@@ -11,8 +11,7 @@ class Gallery extends StatefulWidget {
   final List<String> years;
   final bool isAdmin;
 
-  Gallery(
-      { @required this.years, @required this.isAdmin}) {
+  Gallery({@required this.years, @required this.isAdmin}) {
     assert(years != null);
   }
 
@@ -36,6 +35,11 @@ class _GalleryState extends State<Gallery> {
     Size _deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         actions: <Widget>[
           GalleryTopBar(
             currVal: currAlbum,

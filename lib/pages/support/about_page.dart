@@ -3,7 +3,6 @@ import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/support/form.dart';
-import 'package:club_manager/pages/support/update_about.dart';
 import 'package:club_manager/widgets/new_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,7 @@ class _AboutPageState extends State<AboutPage> {
   static final keys = GlobalKey<FormState>();
   bool first;
   bool isLoading;
-  SocailListEntity socailListEntity;
+  SocailListEntity socialListEntity;
   String name;
   bool sendCommentLoading;
   String family;
@@ -34,7 +33,7 @@ class _AboutPageState extends State<AboutPage> {
 
   getSocial({String page: URL.urlSocail}) async {
     isLoading = true;
-    socailListEntity = await loadSocail(page);
+    socialListEntity = await loadSocail(page);
     setState(() {
       isLoading = false;
     });
@@ -50,17 +49,20 @@ class _AboutPageState extends State<AboutPage> {
     }
     Widget rowBuilder(IconData icon, String title, String desc) {
       return Container(
+        alignment: Alignment.center,
         height: containerHeight * .18,
         width: containerWidth * .5,
-        child: newListTile(
+        child: NewListTile(
           //contentPadding: EdgeInsets.symmetric(horizontal: 10),
           title: Text(
             title,
             style: TextStyle(fontSize: 15.0, color: Colors.white),
           ),
-          subtitle: Text(
-            desc,
-            style: TextStyle(fontSize: 11.0, color: Colors.white),
+          subtitle: FittedBox(
+            child: Text(
+              desc,
+              style: TextStyle(fontSize: 11.0, color: Colors.white),
+            ),
           ),
           icon: Icon(
             icon,
@@ -134,11 +136,11 @@ class _AboutPageState extends State<AboutPage> {
                                     rowBuilder(
                                         FakeData.components[0].iconData,
                                         FakeData.components[0].title,
-                                        socailListEntity.results[0].phone),
+                                        socialListEntity.results[0].phone),
                                     rowBuilder(
                                         FakeData.components[1].iconData,
                                         FakeData.components[1].title,
-                                        socailListEntity.results[0].instagram)
+                                        socialListEntity.results[0].instagram)
                                   ],
                                 ),
                                 Row(
@@ -146,11 +148,11 @@ class _AboutPageState extends State<AboutPage> {
                                     rowBuilder(
                                         FakeData.components[2].iconData,
                                         FakeData.components[2].title,
-                                        socailListEntity.results[0].telegram),
+                                        socialListEntity.results[0].telegram),
                                     rowBuilder(
                                         FakeData.components[3].iconData,
                                         FakeData.components[3].title,
-                                        socailListEntity.results[0].email)
+                                        socialListEntity.results[0].email)
                                   ],
                                 )
                               ],
@@ -173,7 +175,7 @@ class _AboutPageState extends State<AboutPage> {
                       onPressed: () {
                         if (keys.currentState.validate()) {
                           keys.currentState.save();
-                          if (!sendCommentLoading){
+                          if (!sendCommentLoading) {
                             this.sendComment();
                           }
 //                          keys.currentState.reset();
@@ -184,7 +186,10 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: sendCommentLoading
                           ? Center(
-                              child: CircularProgressIndicator(),
+                              child: SizedBox(
+                                height: 30.0,
+                                  width: 30.0,
+                                  child: CircularProgressIndicator()),
                             )
                           : Text(
                               "ارسال پیام",
@@ -224,7 +229,7 @@ class _AboutPageState extends State<AboutPage> {
 
     setState(() {
       sendCommentLoading = false;
-      if (sendCommentEntity.success=="true") {
+      if (sendCommentEntity.success == "true") {
         keys.currentState.reset();
         key.currentState.showSnackBar(SnackBar(
           content: Text("پیام شما با موفقیت ارسال شد"),

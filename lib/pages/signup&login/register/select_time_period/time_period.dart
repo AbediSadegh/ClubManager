@@ -166,27 +166,14 @@ class _timePeriodState extends State<timePeriod> {
                           if (groupValue == 0) {
                             widget.selectedTime = "یکساله";
                             print("یکساله");
-                            //widget.func;
-                            //controller.nextPage(duration: null, curve: null);
-//                            widget.controller.nextPage(
-//                                duration: Duration(milliseconds: 1400),
-//                                curve: Curves.linear);
                             Navigator.of(context).pop();
                           } else if (groupValue == 1) {
                             print("شیش ماهه");
                             widget.selectedTime = "شیش ماهه";
-                            //widget.func();
-//                            widget.controller.nextPage(
-//                                duration: Duration(milliseconds: 1400),
-//                                curve: Curves.linear);
                             Navigator.of(context).pop();
                           } else if (groupValue == 2) {
-                            //widget.func();
                             widget.selectedTime = "دوره تابستان";
                             print("دوره تابستان");
-//                            widget.controller.nextPage(
-//                                duration: Duration(milliseconds: 1400),
-//                                curve: Curves.linear);
                             Navigator.pop(context);
                           }
                         }

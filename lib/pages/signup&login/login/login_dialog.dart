@@ -1,3 +1,4 @@
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
@@ -5,6 +6,7 @@ import 'package:club_manager/pages/mainPage.dart';
 import 'package:club_manager/pages/signup&login/login/timer.dart';
 import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginDialog extends StatefulWidget {
   @override
@@ -264,6 +266,7 @@ class _loginDialogState extends State<loginDialog>
         content: Text("کد نادرست است "),
       ));
     } else if (codEntity.is_registered == "true") {
+      _saveToekn(codEntity.token);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -271,6 +274,8 @@ class _loginDialogState extends State<loginDialog>
         ),
       );
     } else if (codEntity.is_registered == "false") {
+      LoginData.username = phone;
+      URL.token = codEntity.token;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -279,5 +284,9 @@ class _loginDialogState extends State<loginDialog>
       );
     }
     click = false;
+  }
+  _saveToekn(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/pages/signup&login/register/family_status/FamilyStatusForm.dart';
 import 'package:flutter/material.dart';
 
@@ -16,26 +17,35 @@ class FamilyStatusPage extends StatelessWidget {
   fatherPhoneNumber(String str) {
     print("fatherPhoneNumber : " + str);
     fatherPhone = int.parse(str);
+    LoginData.fatherPhone=str;
   }
 
   fatherWork(String str) {
     print("fatherWork : " + str);
     fatherWorks= str;
+    LoginData.fatherWorks=str;
+
   }
 
   motherPhoneNumber(String str) {
     print("motherPhoneNumber : " + str);
     motherPhone = int.parse(str);
+    LoginData.motherPhone=str;
+
   }
 
   homePhoneNumber(String str) {
     print("homePhoneNumber : " + str);
     homePhone = int.parse(str);
+    LoginData.homePhone=str;
+
   }
 
   homeAddress(String str) {
     print("homeAddress : " + str);
     address = str;
+    LoginData.address=str;
+
   }
 
   FamilyStatusPage({
@@ -45,17 +55,6 @@ class FamilyStatusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-//        decoration: BoxDecoration(
-//          gradient: LinearGradient(
-//            begin: Alignment.topCenter,
-//            end: Alignment.bottomCenter,
-//            stops: [0.5, 1],
-//            colors: [
-//              Colors.black.withOpacity(.8),
-//              Colors.grey,
-//            ],
-//          ),
-//        ),
       color: gradientEnd,
       alignment: Alignment.center,
       child: Padding(

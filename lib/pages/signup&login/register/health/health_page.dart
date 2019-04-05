@@ -1,3 +1,4 @@
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/pages/signup&login/register/health/health_form.dart';
 import 'package:flutter/material.dart';
 
@@ -15,21 +16,6 @@ class healthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: gradientEnd,
-//        decoration: BoxDecoration(
-//          gradient: LinearGradient(
-//            // Where the linear gradient begins and ends
-//            begin: Alignment.topCenter,
-//            end: Alignment.bottomCenter,
-//            // Add one stop for each color. Stops should increase from 0 to 1
-//            stops: [0.5, 1],
-//            colors: [
-//              // Colors are easy thanks to Flutter's Colors class.
-//              Colors.grey,
-//              Colors.black.withOpacity(.8),
-//
-//            ],
-//          ),
-//        ),
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -50,7 +36,6 @@ class healthPage extends StatelessWidget {
                   patientHistory: patientHistory,
                   favoritePos: favoritePos,
                   technicalFootOnSaved: technicalFootOnSaved,
-
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -68,7 +53,7 @@ class healthPage extends StatelessWidget {
                       },
                       child: Text(
                         "تایید",
-                        style: TextStyle(color: gradientEnd,fontSize: 16),
+                        style: TextStyle(color: gradientEnd, fontSize: 16),
                       )),
                 ),
               ],
@@ -78,17 +63,28 @@ class healthPage extends StatelessWidget {
       ),
     );
   }
+
   String technical;
   String favorite;
   String patient;
-  technicalFootOnSaved(String str){
-    technical = str;
-    print(str);}
-  favoritePos(String str){
-    favorite =str;
-    print(str);}
-  patientHistory(String str){
-    patient = str;
-    print(str);}
-}
 
+  technicalFootOnSaved(String str) {
+    technical = str;
+    print(str);
+    LoginData.technical = str;
+  }
+
+  favoritePos(String str) {
+    favorite = str;
+    print(str);
+    LoginData.favorite = str;
+
+  }
+
+  patientHistory(String str) {
+    patient = str;
+    print(str);
+    LoginData.patient = str;
+
+  }
+}

@@ -1,18 +1,18 @@
 import 'dart:io';
 
-import 'package:club_manager/entity/photograph.dart';
+//import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Gallery extends StatefulWidget {
-  final Map<String, List<Photograph>> photos;
+//  final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
 
   Gallery(
-      {@required this.photos, @required this.years, @required this.isAdmin}) {
+      { @required this.years, @required this.isAdmin}) {
     assert(years != null);
   }
 

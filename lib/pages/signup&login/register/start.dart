@@ -13,7 +13,7 @@ class Start extends StatelessWidget {
   GeneralPage generalPage;
   EducationPage educationPage;
   FamilyStatusPage familyStatusPage;
-  healthPage health;
+  HealthPage health;
   NoticePage noticePage;
   timePeriod timePer;
   Player play;
@@ -31,7 +31,7 @@ class Start extends StatelessWidget {
           familyStatusPage = FamilyStatusPage(
             controller: controller,
           ),
-          health = healthPage(
+          health = HealthPage(
             controller: controller,
           ),
           noticePage = NoticePage(

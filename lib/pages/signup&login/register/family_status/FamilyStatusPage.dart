@@ -44,8 +44,7 @@ class FamilyStatusPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Container(
+    return Container(
 //        decoration: BoxDecoration(
 //          gradient: LinearGradient(
 //            begin: Alignment.topCenter,
@@ -57,59 +56,55 @@ class FamilyStatusPage extends StatelessWidget {
 //            ],
 //          ),
 //        ),
-        color: gradientEnd,
-        alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 55.0),
-                    child: Text(
-                      "وضعیت خانوادگی",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+      color: gradientEnd,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 55.0),
+                  child: Text(
+                    "وضعیت خانوادگی",
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
-                  FamilyStatusForm(
-                    formKey: familyFormKey,
-                    fatherPhoneNumber: fatherWork,
-                    fatherWork: fatherWork,
-                    homeAddress: homeAddress,
-                    homePhoneNumber: homePhoneNumber,
-                    motherPhoneNumber: motherPhoneNumber,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        color: Colors.white,
-                        onPressed: () {
-                          if (familyFormKey.currentState.validate()) {
-                              familyFormKey.currentState.save();
-                              familyFormKey.currentState.dispose();
-                              controller.nextPage(
-                                duration: Duration(milliseconds: 1400),
-                                curve: Curves.linear);
-                          }
-                        },
-                        child: Text(
-                          "تایید",
-                          style: TextStyle(color: gradientEnd,fontSize: 16),
-                        )),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                FamilyStatusForm(
+                  formKey: familyFormKey,
+                  fatherPhoneNumber: fatherWork,
+                  fatherWork: fatherWork,
+                  homeAddress: homeAddress,
+                  homePhoneNumber: homePhoneNumber,
+                  motherPhoneNumber: motherPhoneNumber,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.white,
+                      onPressed: () {
+                        if (familyFormKey.currentState.validate()) {
+                            familyFormKey.currentState.save();
+                            familyFormKey.currentState.dispose();
+                            controller.nextPage(
+                              duration: Duration(milliseconds: 1400),
+                              curve: Curves.linear);
+                        }
+                      },
+                      child: Text(
+                        "تایید",
+                        style: TextStyle(color: gradientEnd,fontSize: 16),
+                      )),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-      onWillPop: (){
-        controller.previousPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
-      },
     );
   }
 }

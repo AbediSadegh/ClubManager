@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 
 class healthPage extends StatelessWidget {
   final Color gradientEnd = Color(0xff676bc2);
-
-  final PageController controller;
+   final PageController controller;
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+//  HealthForm healthForm;
   healthPage({
     @required this.controller,
   });
@@ -31,7 +30,7 @@ class healthPage extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ),
-                healthForm(
+                HealthForm(
                   formKey: formKey,
                   patientHistory: patientHistory,
                   favoritePos: favoritePos,
@@ -78,13 +77,11 @@ class healthPage extends StatelessWidget {
     favorite = str;
     print(str);
     LoginData.favorite = str;
-
   }
 
   patientHistory(String str) {
     patient = str;
     print(str);
     LoginData.patient = str;
-
   }
 }

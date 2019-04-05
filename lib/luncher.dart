@@ -1,5 +1,4 @@
 import 'package:club_manager/pages/mainPage.dart';
-import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:club_manager/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/mainPage": (context) => MainPage(),
         "/splash_screen": (context) => Directionality(
-            textDirection: TextDirection.rtl, child: Start()),
+            textDirection: TextDirection.rtl, child: SplashScreen()),
       },
     );
   }

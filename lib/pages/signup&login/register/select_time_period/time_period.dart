@@ -3,18 +3,18 @@ import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class TimePeriod extends StatefulWidget {
+class timePeriod extends StatefulWidget {
   final PageController controller;
-  final func;
+  //final func;
   String selectedTime;
 
-  TimePeriod({this.func,@required this.controller});
+  timePeriod({@required this.controller});
 
   @override
-  _TimePeriodState createState() => _TimePeriodState();
+  _timePeriodState createState() => _timePeriodState();
 }
 
-class _TimePeriodState extends State<TimePeriod> {
+class _timePeriodState extends State<timePeriod> {
   int groupValue = 0;
   String notice = "توجه : در ابتدا باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
@@ -23,7 +23,7 @@ class _TimePeriodState extends State<TimePeriod> {
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller;
 
-  _TimePeriodState({this.controller});
+  _timePeriodState({this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class _TimePeriodState extends State<TimePeriod> {
                           if (groupValue == 0) {
                             widget.selectedTime = "یکساله";
                             print("یکساله");
-                            widget.func();
+                            //widget.func;
                             //controller.nextPage(duration: null, curve: null);
 //                            widget.controller.nextPage(
 //                                duration: Duration(milliseconds: 1400),
@@ -175,13 +175,13 @@ class _TimePeriodState extends State<TimePeriod> {
                           } else if (groupValue == 1) {
                             print("شیش ماهه");
                             widget.selectedTime = "شیش ماهه";
-                            widget.func();
+                            //widget.func();
 //                            widget.controller.nextPage(
 //                                duration: Duration(milliseconds: 1400),
 //                                curve: Curves.linear);
                             Navigator.of(context).pop();
                           } else if (groupValue == 2) {
-                            widget.func();
+                            //widget.func();
                             widget.selectedTime = "دوره تابستان";
                             print("دوره تابستان");
 //                            widget.controller.nextPage(

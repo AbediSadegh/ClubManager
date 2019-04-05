@@ -193,7 +193,7 @@ class _loginDialogState extends State<loginDialog>
                                   ? Container(
                                       height: 0,
                                     )
-                                  : resendCode(ontap: () {
+                                  : ResendCode(ontap: () {
                                       print("code will resend");
                                       Scaffold.of(context)
                                           .showSnackBar(SnackBar(

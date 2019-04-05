@@ -88,7 +88,7 @@ class _NewsState extends State<News> {
                 image: list[index].image,
                 subtitle: list[index].subtitle,
                 url: list[index].url,
-                id: index,
+//                id: index,
                 onDelete: () {
                   setState(() {
                     //todo : delete a piece of news here

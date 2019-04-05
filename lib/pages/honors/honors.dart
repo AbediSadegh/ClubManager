@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/entity/honors_entity.dart';
 import 'package:club_manager/widgets/honors_card.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

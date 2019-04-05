@@ -3,12 +3,12 @@ import 'package:club_manager/pages/support/about_page.dart';
 import 'package:club_manager/pages/support/contact_programmer/about_page.dart';
 import 'package:flutter/material.dart';
 
-class contctTabBar extends StatefulWidget {
+class ContctTabBar extends StatefulWidget {
   @override
-  _contctTabBarState createState() => _contctTabBarState();
+  _ContactTabBarState createState() => _ContactTabBarState();
 }
 
-class _contctTabBarState extends State<contctTabBar> with TickerProviderStateMixin{
+class _ContactTabBarState extends State<ContctTabBar> with TickerProviderStateMixin{
   TabController _controller;
   @override
   void initState() {

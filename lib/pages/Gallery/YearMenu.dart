@@ -26,6 +26,7 @@ class GalleryTopBarState extends State<GalleryTopBar> {
           child: Text(
             val,
             textDirection: TextDirection.rtl,
+            style: TextStyle(color: Colors.white),
           ),
 //          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           alignment: Alignment.center,
@@ -41,20 +42,25 @@ class GalleryTopBarState extends State<GalleryTopBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          DropdownButton(
-            elevation: 15,
-            iconSize: 25.0,
-            style: TextStyle(color: Colors.black),
-            items: _items,
-            value: widget.currVal,
-            onChanged: widget.onChange,
+          Theme(
+            data: ThemeData(
+              canvasColor: Theme.of(context).primaryColor,
+            ),
+            child: DropdownButton(
+              elevation: 15,
+              iconSize: 25.0,
+              items: _items,
+              style: TextStyle(inherit: false, color: Colors.white),
+              value: widget.currVal,
+              onChanged: widget.onChange,
+            ),
           ),
           Container(
             width: 15.0,
           ),
           Text(
             ': متولدین سال ',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(inherit: false, color: Colors.white),
           ),
         ],
       ),

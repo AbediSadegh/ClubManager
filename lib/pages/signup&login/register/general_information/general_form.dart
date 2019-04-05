@@ -2,7 +2,7 @@ import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
-class createSignUpForm extends StatelessWidget {
+class CreateSignUpForm extends StatelessWidget {
   final formKey;
   final emailOnSaved;
   final nameOnSaved;
@@ -10,7 +10,7 @@ class createSignUpForm extends StatelessWidget {
   final birthDayOnSaved;
   final idNumberOnSaved;
 
-  createSignUpForm(
+  CreateSignUpForm(
       {@required this.formKey,
       @required this.emailOnSaved,
       @required this.nameOnSaved,

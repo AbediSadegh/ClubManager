@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-class componnent{
+class Component{
   String title;
   String subtitle;
   IconData iconData;
 
-  componnent({this.title, this.subtitle, this.iconData});
+  Component({this.title, this.subtitle, this.iconData});
 
 
 }

@@ -37,8 +37,8 @@ class GeneralPage extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                 ),
                 //Container(height: MediaQuery.of(context).size.height*.2,),
-                cameraPicker(),
-                createSignUpForm(
+                CameraPicker(),
+                CreateSignUpForm(
                   formKey: generalKeyForm,
                   birthDayOnSaved: birthDayOnSaved,
                   emailOnSaved: emailOnSaved,

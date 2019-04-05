@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:club_manager/entity/photograph.dart';
+//import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Gallery extends StatefulWidget {
-  // final Map<String, List<Photograph>> photos;
+//  final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
 
@@ -35,6 +35,11 @@ class _GalleryState extends State<Gallery> {
     Size _deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         actions: <Widget>[
           GalleryTopBar(
             currVal: currAlbum,

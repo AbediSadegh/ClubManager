@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 
-class newListTile extends StatelessWidget {
+class NewListTile extends StatelessWidget {
   final icon;
   final  title;
   final subtitle;
 
 
-  newListTile({this.icon, this.title, this.subtitle});
+  NewListTile({this.icon, this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class newListTile extends StatelessWidget {
           icon,
           SizedBox(width: 15,),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               title,
               subtitle

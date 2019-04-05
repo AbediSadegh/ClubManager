@@ -1,3 +1,4 @@
+import 'package:club_manager/widgets/carousel_slider.dart';
 import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 import 'package:club_manager/widgets/expandable.dart';
@@ -30,21 +31,34 @@ class BaseItemState extends State<BaseItem> {
 //      height: deviceSize.height*0.65,
       child: Card(
         color: Color.fromRGBO(240, 240, 240, 1.0),
-        margin: EdgeInsets.symmetric(vertical: 3.5, horizontal: 7.5),
+        margin: EdgeInsets.symmetric(vertical: 8.5, horizontal: 10.5),
         elevation: 3.5,
         child: Column(
           children: <Widget>[
             Container(
-              child: ClipRRect(
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/logo.png',
-                  image: widget.imgURL,
-                  alignment: Alignment.center,
-                  height: deviceSize.height * 0.25,
-                  width: deviceSize.width*0.65,
-                  fit: BoxFit.fill,
-                ),
-                borderRadius: BorderRadius.circular(5.0),
+//              child: ClipRRect(
+//                child: FadeInImage.assetNetwork(
+//                  placeholder: 'assets/images/logo.png',
+//                  image: widget.imgURL,
+//                  alignment: Alignment.center,
+//                  height: deviceSize.height * 0.25,
+//                  width: deviceSize.width*0.65,
+//                  fit: BoxFit.fill,
+//                ),
+//                borderRadius: BorderRadius.circular(5.0),
+//              ),
+//              todo comment the above ClipRRect and uncomment the following
+              child: CarouselSlider(
+                items: List.generate(
+                    10,
+                    (index) => Image.network(
+                          'https://picsum.photos/800/425?image=${index + 100}',
+                          fit: BoxFit.contain,
+                        )),
+                aspectRatio: 1.5 ,
+                viewportFraction: 0.88,
+                reverse: true,
+                enlargeCenterPage: true,
               ),
               margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
               decoration: BoxDecoration(
@@ -101,8 +115,7 @@ class BaseItemState extends State<BaseItem> {
                       textAlign: TextAlign.center,
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
-                          fontSize: 25.0,
-                          color: Color.fromRGBO(40, 40, 40, 1)),
+                          fontSize: 25.0, color: Color.fromRGBO(40, 40, 40, 1)),
                     ),
                   ],
                 ),
@@ -110,8 +123,9 @@ class BaseItemState extends State<BaseItem> {
               ),
               collapsed: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Color.fromRGBO(240, 240, 240, 1.0),),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  color: Color.fromRGBO(240, 240, 240, 1.0),
+                ),
                 padding: EdgeInsets.all(5.0),
                 margin: EdgeInsets.all(10.0),
                 child: Column(
@@ -124,7 +138,10 @@ class BaseItemState extends State<BaseItem> {
                     Container(
                       width: deviceSize.width,
                       alignment: Alignment.center,
-                      child: Icon(Icons.expand_more,color: Theme.of(context).dividerColor,),
+                      child: Icon(
+                        Icons.expand_more,
+                        color: Theme.of(context).dividerColor,
+                      ),
                     )
                   ],
                 ),
@@ -133,8 +150,9 @@ class BaseItemState extends State<BaseItem> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      color: Color.fromRGBO(240, 240, 240, 1.0),),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      color: Color.fromRGBO(240, 240, 240, 1.0),
+                    ),
                     margin: EdgeInsets.all(10.0),
                     padding: EdgeInsets.all(5.0),
                     child: Text(
@@ -143,7 +161,7 @@ class BaseItemState extends State<BaseItem> {
                       textDirection: TextDirection.rtl,
                     ),
                   ),
-                  Icon(Icons.expand_less,color: Theme.of(context).dividerColor)
+                  Icon(Icons.expand_less, color: Theme.of(context).dividerColor)
                 ],
               ),
               hasIcon: false,

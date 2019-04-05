@@ -263,3 +263,29 @@ class SendCommentEntity {
     );
   }
 }
+
+class SendPhoneEntity {
+  int pin;
+  SendPhoneEntity({this.pin});
+  factory SendPhoneEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return SendPhoneEntity(
+      pin: parsedJson['pin'],
+    );
+  }
+}
+
+class SendCodEntity {
+  String token;
+  String is_registered;
+  String success;
+
+  SendCodEntity({this.token, this.is_registered, this.success});
+
+  factory SendCodEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return SendCodEntity(
+      token: parsedJson['token'],
+      is_registered: parsedJson['is_registered'],
+      success: parsedJson['success'],
+    );
+  }
+}

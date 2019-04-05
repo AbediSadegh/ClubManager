@@ -41,17 +41,23 @@ class ViewerState extends State<Viewer> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _visibility = !_visibility;
-                });
-              },
-              child: Hero(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              _visibility = !_visibility;
+            });
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: <Widget>[
+              Container(
+                width: widget._deviceSize.width,
+                height: widget._deviceSize.height,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              ),
+              Hero(
                 // using the photograph photo url itself as a tag
                 tag: this.widget._photo.file,
                 child: widget._photo.is_video
@@ -60,75 +66,45 @@ class ViewerState extends State<Viewer> {
                       )
                     : fadeInImage(),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: AnimatedOpacity(
-                duration: Duration(milliseconds: 200),
-                opacity: _visibility ? 1.0 : 0.0,
-                child: Container(
-                  color: Color.fromRGBO(0, 0, 0, 0.4),
-                  padding: EdgeInsets.fromLTRB(0.0, 15.0, 10.0, 0.0),
-                  alignment: Alignment.topCenter,
-                  height: widget._deviceSize.height / 4.0,
-                  width: widget._deviceSize.width,
-                  child: Text(
-                    widget._photo.content,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
+              Positioned(
+                bottom: 0,
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: _visibility ? 1.0 : 0.0,
+                  child: Container(
+                    color: Color.fromRGBO(0, 0, 0, 0.4),
+                    padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
+                    alignment: Alignment.topRight,
+                    height: widget._deviceSize.height / 4.0,
+                    width: widget._deviceSize.width,
+                    child: Text(
+                      widget._photo.content,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
-                        decoration: TextDecoration.none),
-                    textAlign: TextAlign.center,
+                        decoration: TextDecoration.none,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-//  Widget videoPlayer() {
-//    return GestureDetector(
-//      onTap: () {
-//        setState(() {
-//          _controller.value.isPlaying
-//              ? _controller.pause()
-//              : _controller.play();
-//        });
-//      },
-//      child: Stack(alignment: Alignment.center, children: <Widget>[
-//        _controller.value.initialized
-//            ? AspectRatio(
-//                aspectRatio: _controller.value.aspectRatio,
-//                child: VideoPlayer(_controller),
-//              )
-//            : Container(),
-//        AnimatedOpacity(
-//          opacity: _clicked ? 1.0 : 0.0,
-//          duration: Duration(microseconds: 400),
-//          child: _controller.value.isPlaying
-//              ? Icon(
-//                  Icons.play_arrow,
-//                  size: 25.0,
-//                  color: Colors.white,
-//                )
-//              : Icon(
-//                  Icons.pause,
-//                  size: 25.0,
-//                  color: Colors.white,
-//                ),
-//        )
-//      ]),
+  Widget fadeInImage() {
+//    return FadeInImage.assetNetwork(
+//      placeholder: 'assets/images/logo.png',
+//      image: this.widget._photo.file,
+//      fit: BoxFit.contain,
 //    );
-//  }
-
-  FadeInImage fadeInImage() {
-    return FadeInImage.assetNetwork(
-      placeholder: 'assets/images/logo.png',
-      image: this.widget._photo.file,
+    return Image.network(
+      widget._photo.file,
       fit: BoxFit.contain,
     );
   }

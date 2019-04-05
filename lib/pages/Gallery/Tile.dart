@@ -48,18 +48,23 @@ class _TileState extends State<Tile> {
               tag: widget.photo.file,
               child: widget.photo.is_video
                   ? Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1.5)
-                    ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1.5)),
                       child: Image.asset(
                         'assets/images/video-player.png',
 //                        fit: BoxFit.contain,
                       ),
                     )
-                  : FadeInImage.assetNetwork(
-                      placeholder: 'assets/images/logo.png',
-                      image: widget.photo.image,
-                      fit: BoxFit.fill,
+                  : Stack(
+                alignment: Alignment.center,
+              fit: StackFit.expand,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(),
+                        ),
+                        Image.network(widget.photo.image,fit: BoxFit.fill,),
+                      ],
                     ),
             ),
           ),

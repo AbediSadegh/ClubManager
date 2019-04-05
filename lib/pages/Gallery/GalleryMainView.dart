@@ -14,17 +14,19 @@ class PhotoGallery extends StatefulWidget {
 //  final Map<String, List<Photograph>> photos;
   final Size deviceSize;
   final String currAlbum; //todo use this field to get the album you want
+  final GestureTapCallback onChange;
+
   PhotoGallery(
-      {
-        @required this.currAlbum,
-        @required this.deviceSize});
+      {@required this.currAlbum,
+      @required this.deviceSize,
+      @required this.onChange});
 
   State<PhotoGallery> createState() => state;
 }
 
 class PhotoGalleryState extends State<
     PhotoGallery> //    with AutomaticKeepAliveClientMixin<PhotoGallery>
-    {
+{
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
   bool fistLoad = true;
@@ -79,8 +81,8 @@ class PhotoGalleryState extends State<
       child: _isLoading
           ? CircularProgressIndicator()
           : Container(
-        child: custom(l),
-      ),
+              child: custom(l),
+            ),
     );
   }
 
@@ -99,7 +101,9 @@ class PhotoGalleryState extends State<
           size: l[index],
           deviceSize: widget.deviceSize,
           onDelete: () {
+            widget.onChange();
 //            widget.photos[currAlbum].removeAt(index);
+            //todo delete an item of gallery here
           },
           onEdit: () {
             onEdit(context, index);
@@ -114,7 +118,7 @@ class PhotoGalleryState extends State<
         context: context,
         builder: (context) {
           TextEditingController controller =
-          TextEditingController(text: _pics[index].content);
+              TextEditingController(text: _pics[index].content);
           return new Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0)),
@@ -138,12 +142,12 @@ class PhotoGalleryState extends State<
                       textDirection: TextDirection.rtl,
                       decoration: InputDecoration(
                         border:
-                        UnderlineInputBorder(borderSide: BorderSide.none),
+                            UnderlineInputBorder(borderSide: BorderSide.none),
                         hintText: 'توضیحات',
                         hintStyle: TextStyle(fontSize: 12),
                       ),
                       maxLines:
-                      (3 * widget.deviceSize.height / 7 - 100).floor(),
+                          (3 * widget.deviceSize.height / 7 - 100).floor(),
                     ),
                   ),
                   Container(
@@ -164,10 +168,17 @@ class PhotoGalleryState extends State<
                         setState(() {
                           //todo do the change stuff here
 //                          _pics[index] = PhotoEntityList((p) => p
-//                            ..photo = _pics[index].file
-//                            ..thumbnail = _pics[index].image
-//                            ..description = controller.text
-//                            ..isVideo = _pics[index].is_video);
+//                            ..file = _pics[index].file
+//                            ..image = _pics[index].image
+//                            ..content = controller.text
+//                            ..is_video = _pics[index].is_video);
+                          _pics[index] = PhotoEntityList(
+                            content: controller.text,
+                            file: _pics[index].file,
+                            image: _pics[index].image,
+                            is_video: _pics[index].is_video,
+//                            title:
+                          );
                         });
                         Navigator.pop(context);
                       },

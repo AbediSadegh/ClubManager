@@ -10,7 +10,6 @@ class Gallery extends StatefulWidget {
   final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
-  static PhotoGallery photoGallery;
 
   Gallery(
       {@required this.photos, @required this.years, @required this.isAdmin}) {
@@ -35,17 +34,11 @@ class _GalleryState extends State<Gallery> {
 //    assert(photos.isNotEmpty);
     assert(widget.years != null);
     Size _deviceSize = MediaQuery.of(context).size;
-    Gallery.photoGallery = PhotoGallery(
-      currAlbum: currAlbum,
-//      photos: photos,
-      deviceSize: _deviceSize,
-    );
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
           GalleryTopBar(
             currVal: currAlbum,
-            photoGallery: Gallery.photoGallery,
             years: widget.years,
             onChange: (str) {
               if (str != currAlbum) {
@@ -69,8 +62,13 @@ class _GalleryState extends State<Gallery> {
               child: Icon(Icons.add),
             ),
       body: Container(
-//        margin: EdgeInsets.only(top: 10.0),
-        child: Gallery.photoGallery,
+        child: PhotoGallery(
+          currAlbum: currAlbum,
+          deviceSize: _deviceSize,
+          onChange: () {
+            this.setState(() {});
+          },
+        ),
       ),
     );
   }
@@ -81,7 +79,6 @@ class _GalleryState extends State<Gallery> {
         builder: (context) {
           File image;
           TextEditingController ctrlDesc = TextEditingController();
-          TextEditingController ctrlTitle = TextEditingController();
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
@@ -95,23 +92,24 @@ class _GalleryState extends State<Gallery> {
               child: new Column(
                 children: <Widget>[
                   Expanded(
-                      flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 7.5),
-                        child: new TextFormField(
-                            keyboardType: TextInputType.multiline,
-                            controller: ctrlDesc,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black45),
-                            textDirection: TextDirection.rtl,
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              hintText: 'توضیحات',
-                              hintStyle: TextStyle(fontSize: 15),
-                            ),
-                            maxLines: 6),
-                      )),
+                    flex: 2,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 7.5),
+                      child: new TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          controller: ctrlDesc,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black45),
+                          textDirection: TextDirection.rtl,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'توضیحات',
+                            hintStyle: TextStyle(fontSize: 15),
+                          ),
+                          maxLines: 6),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

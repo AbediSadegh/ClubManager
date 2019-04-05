@@ -1,4 +1,7 @@
-
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
+import 'package:club_manager/pages/mainPage.dart';
 import 'package:club_manager/pages/signup&login/login/timer.dart';
 import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:flutter/material.dart';
@@ -10,28 +13,35 @@ class loginDialog extends StatefulWidget {
 
 class _loginDialogState extends State<loginDialog>
     with TickerProviderStateMixin {
-  GlobalKey<FormState> phoneNumberKey= GlobalKey<FormState>();
-  GlobalKey<FormState> smsNumberKey= GlobalKey<FormState>();
-
+  GlobalKey<FormState> phoneNumberKey = GlobalKey<FormState>();
+  GlobalKey<FormState> smsNumberKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+  bool click;
   final Color gradientEnd = Color(0xff676bc2);
   bool isEnabaledPhoneNumber = true;
   bool isEnableSmsNumber = false;
   AnimationController controller;
   Animation<double> animation;
-
+  bool isLoading;
+  String phone;
+  SendPhoneEntity sendCodEntity;
+  SendCodEntity  codEntity;
   @override
   void initState() {
     super.initState();
+    click = false;
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    animation = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
+    animation = Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
     //controller.forward();
+    isLoading = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       body: AnimatedBuilder(
           animation: controller,
           builder: (context, child) {
@@ -87,7 +97,6 @@ class _loginDialogState extends State<loginDialog>
                               Container(
                                 height: MediaQuery.of(context).size.height * .1,
                               ),
-
                               Column(
                                 children: <Widget>[
                                   Padding(
@@ -99,9 +108,11 @@ class _loginDialogState extends State<loginDialog>
                                         keyboardType: TextInputType.number,
                                         obscureText: false,
                                         enabled: isEnabaledPhoneNumber,
-                                        decoration: InputDecoration(icon: Icon(Icons.phone),labelText: "تلفن"),
-                                        validator: (String str){
-                                          if(str.length < 10){
+                                        decoration: InputDecoration(
+                                            icon: Icon(Icons.phone),
+                                            labelText: "تلفن"),
+                                        validator: (String str) {
+                                          if (str.length < 10) {
                                             return "شماره اشتباه است";
                                           }
                                         },
@@ -109,78 +120,90 @@ class _loginDialogState extends State<loginDialog>
                                     ),
                                   ),
                                   isEnabaledPhoneNumber == true
-                                      ? Container(height: 0,)
+                                      ? Container(
+                                          height: 0,
+                                        )
                                       : Opacity(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Form(
-                                        key: smsNumberKey,
-                                        child: TextFormField(
-                                          onSaved: smsNumberOnSave,
-                                          decoration: InputDecoration(
-                                            labelText: "تاییدیه پیامکی",
-                                            icon: Icon(Icons.sms),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Form(
+                                              key: smsNumberKey,
+                                              child: TextFormField(
+                                                onSaved: smsNumberOnSave,
+                                                decoration: InputDecoration(
+                                                  labelText: "تاییدیه پیامکی",
+                                                  icon: Icon(Icons.sms),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                obscureText: false,
+                                                validator: (String str) {
+                                                  if (str.length != 4) {
+                                                    return "کد اشتباه است";
+                                                  }
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                          keyboardType: TextInputType.number,
-                                          obscureText: false,
-                                          validator: (String str){
-                                            if(str.length!=4){
-                                              return "کد اشتباه است";
-                                            }
-                                          },
+                                          opacity: animation.value,
                                         ),
-                                      ),
-                                    ),
-                                    opacity: animation.value,
-                                  ),
-
                                 ],
                               ),
-
-
                               FlatButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 onPressed: () async {
                                   //نیازمند مدیریت بعد از صفحه sms verfication
-                                  if (!isEnabaledPhoneNumber && smsNumberKey.currentState.validate()) {
-                                    //await controller.forward();
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){return Start();}));
-                                  }else
-                                    setState(() async{
-                                      if(isEnabaledPhoneNumber && phoneNumberKey.currentState.validate() && !isEnableSmsNumber){
-                                        await controller.forward();
-                                        isEnableSmsNumber = true;
-                                        isEnabaledPhoneNumber = false;
-                                      }else if(!isEnableSmsNumber){isEnabaledPhoneNumber = true;}
+                                  if (!isEnabaledPhoneNumber &&
+                                      smsNumberKey.currentState.validate()) {
+                                    smsNumberKey.currentState.save();
+                                  } else
+                                    setState(() {
+                                      getPhone();
                                     });
                                 },
-                                child: Text("ورود"),
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  child: Center(
+                                    child: isLoading
+                                        ? Center(
+                                            child: FittedBox(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                          )
+                                        : Text("ورود"),
+                                  ),
+                                ),
                                 color: gradientEnd,
                                 textColor: Colors.white,
                               ),
                               isEnabaledPhoneNumber
                                   ? Container(
-                                height: 0,
-                              )
+                                      height: 0,
+                                    )
                                   : GestureDetector(
-                                child: Text("تغییر دادن شماره تلفن"),
-                                onTap: () {
-                                  setState(() async {
-                                    await controller.reverse();
-                                    isEnabaledPhoneNumber = true;
-                                    isEnableSmsNumber = false;
-                                  });
-                                },
-                              ),
+                                      child: Text("تغییر دادن شماره تلفن"),
+                                      onTap: () {
+                                        setState(() async {
+                                          await controller.reverse();
+                                          isEnabaledPhoneNumber = true;
+                                          isEnableSmsNumber = false;
+                                        });
+                                      },
+                                    ),
                               isEnabaledPhoneNumber
                                   ? Container(
-                                height: 0,
-                              )
+                                      height: 0,
+                                    )
                                   : resendCode(ontap: () {
-                                print("code will resend");
-                                Scaffold.of(context).showSnackBar(SnackBar(content: Text("کد مجددا فرستاده شد"),duration: Duration(seconds: 2),));
-                              }),
+                                      print("code will resend");
+                                      Scaffold.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text("کد مجددا فرستاده شد"),
+                                        duration: Duration(seconds: 2),
+                                      ));
+                                    }),
                             ],
                           );
                         }
@@ -189,14 +212,73 @@ class _loginDialogState extends State<loginDialog>
           }),
     );
   }
-  int phoneNumber;
-  phoneNumberOnSave(String str){
-    phoneNumber= int.parse(str);
-    print(phoneNumber);
+
+  sendPhone({String phone}) async {
+    isLoading = true;
+    click = true;
+    sendCodEntity = await sendCode(mobile: phone, url: URL.sendPhone);
+    setState(() {
+      isLoading = false;
+    });
+    key.currentState.showSnackBar(SnackBar(
+      content: Text("پیام شما با موفقیت ارسال شد"),
+    ));
+    click = false;
+    await controller.forward();
+    isEnableSmsNumber = true;
+    isEnabaledPhoneNumber = false;
   }
+
+  int phoneNumber;
+
+  phoneNumberOnSave(String str) {
+    phoneNumber = int.parse(str);
+    print(str);
+    this.phone = str;
+    if (!click) sendPhone(phone: str);
+  }
+
   int sms;
-  smsNumberOnSave(String str){
+
+  smsNumberOnSave(String str) {
     sms = int.parse(str);
-    print(sms);
+    if (!click) checkCod(code: str);
+
+  }
+
+  void getPhone() async {
+    if (isEnabaledPhoneNumber &&
+        phoneNumberKey.currentState.validate() &&
+        !isEnableSmsNumber) {
+      phoneNumberKey.currentState.save();
+    } else if (!isEnableSmsNumber) {
+      isEnabaledPhoneNumber = true;
+    }
+  }
+
+  checkCod({String code}) async {
+    setState(() {
+      isLoading = true;
+    });
+    click = true;
+    codEntity = await  checkCode(mobile: phone,code:code , url: URL.sendPhone);
+    setState(() {
+      isLoading = false;
+    });
+   if (codEntity.is_registered=="true"){
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) => MainPage(),
+       ),
+     );
+   }else{
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) => Start(),
+       ),
+     );
+   }
   }
 }

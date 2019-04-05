@@ -57,16 +57,15 @@ class ViewerState extends State<Viewer> {
                 alignment: Alignment.center,
                 child: CircularProgressIndicator(),
               ),
-             Hero(
-                  // using the photograph photo url itself as a tag
-                  tag: this.widget._photo.file,
-                  child: widget._photo.is_video
-                      ? Chewie(
-                          controller: chewieController,
-                        )
-                      : fadeInImage(),
-                ),
-
+              Hero(
+                // using the photograph photo url itself as a tag
+                tag: this.widget._photo.file,
+                child: widget._photo.is_video
+                    ? Chewie(
+                        controller: chewieController,
+                      )
+                    : fadeInImage(),
+              ),
               Positioned(
                 bottom: 0,
                 child: AnimatedOpacity(
@@ -74,17 +73,18 @@ class ViewerState extends State<Viewer> {
                   opacity: _visibility ? 1.0 : 0.0,
                   child: Container(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
-                    padding: EdgeInsets.fromLTRB(0.0, 15.0, 10.0, 0.0),
-                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 0.0),
+                    alignment: Alignment.topRight,
                     height: widget._deviceSize.height / 4.0,
                     width: widget._deviceSize.width,
                     child: Text(
                       widget._photo.content,
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          decoration: TextDecoration.none),
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        decoration: TextDecoration.none,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -103,6 +103,9 @@ class ViewerState extends State<Viewer> {
 //      image: this.widget._photo.file,
 //      fit: BoxFit.contain,
 //    );
-  return Image.network(widget._photo.file,fit: BoxFit.contain,);
+    return Image.network(
+      widget._photo.file,
+      fit: BoxFit.contain,
+    );
   }
 }

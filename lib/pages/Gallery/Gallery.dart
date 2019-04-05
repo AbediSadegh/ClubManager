@@ -65,6 +65,9 @@ class _GalleryState extends State<Gallery> {
         child: PhotoGallery(
           currAlbum: currAlbum,
           deviceSize: _deviceSize,
+          onChange: () {
+            this.setState(() {});
+          },
         ),
       ),
     );
@@ -76,7 +79,6 @@ class _GalleryState extends State<Gallery> {
         builder: (context) {
           File image;
           TextEditingController ctrlDesc = TextEditingController();
-          TextEditingController ctrlTitle = TextEditingController();
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
@@ -90,23 +92,24 @@ class _GalleryState extends State<Gallery> {
               child: new Column(
                 children: <Widget>[
                   Expanded(
-                      flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 7.5),
-                        child: new TextFormField(
-                            keyboardType: TextInputType.multiline,
-                            controller: ctrlDesc,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black45),
-                            textDirection: TextDirection.rtl,
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              hintText: 'توضیحات',
-                              hintStyle: TextStyle(fontSize: 15),
-                            ),
-                            maxLines: 6),
-                      )),
+                    flex: 2,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 7.5),
+                      child: new TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          controller: ctrlDesc,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black45),
+                          textDirection: TextDirection.rtl,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'توضیحات',
+                            hintStyle: TextStyle(fontSize: 15),
+                          ),
+                          maxLines: 6),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

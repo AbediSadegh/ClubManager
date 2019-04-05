@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Gallery extends StatefulWidget {
-  final Map<String, List<Photograph>> photos;
+  // final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
 
-  Gallery(
-      {@required this.photos, @required this.years, @required this.isAdmin}) {
+  Gallery({@required this.years, @required this.isAdmin}) {
     assert(years != null);
   }
 

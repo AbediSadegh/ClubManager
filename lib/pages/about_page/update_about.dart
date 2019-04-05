@@ -1,8 +1,7 @@
 import 'package:club_manager/FakeEntity.dart';
-import 'package:club_manager/pages/support/updateTextField.dart';
 import 'package:flutter/material.dart';
 
-class updateAbout extends StatelessWidget {
+class UpdateAbout extends StatelessWidget {
   static GlobalKey<FormState> formController = GlobalKey<FormState>();
 
   @override

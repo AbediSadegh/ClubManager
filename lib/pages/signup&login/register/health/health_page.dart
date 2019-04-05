@@ -1,13 +1,13 @@
 import 'package:club_manager/pages/signup&login/register/health/health_form.dart';
 import 'package:flutter/material.dart';
 
-class healthPage extends StatelessWidget {
+class HealthPage extends StatelessWidget {
   final Color gradientEnd = Color(0xff676bc2);
 
   final PageController controller;
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  healthPage({
+  HealthPage({
     @required this.controller,
   });
 
@@ -46,7 +46,7 @@ class healthPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
-                  healthForm(
+                  HealthForm(
                     formKey: formKey,
                     patientHistory: patientHistory,
                     favoritePos: favoritePos,

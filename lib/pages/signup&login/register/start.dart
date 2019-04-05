@@ -13,9 +13,9 @@ class Start extends StatelessWidget {
   GeneralPage generalPage;
   EducationPage educationPage;
   FamilyStatusPage familyStatusPage;
-  healthPage health;
+  HealthPage health;
   NoticePage noticePage;
-  timePeriod timePer;
+  TimePeriod timePer;
   Player play;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class Start extends StatelessWidget {
           familyStatusPage = FamilyStatusPage(
             controller: controller,
           ),
-          health = healthPage(
+          health = HealthPage(
             controller: controller,
           ),
           noticePage = NoticePage(
@@ -67,7 +67,7 @@ class Start extends StatelessWidget {
 //            ));
             },
           ),
-          timePer = timePeriod(controller: controller,func: (){
+          timePer = TimePeriod(controller: controller,func: (){
             play.timePeriod = timePer.selectedTime;
           },),
         ],

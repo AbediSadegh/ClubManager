@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 void main() => runApp(MaterialApp(
-      home: cameraPicker(),
+      home: CameraPicker(),
     ));
 
 File _image;
 final Color gradientEnd = Color(0xff676bc2);
 
 
-class cameraPicker extends StatefulWidget {
+class CameraPicker extends StatefulWidget {
 
   File getFile(){
     if (_image!=null) {
@@ -19,19 +19,19 @@ class cameraPicker extends StatefulWidget {
       return _image;
       
     }else print("null");
-    
+    return null;
   }
 
   @override
-  _cameraPicker createState() => _cameraPicker();
+  _CameraPicker createState() => _CameraPicker();
 
 }
 
-class _cameraPicker extends State<cameraPicker> {
+class _CameraPicker extends State<CameraPicker> {
   //File _image;
   File imageSave;
 
-  _cameraPicker();
+  _CameraPicker();
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);

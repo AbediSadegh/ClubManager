@@ -102,7 +102,7 @@ class BaseItemState extends State<BaseItem> {
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
                           fontSize: 25.0,
-                          color: Color.fromRGBO(100, 100, 150, 1)),
+                          color: Color.fromRGBO(40, 40, 40, 1)),
                     ),
                   ],
                 ),

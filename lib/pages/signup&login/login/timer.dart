@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class resendCode extends StatefulWidget {
+class ResendCode extends StatefulWidget {
   final ontap;
 
-  resendCode({this.ontap});
+  ResendCode({this.ontap});
 
   @override
-  _resendCodeState createState() => _resendCodeState(ontap: ontap);
+  _ResendCodeState createState() => _ResendCodeState(ontap: ontap);
 }
 
-class _resendCodeState extends State<resendCode> {
+class _ResendCodeState extends State<ResendCode> {
   Timer _timer;
   int _start = 10;
 
@@ -43,7 +43,7 @@ class _resendCodeState extends State<resendCode> {
 
   final ontap;
 
-  _resendCodeState({this.ontap});
+  _ResendCodeState({this.ontap});
 
   @override
   Widget build(BuildContext context) {

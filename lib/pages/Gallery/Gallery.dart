@@ -10,7 +10,6 @@ class Gallery extends StatefulWidget {
   final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
-  static PhotoGallery photoGallery;
 
   Gallery(
       {@required this.photos, @required this.years, @required this.isAdmin}) {
@@ -35,17 +34,11 @@ class _GalleryState extends State<Gallery> {
 //    assert(photos.isNotEmpty);
     assert(widget.years != null);
     Size _deviceSize = MediaQuery.of(context).size;
-    Gallery.photoGallery = PhotoGallery(
-      currAlbum: currAlbum,
-//      photos: photos,
-      deviceSize: _deviceSize,
-    );
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
           GalleryTopBar(
             currVal: currAlbum,
-            photoGallery: Gallery.photoGallery,
             years: widget.years,
             onChange: (str) {
               if (str != currAlbum) {
@@ -69,8 +62,10 @@ class _GalleryState extends State<Gallery> {
               child: Icon(Icons.add),
             ),
       body: Container(
-//        margin: EdgeInsets.only(top: 10.0),
-        child: Gallery.photoGallery,
+        child: PhotoGallery(
+          currAlbum: currAlbum,
+          deviceSize: _deviceSize,
+        ),
       ),
     );
   }

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 class GalleryTopBar extends StatefulWidget {
   final List<String> years;
-  final PhotoGallery photoGallery;
   final String currVal;
   final ValueChanged<String> onChange;
 
-  GalleryTopBar({this.years, this.photoGallery, this.currVal, this.onChange});
+  GalleryTopBar({this.years, this.currVal, this.onChange});
 
   State<GalleryTopBar> createState() => GalleryTopBarState();
 }

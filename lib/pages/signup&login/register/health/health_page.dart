@@ -13,9 +13,8 @@ class healthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Container(
-        color: gradientEnd,
+    return Container(
+      color: gradientEnd,
 //        decoration: BoxDecoration(
 //          gradient: LinearGradient(
 //            // Where the linear gradient begins and ends
@@ -31,56 +30,52 @@ class healthPage extends StatelessWidget {
 //            ],
 //          ),
 //        ),
-        alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 55.0),
-                    child: Text(
-                      "وضعیت جسمانی",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 55.0),
+                  child: Text(
+                    "وضعیت جسمانی",
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
-                  healthForm(
-                    formKey: formKey,
-                    patientHistory: patientHistory,
-                    favoritePos: favoritePos,
-                    technicalFootOnSaved: technicalFootOnSaved,
+                ),
+                healthForm(
+                  formKey: formKey,
+                  patientHistory: patientHistory,
+                  favoritePos: favoritePos,
+                  technicalFootOnSaved: technicalFootOnSaved,
 
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        color: Colors.white,
-                        onPressed: () {
-                          if (formKey.currentState.validate()) {
-                            formKey.currentState.save();
-                            controller.nextPage(
-                                duration: Duration(milliseconds: 1400),
-                                curve: Curves.linear);
-                          }
-                        },
-                        child: Text(
-                          "تایید",
-                          style: TextStyle(color: gradientEnd,fontSize: 16),
-                        )),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.white,
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          controller.nextPage(
+                              duration: Duration(milliseconds: 1400),
+                              curve: Curves.linear);
+                        }
+                      },
+                      child: Text(
+                        "تایید",
+                        style: TextStyle(color: gradientEnd,fontSize: 16),
+                      )),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-      onWillPop: (){
-        controller.previousPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
-      },
     );
   }
   String technical;

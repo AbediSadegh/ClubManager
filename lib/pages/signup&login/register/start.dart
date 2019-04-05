@@ -19,58 +19,65 @@ class Start extends StatelessWidget {
   Player play;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        pageSnapping: false,
-        physics: NeverScrollableScrollPhysics(),
-        controller: controller,
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          generalPage = GeneralPage(controller: controller),
-          educationPage = EducationPage(controller: controller),
-          familyStatusPage = FamilyStatusPage(
-            controller: controller,
-          ),
-          health = healthPage(
-            controller: controller,
-          ),
-          noticePage = NoticePage(
-            controller: controller,
-            formKey: formKey,
-            press: () {
-              formKey.currentState.save();
-              play = new Player(
-                reagentCode: noticePage.reagentCode,
-                address: familyStatusPage.address,
-                birthday: generalPage.birthDay,
-                coachName: educationPage.coachName,
-                email: generalPage.email,
-                family: generalPage.family,
-                fatherPhone: familyStatusPage.fatherPhone,
-                fatherWorks: familyStatusPage.fatherWorks,
-                favoritePos: health.favorite,
-                homePhone: familyStatusPage.homePhone,
-                lastTeam: educationPage.lastTeam,
-                motherPhone: familyStatusPage.motherPhone,
-                name: generalPage.name,
-                passport: generalPage.id,
-                patientHistory: health.patient,
-                schoolName: educationPage.schoolName,
-                technicalFoot: health.technical,
-              );
-              //Navigator.pop(context);
-              //print("success");
-              controller.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
+    return WillPopScope(
+      onWillPop: (){
+        if(controller.page == 0){
+          Navigator.pop(context);
+        }else controller.previousPage(duration: Duration(milliseconds: 1400), curve: Curves.linear);
+      },
+      child: Scaffold(
+        body: PageView(
+          pageSnapping: false,
+          physics: NeverScrollableScrollPhysics(),
+          controller: controller,
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            generalPage = GeneralPage(controller: controller),
+            educationPage = EducationPage(controller: controller),
+            familyStatusPage = FamilyStatusPage(
+              controller: controller,
+            ),
+            health = healthPage(
+              controller: controller,
+            ),
+            noticePage = NoticePage(
+              controller: controller,
+              formKey: formKey,
+              press: () {
+                formKey.currentState.save();
+                play = new Player(
+                  reagentCode: noticePage.reagentCode,
+                  address: familyStatusPage.address,
+                  birthday: generalPage.birthDay,
+                  coachName: educationPage.coachName,
+                  email: generalPage.email,
+                  family: generalPage.family,
+                  fatherPhone: familyStatusPage.fatherPhone,
+                  fatherWorks: familyStatusPage.fatherWorks,
+                  favoritePos: health.favorite,
+                  homePhone: familyStatusPage.homePhone,
+                  lastTeam: educationPage.lastTeam,
+                  motherPhone: familyStatusPage.motherPhone,
+                  name: generalPage.name,
+                  passport: generalPage.id,
+                  patientHistory: health.patient,
+                  schoolName: educationPage.schoolName,
+                  technicalFoot: health.technical,
+                );
+                //Navigator.pop(context);
+                //print("success");
+                controller.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.linear);
 //            Scaffold.of(context).showSnackBar(SnackBar(
 //              content: Text("ثبت نام موفقیت آمیز بود"),
 //              duration: Duration(seconds: 5),
 //            ));
-            },
-          ),
-          timePer = timePeriod(controller: controller,func: (){
-            play.timePeriod = timePer.selectedTime;
-          },),
-        ],
+              },
+            ),
+            timePer = timePeriod(controller: controller,func: (){
+              play.timePeriod = timePer.selectedTime;
+            },),
+          ],
+        ),
       ),
     );
   }

@@ -14,13 +14,8 @@ class EducationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        controller.previousPage(
-            duration: Duration(milliseconds: 1400), curve: Curves.linear);
-      },
-      child: Container(
-        color: gradientEnd,
+    return Container(
+      color: gradientEnd,
 //        decoration: BoxDecoration(
 //          gradient: LinearGradient(
 //            begin: Alignment.topCenter,
@@ -34,49 +29,48 @@ class EducationPage extends StatelessWidget {
 //          ),
 //        ),
 
-        alignment: Alignment.center,
-        child: ListView(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 55.0),
-                  child: Text(
-                    "وضعیت تحصیلی",
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
+      alignment: Alignment.center,
+      child: ListView(
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 55.0),
+                child: Text(
+                  "وضعیت تحصیلی",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
-                EducationForm(
-                  formKey: eduKey,
-                  coachName: coachNameOnSaved,
-                  lastTeam: lastTeamOnSaved,
-                  schoolName: schoolNameOnSaved,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
-                      onPressed: () {
-                        //Navigator.push(context, SlideRightRoute(widget: page2()));
-                        if (eduKey.currentState.validate()) {
-                          eduKey.currentState.save();
-                          controller.nextPage(
-                              duration: Duration(milliseconds: 1400),
-                              curve: Curves.linear);
-                        }
-                      },
-                      child: Text(
-                        "تایید",
-                        style: TextStyle(color: gradientEnd),
-                      )),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              EducationForm(
+                formKey: eduKey,
+                coachName: coachNameOnSaved,
+                lastTeam: lastTeamOnSaved,
+                schoolName: schoolNameOnSaved,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Colors.white,
+                    onPressed: () {
+                      //Navigator.push(context, SlideRightRoute(widget: page2()));
+                      if (eduKey.currentState.validate()) {
+                        eduKey.currentState.save();
+                        controller.nextPage(
+                            duration: Duration(milliseconds: 1400),
+                            curve: Curves.linear);
+                      }
+                    },
+                    child: Text(
+                      "تایید",
+                      style: TextStyle(color: gradientEnd),
+                    )),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

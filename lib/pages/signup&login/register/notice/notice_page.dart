@@ -12,14 +12,8 @@ class NoticePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: (){
-        controller.previousPage(
-            duration: Duration(milliseconds: 1400),
-            curve: Curves.linear);
-      },
-      child: Container(
-        color: gradientEnd,
+    return Container(
+      color: gradientEnd,
 //        decoration: BoxDecoration(
 //          gradient: LinearGradient(
 //            // Where the linear gradient begins and ends
@@ -34,42 +28,41 @@ class NoticePage extends StatelessWidget {
 //            ],
 //          ),
 //        ),
-        alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical:55.0),
-                  child: Text("تذکرات",style: TextStyle(color: Colors.white,fontSize: 25),),
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:55.0),
+                child: Text("تذکرات",style: TextStyle(color: Colors.white,fontSize: 25),),
+              ),
+              NoticeForm(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:16.0),
+                child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Colors.white,
+                    onPressed: press,
+                    child: Text("تایید موارد فوق",style: TextStyle(color: gradientEnd,),)),
+              ),
+              Form(
+                key: formKey,
+                child: FormTextField(
+                  onSaved: reagentCodeOnSaved,
+                  icon: Icons.email,
+                  valid: (String str){},
+                  isEnable: true,
+                  keyType: TextInputType.number,
+                  obsecure: false,
+                  label: "کد معرف",
                 ),
-                NoticeForm(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical:16.0),
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: Colors.white,
-                      onPressed: press,
-                      child: Text("تایید موارد فوق",style: TextStyle(color: gradientEnd,),)),
-                ),
-                Form(
-                  key: formKey,
-                  child: FormTextField(
-                    onSaved: reagentCodeOnSaved,
-                    icon: Icons.email,
-                    valid: (String str){},
-                    isEnable: true,
-                    keyType: TextInputType.number,
-                    obsecure: false,
-                    label: "کد معرف",
-                  ),
-                ),
-              ],
-            ),],
-          ),
+              ),
+            ],
+          ),],
         ),
       ),
     );

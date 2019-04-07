@@ -1,4 +1,5 @@
 
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/pages/signup&login/register/education_status/education_form.dart';
 import 'package:flutter/material.dart';
 
@@ -16,18 +17,6 @@ class EducationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: gradientEnd,
-//        decoration: BoxDecoration(
-//          gradient: LinearGradient(
-//            begin: Alignment.topCenter,
-//            end: Alignment.bottomCenter,
-//            stops: [0.5, 1],
-//            colors: [
-//              Colors.grey,
-//              Colors.black.withOpacity(.8),
-//
-//            ],
-//          ),
-//        ),
 
       alignment: Alignment.center,
       child: ListView(
@@ -82,15 +71,19 @@ class EducationPage extends StatelessWidget {
   schoolNameOnSaved(String str) {
     print("schoolName : " + str);
     schoolName = str;
+    LoginData.schoolName=str;
   }
 
   coachNameOnSaved(String str) {
     print("coachName : " + str);
     coachName = str;
+    LoginData.coachName=str;
+
   }
 
   lastTeamOnSaved(String str) {
     lastTeam = str;
     print("lastTeam : " + str);
+    LoginData.lastTeam=str;
   }
 }

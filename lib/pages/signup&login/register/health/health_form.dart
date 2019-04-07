@@ -1,7 +1,7 @@
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 
-class healthForm extends StatelessWidget {
+class HealthForm extends StatelessWidget {
 
   final formKey;
   final technicalFootOnSaved;
@@ -10,7 +10,7 @@ class healthForm extends StatelessWidget {
 
 
 
-  healthForm(
+  HealthForm(
       {@required this.formKey,
         @required this.technicalFootOnSaved,
         @required this.favoritePos,

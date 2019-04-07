@@ -1,5 +1,5 @@
-import 'package:club_manager/FakeEntity.dart';
-import 'package:club_manager/entity/news_field_entity.dart';
+//import 'package:club_manager/FakeEntity.dart';
+//import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:club_manager/widgets/single_news_view.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,6 @@ class NewsItemPreview extends StatefulWidget {
       this.image,
       this.subtitle,
       this.onDelete,
-      this.id,
       this.onEdit})
       : assert(title.isNotEmpty &&
             onEdit != null &&
@@ -27,14 +26,7 @@ class NewsItemPreview extends StatefulWidget {
             subtitle.isNotEmpty);
 
   State<NewsItemPreview> createState() => NewsItemPreviewState();
-
-
-  final int id;
 }
-
-/*
-added carousel slider to news section and changed news section functionality a bit
- */
 
 class NewsItemPreviewState extends State<NewsItemPreview> {
   bool changeActive = false;
@@ -47,12 +39,17 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.5),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return NewsViewer(
-              tag: widget.url,
-              title: widget.title,
-            );
-          }));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return NewsViewer(
+                  tag: widget.url,
+                  title: widget.title,
+                );
+              },
+            ),
+          );
         },
         child: Column(
           children: <Widget>[
@@ -126,9 +123,10 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(7.0),
-              child: GestureDetector(
+            GestureDetector(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 14.0),
+                width: deviceSize.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
@@ -143,6 +141,7 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                       child: Text(
                         widget.subtitle,
                         textDirection: TextDirection.rtl,
+                        style: Theme.of(context).textTheme.body1,
                       ),
                     ),
                   ],

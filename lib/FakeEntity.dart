@@ -47,40 +47,40 @@ class FakeData {
   static String summerCost = "120000 T";
   static int minimumCost = 300000;
 
-  static List<componnent> components = [
-    componnent(
+  static List<Component> components = [
+    Component(
       title: 'تلفن',
       subtitle: '091**********',
       iconData: Icons.phone,
     ),
-    componnent(
+    Component(
       iconData: Icons.photo_camera,
       title: 'اینستاگرام',
       subtitle: '@padidehFc',
     ),
-    componnent(
+    Component(
         iconData: Icons.email, title: "ایمیل", subtitle: "*********@gmail.com"),
-    componnent(
+    Component(
       iconData: Icons.send,
       title: "تلگرام",
       subtitle: '@shahrkhodrou_fc',
     ),
   ];
 
-  static List<componnent> contactProgrammer = [
-    componnent(
+  static List<Component> contactProgrammer = [
+    Component(
       title: 'تلفن',
       subtitle: '091**********',
       iconData: Icons.phone,
     ),
-    componnent(
+    Component(
       iconData: Icons.photo_camera,
       title: 'اینستاگرام',
       subtitle: '@padidehFc',
     ),
-    componnent(
+    Component(
         iconData: Icons.email, title: "ایمیل", subtitle: "*********@gmail.com"),
-    componnent(
+    Component(
       iconData: Icons.send,
       title: "تلگرام",
       subtitle: '@shahrkhodrou_fc',

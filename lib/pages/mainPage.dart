@@ -12,6 +12,7 @@ import 'package:club_manager/pages/support/about_page.dart';
 
 import 'package:club_manager/widgets/CircleImageView.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -54,7 +55,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   AnimationController _controller;
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
   List<Animation> intervals = <Animation>[];
+
   @override
   void initState() {
     super.initState();
@@ -80,6 +83,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -109,13 +113,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     animation: intervals[0],
                     url: MainPage.itemImages[0],
                     gestureTapCallback: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return loginDialog();
-                          },
-                        ),
-                      );
+                      openLogin();
                     },
                   ),
                   CircleImage(
@@ -293,5 +291,24 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         style: TextStyle(fontSize: 15, color: Colors.black87),
       ),
     );
+  }
+
+  void openLogin() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    String token = sp.getString('token');
+    if (token == null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return loginDialog();
+          },
+        ),
+      );
+    } else {
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("شما وارد شده اید"),
+      ));
+    }
   }
 }

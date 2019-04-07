@@ -9,4 +9,6 @@ class URL {
   static const String sendComment = 'http://46.4.233.56/api/support/create/';
   static const String sendPhone = 'http://46.4.233.56/api/users/create-pin/';
   static const String sendCod = 'http://46.4.233.56/api/users/verify-pin/';
+  static const String register = 'http://46.4.233.56/api/users/student-create/';
+  static String token ='';
 }

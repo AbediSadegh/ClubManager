@@ -266,7 +266,9 @@ class SendCommentEntity {
 
 class SendPhoneEntity {
   int pin;
+
   SendPhoneEntity({this.pin});
+
   factory SendPhoneEntity.fromJson(Map<String, dynamic> parsedJson) {
     return SendPhoneEntity(
       pin: parsedJson['pin'],
@@ -286,6 +288,65 @@ class SendCodEntity {
       token: parsedJson['token'],
       is_registered: parsedJson['is_registered'],
       success: parsedJson['success'],
+    );
+  }
+}
+
+class RegisterEntity {
+  String username;
+  String first_name;
+  String last_name;
+  StudentEntity student;
+  RegisterEntity(
+      {this.username, this.first_name, this.last_name, this.student});
+
+  factory RegisterEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return RegisterEntity(
+      username: parsedJson['username'],
+      first_name: parsedJson['first_name'],
+      last_name: parsedJson['last_name'],
+      student: StudentEntity.fromJson(parsedJson['student']),
+    );
+  }
+}
+
+class StudentEntity {
+  String national_code;
+  String school;
+  String school_trainer;
+  String former_club;
+  String dad_phone;
+  String mom_phone;
+  String home_phone;
+  String dad_work;
+
+  StudentEntity(
+      {this.national_code,
+      this.school,
+      this.school_trainer,
+      this.former_club,
+      this.dad_phone,
+      this.mom_phone,
+      this.home_phone,
+      this.dad_work,
+      this.address,
+      this.disease});
+
+  String address;
+  String disease;
+
+  factory StudentEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return StudentEntity(
+      national_code: parsedJson['national_code'],
+      school: parsedJson['school'],
+      school_trainer: parsedJson['school_trainer'],
+      former_club: parsedJson['former_club'],
+      dad_phone: parsedJson['dad_phone'],
+      mom_phone: parsedJson['mom_phone'],
+      home_phone: parsedJson['home_phone'],
+      dad_work: parsedJson['dad_work'],
+      address: parsedJson['address'],
+      disease: parsedJson['disease'],
     );
   }
 }

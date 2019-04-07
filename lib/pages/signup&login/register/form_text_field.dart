@@ -13,7 +13,7 @@ class FormTextField extends StatelessWidget {
   final valid;
   final maxlenght;
 
-  FormTextField({this.obsecure, this.label, this.icon, this.hintText,
+  FormTextField({this.obsecure=false, this.label, this.icon, this.hintText,
       this.fontSize, this.font, this.fontFamily, this.onSaved, this.isEnable,
       this.keyType,this.valid,this.maxlenght});
 

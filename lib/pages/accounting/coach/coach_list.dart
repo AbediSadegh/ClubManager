@@ -1,5 +1,4 @@
 import 'package:club_manager/pages/accounting/coach/coach.dart';
-import 'package:club_manager/pages/accounting/coach/coach_profile.dart';
 import 'package:club_manager/pages/accounting/coach/new_coach_profile.dart';
 import 'package:flutter/material.dart';
 

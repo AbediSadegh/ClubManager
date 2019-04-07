@@ -1,6 +1,7 @@
 import 'package:club_manager/FakeEntity.dart';
-import 'package:club_manager/pages/accounting/demand_note_view.dart';
+import 'package:club_manager/pages/accounting/student/demand_note_view.dart';
 import 'package:club_manager/pages/accounting/online_pay_list/payment_list.dart';
+import 'package:club_manager/pages/accounting/student/general_paymnet_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -141,68 +142,35 @@ class Profile extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      FlatButton(
-                        child: Container(
-                            height: MediaQuery.of(context).size.height * .06,
-                            width: MediaQuery.of(context).size.width * .38,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "وضعیت چک ها",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Icon(
-                                  Icons.assignment,
-                                  color: Colors.white,
-                                )
-                              ],
-                            )),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return DemandNoteView(
-                              playerIndex: index,
-                            );
-                          }));
-                        },
-                        color: Colors.blueGrey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                      ),
-                      FlatButton(
-                        child: Container(
-                            height: MediaQuery.of(context).size.height * .06,
-                            width: MediaQuery.of(context).size.width * .38,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "پرداخت های نقدی",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Icon(
-                                  Icons.credit_card,
-                                  color: Colors.white,
-                                )
-                              ],
-                            )),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return OnlinePaymentList(
-                              playerIndex: index,
-                            );
-                          }));
-                        },
-                        color: Colors.blueGrey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                      ),
-                    ],
+                  child: FlatButton(
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * .06,
+                        width: MediaQuery.of(context).size.width * .38,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "وضعیت مالی",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Icon(
+                              Icons.assignment,
+                              color: Colors.white,
+                            )
+                          ],
+                        )),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return GeneralpaymentView(playerIndex: index,);
+//                              OnlinePaymentList(
+//                              playerIndex: index,
+//                            );
+                      }));
+                    },
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
 //            Container(

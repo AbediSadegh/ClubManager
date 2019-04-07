@@ -7,6 +7,7 @@ class CardActivity extends StatelessWidget {
   final coachIndex;
   final activityIndex;
   final onLongPress;
+  final yearIndex=0;
   CardActivity(
       {
         this.onLongPress,
@@ -19,7 +20,7 @@ class CardActivity extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: GestureDetector(
-        onLongPress: onLongPress,
+        //onLongPress: onLongPress,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           margin: EdgeInsets.all(8),
@@ -40,6 +41,7 @@ class CardActivity extends StatelessWidget {
                     children: <Widget>[
                       Text("عنوان : "),
                       Text(coaches[coachIndex]
+                          .yearActivity[yearIndex]
                           .month[monthIndex]
                           .activity[activityIndex]
                           .title),
@@ -53,6 +55,7 @@ class CardActivity extends StatelessWidget {
                     children: <Widget>[
                       Text("هزینه : "),
                       Text(coaches[coachIndex]
+                          .yearActivity[yearIndex]
                           .month[monthIndex]
                           .activity[activityIndex]
                           .cost),
@@ -65,44 +68,52 @@ class CardActivity extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("وضعیت : "),
-                      Text(
-                        coaches[coachIndex]
-                                .month[monthIndex]
-                                .activity[activityIndex]
-                                .isPay
-                            ? "پرداخت شده"
-                            : "پرداخت نشده",
-                        style: TextStyle(
-                            color: coaches[coachIndex]
-                                    .month[monthIndex]
-                                    .activity[activityIndex]
-                                    .isPay
-                                ? Colors.green
-                                : Colors.redAccent),
-                      ),
+                      coaches[coachIndex]
+                          .yearActivity[yearIndex]
+                          .month[monthIndex]
+                          .activity[activityIndex].text,
+//                      Text(
+//                        coaches[coachIndex]
+//                            .yearActivity[yearIndex]
+//                                .month[monthIndex]
+//                                .activity[activityIndex]
+//                                .isPay
+//                            ? "پرداخت شده"
+//                            : "پرداخت نشده",
+//                        style: TextStyle(
+//                            color: coaches[coachIndex]
+//                                .yearActivity[yearIndex]
+//                                    .month[monthIndex]
+//                                    .activity[activityIndex]
+//                                    .isPay
+//                                ? Colors.green
+//                                : Colors.redAccent),
+//                      ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: coaches[coachIndex]
-                          .month[monthIndex]
-                          .activity[activityIndex]
-                          .isPay
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text("توضیحات : "),
-                            Text(coaches[coachIndex]
-                                .month[monthIndex]
-                                .activity[activityIndex]
-                                .details),
-                          ],
-                        )
-                      : SizedBox(
-                          height: 0,
-                        ),
-                ),
+//                Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: coaches[coachIndex]
+//                      .yearActivity[yearIndex]
+//                          .month[monthIndex]
+//                          .activity[activityIndex]
+//                          .isPay
+//                      ? Row(
+//                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                          children: <Widget>[
+//                            Text("توضیحات : "),
+//                            Text(coaches[coachIndex]
+//                                .yearActivity[yearIndex]
+//                                .month[monthIndex]
+//                                .activity[activityIndex]
+//                                .details),
+//                          ],
+//                        )
+//                      : SizedBox(
+//                          height: 0,
+//                        ),
+//                ),
               ],
             ),
           ),

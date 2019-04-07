@@ -3,10 +3,39 @@ import 'package:club_manager/pages/accounting/coach/show_detail_of_coach_account
 import 'package:flutter/material.dart';
 import 'package:unicorndial/unicorndial.dart';
 
-class NewCoachProfile extends StatelessWidget {
+class NewCoachProfile extends StatefulWidget {
   final index;
 
   NewCoachProfile({this.index});
+
+  @override
+  _NewCoachProfileState createState() => _NewCoachProfileState();
+}
+
+class _NewCoachProfileState extends State<NewCoachProfile> {
+  List _years =
+  ["1398", "1399", "1400", "1401", "1402"];
+
+  List<DropdownMenuItem<String>> _dropDownMenuItems;
+  String _currentYear;
+
+  @override
+  void initState() {
+    _dropDownMenuItems = getDropDownMenuItems();
+    _currentYear = _dropDownMenuItems[0].value;
+    super.initState();
+  }
+  // here we are creating the list needed for the DropDownButton
+  List<DropdownMenuItem<String>> getDropDownMenuItems() {
+    List<DropdownMenuItem<String>> items = new List();
+    for (String year in _years) {
+      items.add(new DropdownMenuItem(
+          value: year,
+          child: new Text(year)
+      ));
+    }
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +59,7 @@ class NewCoachProfile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image(
-                        image: NetworkImage(coaches[index].pictureUrl),
+                        image: NetworkImage(coaches[widget.index].pictureUrl),
                       ),
                     ),
                     //coaches[index].familyName
@@ -39,18 +68,18 @@ class NewCoachProfile extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("نام :  " + coaches[index].name,
+                          child: Text("نام :  " + coaches[widget.index].name,
                             style: TextStyle(fontSize: 20),),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("فامیل : " + coaches[index].familyName,
+                          child: Text("فامیل : " + coaches[widget.index].familyName,
                             style: TextStyle(fontSize: 20),),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text("سال تولد : " +
-                              coaches[index].birthDayYear.toString(),
+                              coaches[widget.index].birthDayYear.toString(),
                             style: TextStyle(fontSize: 20),
                           ),
                         )
@@ -60,13 +89,34 @@ class NewCoachProfile extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              "صورتحساب",
-              style: TextStyle(fontSize: 45),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "صورتحساب",
+                    style: TextStyle(fontSize: 45),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text("اتخاب سال : "),
+                      new DropdownButton(
+                        value: _currentYear,
+                        items: _dropDownMenuItems,
+                        onChanged: changedDropDownItem,
+                      ),
+                    ],
+                  )
+
+
+
+                ],
+              ),
             ),
             createMonth(name: "فروردین", color: Colors.green, onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 0,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 0,);
               }
               )
               );
@@ -74,14 +124,14 @@ class NewCoachProfile extends StatelessWidget {
             ),
             createMonth(name: "اردیبهشت", color: Colors.green,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 1,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 1,);
               }
               )
               );
             }),
             createMonth(name: "خرداد", color: Colors.green,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 2,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 2,);
               }
               )
               );
@@ -89,21 +139,21 @@ class NewCoachProfile extends StatelessWidget {
             Divider(),
             createMonth(name: "تیر", color: Colors.redAccent,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 3,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 3,);
               }
               )
               );
             }),
             createMonth(name: "مرداد", color: Colors.redAccent,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 4,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 4,);
               }
               )
               );
             }),
             createMonth(name: "شهریور", color: Colors.redAccent,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 5,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 5,);
               }
               )
               );
@@ -111,21 +161,21 @@ class NewCoachProfile extends StatelessWidget {
             Divider(),
             createMonth(name: "مهر", color: Colors.orange,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 6,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 6,);
               }
               )
               );
             }),
             createMonth(name: "آبان", color: Colors.orange,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 7,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 7,);
               }
               )
               );
             }),
             createMonth(name: "آذر", color: Colors.orange,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 8,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 8,);
               }
               )
               );
@@ -133,21 +183,21 @@ class NewCoachProfile extends StatelessWidget {
             Divider(),
             createMonth(name: "دی", color: Colors.grey,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 9,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 9,);
               }
               )
               );
             }),
             createMonth(name: "بهمن", color: Colors.grey,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 10,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 10,);
               }
               )
               );
             }),
             createMonth(name: "اسفند", color: Colors.grey,onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ShowMonthActivity(coachIndex: index,monthIndex: 11,);
+                return ShowMonthActivity(coachIndex: widget.index,monthIndex: 11,);
               }
               )
               );
@@ -174,4 +224,11 @@ class NewCoachProfile extends StatelessWidget {
       ),
     );
   }
+  void changedDropDownItem(String selectedYear) {
+    print(selectedYear);
+    setState(() {
+      _currentYear = selectedYear;
+    });
+  }
+
 }

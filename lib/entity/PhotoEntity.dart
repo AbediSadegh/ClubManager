@@ -279,7 +279,7 @@ class SendPhoneEntity {
 class SendCodEntity {
   String token;
   String is_registered;
-  String success;
+  bool success;
 
   SendCodEntity({this.token, this.is_registered, this.success});
 

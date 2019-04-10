@@ -1,5 +1,7 @@
-import 'package:club_manager/pages/accounting/demand_note.dart';
+
 import 'package:club_manager/pages/accounting/online_pay_list/onlinePayment.dart';
+import 'package:club_manager/pages/accounting/student/demand_note.dart';
+import 'package:club_manager/pages/accounting/student/new_pay_list.dart';
 
 class Player{
 
@@ -22,11 +24,26 @@ class Player{
   String lastTeam;
   String reagentCode;
   String timePeriod;
-  List<OnlinePayment> onlinePay=[OnlinePayment(cost: "12000",date: "98/12/01",trackingCode: "123456")];
-  List<DemandNote> demandNote = [
-    DemandNote(demandNoteDate: "98/01/01",demandNoteAuthor: "jhoney sins",isPass: false,demandNoteValue: 15000),
+  List<GeneralPaymentInformation> generalPayment=[
+    GeneralPaymentInformation(
+        isDemandNote: true,
+        demandNote: DemandNote(
+            demandNumber: 123456,
+            demandNoteDate: "1398/01/17",
+            demandNoteAuthor: "zmmmm",
+            isPass: false,
+            demandNoteValue: 15000
+        )
+    ),
+    GeneralPaymentInformation(
+        isDemandNote: false,
+        onlinePayment: OnlinePayment(
+            cost: "12000",
+            trackingCode: "123456",
+            date: "1398/01/18"
+        )
+    ),
   ];
-
   Player({this.timePeriod,this.name, this.family, this.birthday, this.passport, this.email,
       this.patientHistory, this.technicalFoot, this.favoritePos,
       this.fatherPhone, this.fatherWorks, this.motherPhone, this.homePhone,

@@ -1,12 +1,14 @@
-import 'package:club_manager/pages/accounting/accountin_card.dart';
+import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 
 class Salary extends StatelessWidget {
   final bool isSalary;
-  static GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-
-  Salary({@required this.isSalary});
+  final globalKey;
+  final onPress;
+  final titleOnSaved;
+  final costOnSaved;
+  Salary({@required this.isSalary,this.globalKey,this.onPress,this.costOnSaved,this.titleOnSaved});
 
   @override
   Widget build(BuildContext context) {
@@ -53,21 +55,7 @@ class Salary extends StatelessWidget {
                   FlatButton(
                     child: Text("تایید",style: TextStyle(color: Colors.white),),
                     color: Colors.grey,
-                    onPressed: () {
-                      if (globalKey.currentState.validate()) {
-                        globalKey.currentState.save();
-                        cardList.add(AccountingCard(
-                          cost: cost,
-                          time: DateTime.now().toIso8601String(),
-                          isSalary: isSalary,
-                          date: "1398/01/01",
-                          title: title,
-                        )
-
-                        );
-                        Navigator.of(context).pop();
-                      }
-                    },
+                    onPressed: onPress,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
@@ -80,14 +68,5 @@ class Salary extends StatelessWidget {
     );
   }
 
-  String title;
-  String cost;
 
-  titleOnSaved(String str) {
-    title = str;
-  }
-
-  costOnSaved(String str) {
-    cost = str;
-  }
 }

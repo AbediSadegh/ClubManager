@@ -1,13 +1,19 @@
-import 'package:club_manager/pages/accounting/accountin_card.dart';
+import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 import 'package:unicorndial/unicorndial.dart';
 
-class accounting extends StatelessWidget {
+class accounting extends StatefulWidget {
+  @override
+  _accountingState createState() => _accountingState();
+}
+
+class _accountingState extends State<accounting> {
   var childButtons = List<UnicornButton>();
 
   @override
   Widget build(BuildContext context) {
+    salary();
     return ListView.builder(
       itemCount: cardList.length + 2,
       itemBuilder: (context, index) {
@@ -35,7 +41,7 @@ class accounting extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
-                          "99999999999",
+                          pardakhti.toString(),
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -56,7 +62,7 @@ class accounting extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
-                          "99999999999",
+                          daryafti.toString(),
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -73,16 +79,35 @@ class accounting extends StatelessWidget {
           return GestureDetector(
             child: cardList[index - 2],
             onLongPress: () {
-              print("remove");
-              showDialog(context: context,builder: (context){return DeleteOrNot(
-                onDelete: () {
-                  cardList.removeAt(index);
-                },
-              );});
+              setState(() {
+                print(cardList.length);
+                    cardList.removeAt(index);
+                    print(cardList.length);
+              });
+//              print("remove");
+//              showDialog(context: context,builder: (context){return DeleteOrNot(
+//                onDelete: () {
+//                  setState(() {
+//                    print(cardList.length);
+//                    cardList.removeAt(index);
+//                    print(cardList.length);
+//                  });
+//                },
+//              );});
             },
           );
         }
       },
     );
+
+  }
+  int pardakhti = 0 ;
+  int daryafti = 0;
+  salary(){
+    daryafti = 0;
+    pardakhti = 0;
+    for(int i = 0 ; i < cardList.length ; i++){
+      cardList[i].isSalary ? pardakhti += int.parse(cardList[i].cost) : daryafti += int.parse(cardList[i].cost);
+    }
   }
 }

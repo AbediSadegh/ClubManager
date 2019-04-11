@@ -10,6 +10,7 @@ class CircleImage extends StatelessWidget {
   final String title;
   final GestureTapCallback gestureTapCallback;
   final Animation<double> animation;
+
   CircleImage(
       {Key key,
       this.height,
@@ -40,6 +41,8 @@ class CircleImage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        border: Border.all(
+                            color: Theme.of(context).dividerColor, width: 0.5),
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: AssetImage(url),
@@ -59,7 +62,11 @@ class CircleImage extends StatelessWidget {
                         height: height / 3,
                         width: width / 3,
                         alignment: FractionalOffset(0.0, 0.0),
-                        child: Center(child: Icon(iconData)),
+                        child: Center(
+                            child: Icon(
+                          iconData,
+                          color: Theme.of(context).primaryColorDark,
+                        )),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -77,7 +84,10 @@ class CircleImage extends StatelessWidget {
           opacity: animation.value,
           child: Text(
             title,
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Colors.white),
           ),
         )
       ],

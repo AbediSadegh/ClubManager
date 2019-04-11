@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Duration duration = const Duration(seconds: 9);
+    Duration duration = const Duration(seconds: 5);
     int itemsCount = 9;
     _controller = AnimationController(duration: duration, vsync: this)
       ..addListener(() {
@@ -87,6 +87,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       body: Container(
         height: double.infinity,
         width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/images/homepage-bg.jpg'),fit: BoxFit.fill),
+        ),
         child: ListView(
           children: <Widget>[
             SizedBox(
@@ -278,7 +281,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
@@ -288,7 +291,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: TextStyle(fontSize: 15, color: Colors.black87),
+        style: TextStyle(fontSize: 15, color: Colors.white),
       ),
     );
   }

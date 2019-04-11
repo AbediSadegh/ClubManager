@@ -55,8 +55,8 @@ class _ExerciseListState extends State<ExerciseList>
                         _animation.value / 200 < 1 ? _animation.value / 200 : 1,
                     child: ClipPath(
                       clipper: DialogonalClipper(),
-                      child: Image.network(
-                        FakeData.srcImageExercise,
+                      child: Image.asset(
+                        'assets/images/excercise-header.jpg',
                         fit: BoxFit.cover,
                         height: 240,
                         colorBlendMode: BlendMode.srcOver,

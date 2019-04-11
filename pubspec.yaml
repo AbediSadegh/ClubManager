@@ -70,6 +70,8 @@ flutter:
     - assets/images/7.png
     - assets/images/8.png
     - assets/images/9.png
+    - assets/images/homepage-bg.jpg
+    - assets/images/excercise-header.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -50,14 +50,16 @@ class BaseItemState extends State<BaseItem> {
 //              todo comment the above ClipRRect and uncomment the following
               child: CarouselSlider(
                 items: List.generate(
-                    10,
-                    (index) => Image.network(
-                          'https://picsum.photos/800/425?image=${index + 100}',
-                          fit: BoxFit.contain,
+                    1,
+                    (index) => SizedBox(
+                          width: deviceSize.width * 0.65,
+                          child: Image.network(
+                            'https://picsum.photos/500/225?image=${index + 100}',
+                            fit: BoxFit.contain,
+                          ),
                         )),
-                aspectRatio: 1.5 ,
-                viewportFraction: 0.88,
-                reverse: true,
+                aspectRatio: 1.777,
+                viewportFraction: 0.8,
                 enlargeCenterPage: true,
               ),
               margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),

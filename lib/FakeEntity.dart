@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:club_manager/pages/support/serverAbout.dart';
 
 class FakeData {
-  static String appNameFarsi = "مدرسه فوتبال";
-  static String des = "ورزش خودتان را مدیریت کنید";
+  static String appNameFarsi = "آکادمی شهرخودرو";
+  static String des = "با ما آینده خود را بسازید";
   static String coachLogo = '';
   static String newsLogo =
       'https://previews.123rf.com/images/dvolkovkir1980/dvolkovkir19801702/dvolkovkir1980170200008/72399951-speaker-in-hand-speaker-megaphone-flat-design-vector-illustration-vector.jpg';

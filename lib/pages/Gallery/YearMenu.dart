@@ -1,4 +1,3 @@
-import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:flutter/material.dart';
 
 class GalleryTopBar extends StatefulWidget {
@@ -28,7 +27,6 @@ class GalleryTopBarState extends State<GalleryTopBar> {
             textDirection: TextDirection.rtl,
             style: TextStyle(color: Colors.white),
           ),
-//          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           alignment: Alignment.center,
         ),
       ));
@@ -44,7 +42,7 @@ class GalleryTopBarState extends State<GalleryTopBar> {
         children: <Widget>[
           Theme(
             data: ThemeData(
-              canvasColor: Theme.of(context).primaryColor,
+              canvasColor: Theme.of(context).primaryColorDark,
             ),
             child: DropdownButton(
               elevation: 15,

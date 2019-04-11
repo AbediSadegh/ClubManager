@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 class SplashScreenState extends State<SplashScreen> {
 
   startTime() {
-    var _duration = new Duration(seconds: 5);
+    var _duration = new Duration(seconds: 25);
     return new Timer(_duration , navigationPage );
   }
 
@@ -30,7 +30,8 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-        backgroundColor: new Color(0xff075E54),
+//        backgroundColor: new Color(0xff075E54),
+    backgroundColor: Theme.of(context).primaryColor,
         body: new Stack(
           fit: StackFit.expand,
           children: <Widget>[

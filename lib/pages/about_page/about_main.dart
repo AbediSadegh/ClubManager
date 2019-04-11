@@ -37,22 +37,28 @@ class _AboutTabBarState extends State<AboutTabBar>
 //            icon: Icon(Icons.update),
 //            label: Text("آپدیت")),
         appBar: AppBar(
-          iconTheme: IconThemeData(size: 15.0,color: Colors.white),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           title: TabBar(
-//            indicatorColor: Color.from,
-          indicator: BoxDecoration(),
+            indicator: BoxDecoration(
+              color: Theme.of(context).primaryColorDark,
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            ),
             controller: controller,
             tabs: [
               Tab(
                 child: Text(
                   FakeData.companyName,
-                  style: TextStyle(color: Colors.white,fontSize: 14.0),
+                  style: TextStyle(color: Colors.white, fontSize: 14.0),
                 ),
               ),
               Tab(
                 child: Text(
                   FakeData.programmerName,
-                  style: TextStyle(color: Colors.white,fontSize: 14.0),
+                  style: TextStyle(color: Colors.white, fontSize: 14.0),
                 ),
               ),
             ],

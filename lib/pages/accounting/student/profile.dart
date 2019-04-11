@@ -65,11 +65,12 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                         Container(
+                          height: MediaQuery.of(context).size.height * .35,
+                          width: MediaQuery.of(context).size.width*.4,
                           child: Image(
-                            //height: MediaQuery.of(context).size.height * .35,
-                            //width: MediaQuery.of(context).size.width*.,
+                            fit: BoxFit.fitHeight,
                             image: NetworkImage(
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Alexis_Texas_at_Sexpo_in_Sydney%2C_Australia_05.jpg/675px-Alexis_Texas_at_Sexpo_in_Sydney%2C_Australia_05.jpg"),
+                                "https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/fc-bayern-muenchen-v-vfb-stuttgart-bundesliga-5c6171549eef2db581000001.jpg"),
                           ),
                         )
                       ],

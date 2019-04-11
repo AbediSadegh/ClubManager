@@ -300,24 +300,24 @@ Map<String, List<Photograph>> map() {
   return pics;
 }
 
-Player player1 = Player(
-  name: "alexis",
-  family: "texas",
-  fatherPhone: 0915555555,
-  fatherWorks: "کارمند",
-  favoritePos: "دربازه بان",
-  lastTeam: "Brazzers",
-  homePhone: 38888888888,
-  motherPhone: 0915555555555,
-  passport: 09155555555555,
-  patientHistory: "ندارد",
-  schoolName: "BrazzersHouse",
-  technicalFoot: "چپ",
-  email: "alexisTexas@gmail.com",
-  coachName: "ندارد",
-  birthday: 78,
-  address: "مشهد",
-);
+//Player player1 = Player(
+//  name: "alexis",
+//  family: "texas",
+//  fatherPhone: 0915555555,
+//  fatherWorks: "کارمند",
+//  favoritePos: "دربازه بان",
+//  lastTeam: "Brazzers",
+//  homePhone: 38888888888,
+//  motherPhone: 0915555555555,
+//  passport: 09155555555555,
+//  patientHistory: "ندارد",
+//  schoolName: "BrazzersHouse",
+//  technicalFoot: "چپ",
+//  email: "alexisTexas@gmail.com",
+//  coachName: "ندارد",
+//  birthday: 78,
+//  address: "مشهد",
+//);
 Player player5 = Player(
   name: "مهدی",
   family: "کنویسی",
@@ -391,7 +391,7 @@ Player player4 = Player(
   address: "مشهد",
 );
 List<Player> players = [
-  player1,
+  //player1,
   player2,
   player3,
   player4,

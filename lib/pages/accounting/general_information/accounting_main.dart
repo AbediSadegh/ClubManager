@@ -1,4 +1,3 @@
-
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/accounting/general_information/addSalary.dart';
 import 'package:club_manager/pages/accounting/page1/accounting_home_page.dart';
@@ -14,7 +13,9 @@ class Example extends StatefulWidget {
 }
 
 class _Example extends State<Example> {
+  static GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
   static GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var childButtons = List<UnicornButton>();
@@ -139,90 +140,93 @@ class _Example extends State<Example> {
         backgroundColor: Colors.white,
         elevation: 5,
       ),
-      body: ListView.builder(
-        itemCount: cardList.length + 2,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * .01,
-            );
-          }
-          if (index == 1) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * .1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  FlatButton(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * .41,
-                      child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "پرداختی ها",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                pardakhti.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          )),
+      body: RefreshIndicator(
+        onRefresh: refreshList,
+        child: ListView.builder(
+          itemCount: cardList.length + 2,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * .01,
+              );
+            }
+            if (index == 1) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * .1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * .41,
+                        child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "پرداختی ها",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Text(
+                                  pardakhti.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            )),
+                      ),
+                      color: Colors.red,
+                      onPressed: () {},
                     ),
-                    color: Colors.red,
-                    onPressed: () {},
-                  ),
-                  FlatButton(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * .41,
-                      child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "دریافتی ها",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                daryafti.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          )),
+                    FlatButton(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * .41,
+                        child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "دریافتی ها",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Text(
+                                  daryafti.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            )),
+                      ),
+                      color: Colors.green,
+                      onPressed: () {},
                     ),
-                    color: Colors.green,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            );
-          }
-          if (index > 1) {
-            return GestureDetector(
-              child: cardList[index - 2],
-              onLongPress: () {
+                  ],
+                ),
+              );
+            }
+            if (index > 1) {
+              return GestureDetector(
+                child: cardList[index - 2],
+                onLongPress: () {
 //                setState(() {
 //                  print(cardList.length);
 //                  cardList.removeAt(index-2);
 //                  print(cardList.length);
 //                });
 //              print("remove");
-              showDialog(context: context,builder: (context){return DeleteOrNot(
-                onDelete: () {
-                  setState(() {
-                    print(cardList.length);
-                    cardList.removeAt(index);
-                    print(cardList.length);
-                  });
+                showDialog(context: context,builder: (context){return DeleteOrNot(
+                  onDelete: () {
+                    setState(() {
+                      print(cardList.length);
+                      cardList.removeAt(index);
+                      print(cardList.length);
+                    });
+                  },
+                );});
                 },
-              );});
-              },
-            );
-          }
-        },
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -244,5 +248,13 @@ class _Example extends State<Example> {
 
   costOnSaved(String str) {
     cost = str;
+  }
+    Future<Null> refreshList() async {
+      refreshKey.currentState?.show(atTop: false);
+      await Future.delayed(Duration(seconds: 2));
+
+      setState(() {
+//        list = List.generate(random.nextInt(10), (i) => "Item $i");
+      });
   }
 }

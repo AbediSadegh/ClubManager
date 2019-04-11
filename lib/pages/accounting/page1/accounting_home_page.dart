@@ -1,3 +1,4 @@
+import 'package:club_manager/pages/accounting/demand_note_information.dart';
 import 'package:club_manager/pages/accounting/general_information/accounting_main.dart';
 import 'package:club_manager/pages/accounting/student/alphabetic.dart';
 import 'package:club_manager/pages/accounting/coach/coach_list.dart';
@@ -49,7 +50,9 @@ class AccountingHomePage extends StatelessWidget {
                   pageNavigatorAccounting(
                       title: "وضعیت چک ها",
                       context: context,
-                      func: () {},
+                      func: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){return DemandNoteInformation();}));
+                      },
                       color: Color(color).withAlpha(175)),
                   pageNavigatorAccounting(
                       title: "فوتبالیست ها",

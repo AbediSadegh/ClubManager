@@ -1,5 +1,4 @@
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/entity/photograph.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
@@ -20,10 +19,8 @@ class ViewerState extends State<Viewer> {
   bool _visibility = true;
   VideoPlayerController _controller;
   ChewieController chewieController;
-  bool _clicked;
 
   void initState() {
-    _clicked = false;
     super.initState();
     if (widget._photo.is_video) {
       _controller = VideoPlayerController.network(widget._photo.file);
@@ -77,15 +74,19 @@ class ViewerState extends State<Viewer> {
                     alignment: Alignment.topRight,
                     height: widget._deviceSize.height / 4.0,
                     width: widget._deviceSize.width,
-                    child: Text(
-                      widget._photo.content,
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        decoration: TextDecoration.none,
-                      ),
-                      textAlign: TextAlign.center,
+                    child: ListView(
+                      children: <Widget>[
+                        Text(
+                          widget._photo.content,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            decoration: TextDecoration.none,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ),

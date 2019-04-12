@@ -11,5 +11,10 @@ class URL {
   static const String sendPhone = 'http://$padidehDomain/api/users/create-pin/';
   static const String sendCod = 'http://$padidehDomain/api/users/verify-pin/';
   static const String register = 'http://$padidehDomain/api/users/student-create/';
+  static const String commerceList = 'http://$padidehDomain/api/accounting/commerce-list/';
+  static const String commerceCreate = 'http://$padidehDomain/api/accounting/commerce-create/';
+  static const String checkList= 'http://$padidehDomain/api/accounting/check-list/';
+  static const String studentList= 'http://$padidehDomain/api/accounting/student-list/';
+
   static String token ='';
 }

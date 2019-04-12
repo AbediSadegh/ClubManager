@@ -31,7 +31,9 @@ class PhotoGalleryState extends State<
   ScrollController _listScrollController = new ScrollController();
   bool fistLoad = true;
   List<IntSize> l;
-
+  List<PhotoEntityList> _pics;
+  PhotoList photoList;
+  String nextPage;
   List<IntSize> generator(int quantity, double width, double height) {
     List<IntSize> l = List();
     height = height / 2;
@@ -41,9 +43,7 @@ class PhotoGalleryState extends State<
     return l;
   }
 
-  List<PhotoEntityList> _pics;
-  PhotoList photoList;
-  String nextPage;
+
 
   void initState() {
     _pics = new List();

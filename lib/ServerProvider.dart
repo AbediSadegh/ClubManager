@@ -48,6 +48,47 @@ Future<AboutProgrammerListEntity> loadAboutProgrammer(String url) async {
   return product;
 }
 
+Future<CommerceListEntity> getCommerceList(String url) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    // todo change
+  };
+
+  final response = await http.get(url, headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CommerceListEntity.fromJson(jsonResPonse);
+  return product;
+}
+
+Future<CheckListEntity> getCheckList(String url) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    // todo change
+  };
+
+  final response = await http.get(url, headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CheckListEntity.fromJson(jsonResPonse);
+  return product;
+}
+
+Future<CommerceList> createCommerce(
+    {String url, String title, bool is_income, String price}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'title': title,
+    'is_income': is_income ? 'true' : 'false',
+    'price': price,
+  };
+  final response = await http.post(url, headers: requestHeaders, body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CommerceList.fromJson(jsonResPonse);
+  return product;
+}
+
 Future<SocailListEntity> loadSocail(String url) async {
   final response = await http.get(url);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
@@ -97,7 +138,7 @@ Future<SendCodEntity> checkCode(
 }
 
 Future<RegisterEntity> register({String url}) async {
-  Map<String,dynamic> data = {
+  Map<String, dynamic> data = {
     'username': LoginData.username,
     'first_name': LoginData.name,
     'last_name': LoginData.family,
@@ -118,7 +159,8 @@ Future<RegisterEntity> register({String url}) async {
     'Content-Type': 'application/json',
   };
 
-  final response = await http.post(url, body: json.encode(data), headers: requestHeaders);
+  final response =
+      await http.post(url, body: json.encode(data), headers: requestHeaders);
   try {
     final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
     var product = new RegisterEntity.fromJson(jsonResPonse);
@@ -127,4 +169,18 @@ Future<RegisterEntity> register({String url}) async {
     print("sa");
     return null;
   }
+}
+Future<StudentList> getStudentList(
+    {String letter,String url}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'letter': letter,
+  };
+  final response = await http.post(url, headers: requestHeaders, body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new StudentList.fromJson(jsonResPonse);
+  return product;
 }

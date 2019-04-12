@@ -4,6 +4,8 @@ import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/Exercises/ExercisesScreen.dart';
 import 'package:club_manager/pages/Gallery/Gallery.dart';
 import 'package:club_manager/pages/about_page/about_main.dart';
+import 'package:club_manager/pages/accounting/demand_note_information.dart';
+import 'package:club_manager/pages/accounting/page1/accounting_home_page.dart';
 import 'package:club_manager/pages/coach_cv/cv_viewer.dart';
 import 'package:club_manager/pages/honors/honors.dart';
 import 'package:club_manager/pages/news/news.dart';
@@ -261,6 +263,15 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   ),
                   CircleImage(
                     height: 90,
+                    gestureTapCallback: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AccountingHomePage();
+                          },
+                        ),
+                      );
+                    },
                     width: 90,
                     title: MainPage.itemNames[8],
                     iconData: MainPage.itemIcons[8],

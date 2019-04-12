@@ -1,3 +1,6 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/accounting/general_information/addSalary.dart';
 import 'package:club_manager/pages/accounting/page1/accounting_home_page.dart';
@@ -5,16 +8,51 @@ import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 import 'package:unicorndial/unicorndial.dart';
 
-void main() =>
-    runApp(new MaterialApp(debugShowCheckedModeBanner: false, home: AccountingHomePage()));
+void main() => runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false, home: AccountingHomePage()));
 
 class Example extends StatefulWidget {
   _Example createState() => _Example();
 }
 
 class _Example extends State<Example> {
-  static GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
+  static GlobalKey<RefreshIndicatorState> refreshKey =
+      GlobalKey<RefreshIndicatorState>();
   static GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+  String clickMode;
+  bool _isLoading = true;
+  ScrollController _listScrollController = new ScrollController();
+  bool fistLoad = true;
+  bool dialogLoading = false;
+  List<CommerceList> commerceList;
+  CommerceList commerceEntity;
+  CommerceListEntity commerceListEntity;
+  String nextPage;
+
+  void initState() {
+    commerceList = new List();
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getCommerce(page: nextPage);
+        }
+      }
+    });
+    super.initState();
+  }
+
+  getCommerce({String page: URL.commerceList}) async {
+    _isLoading = true;
+    commerceListEntity = await getCommerceList(page);
+    setState(() {
+      commerceList.addAll(commerceListEntity.results);
+      nextPage = commerceListEntity.next;
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +67,18 @@ class _Example extends State<Example> {
           mini: true,
           child: Icon(Icons.assignment_late),
           onPressed: () {
+            clickMode = "p";
             showDialog(
                 context: context,
                 builder: (context) {
                   return Salary(
+                    isLoading: dialogLoading,
                     costOnSaved: costOnSaved,
                     titleOnSaved: titleOnSaved,
-                    onPress: (){
+                    onPress: () {
                       if (globalKey.currentState.validate()) {
                         globalKey.currentState.save();
-                        setState(() {
-                          cardList.add(AccountingCard(
-                            cost: cost,
-                            time: DateTime.now().toIso8601String(),
-                            isSalary: true,
-                            date: "1398/01/01",
-                            title: title,
-                          )
-                          );
-                        });
-                        Navigator.of(context).pop();
+                        sendCommerce();
                       }
                     },
                     isSalary: true,
@@ -56,75 +86,44 @@ class _Example extends State<Example> {
                   );
                 });
           },
-        ))
-    );
-
+        )));
     childButtons.add(UnicornButton(
         hasLabel: true,
         labelText: "دریافتی",
         currentButton: FloatingActionButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Salary(
-                      costOnSaved: costOnSaved,
-                      titleOnSaved: titleOnSaved,
-                      onPress: (){
-                        if (globalKey.currentState.validate()) {
-                          globalKey.currentState.save();
-                          setState(() {
-                            cardList.add(AccountingCard(
-                              cost: cost,
-                              time: DateTime.now().toIso8601String(),
-                              isSalary: false,
-                              date: "1398/01/01",
-                              title: title,
-                            )
-                            );
-                          });
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      isSalary: false,
-                      globalKey: globalKey,
-                    );
-                  });
-            },
-            heroTag: "دریافتی",
-            backgroundColor: Colors.green,
-            mini: true,
-            child: Icon(Icons.assessment))));
-//    childButtons.add(UnicornButton(
-//        hasLabel: true,
-//        labelText: "وضعیت افراد",
-//        currentButton: FloatingActionButton(
-//            onPressed: () {
-//              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//                return PlayerList();
-//              }));
-//            },
-//            heroTag: "وضعیت افراد",
-//            backgroundColor: Colors.green,
-//            mini: true,
-//            child: Icon(Icons.person))));
+          heroTag: "دریافتی",
+          backgroundColor: Colors.green,
+          mini: true,
+          child: Icon(Icons.assignment_late),
+          onPressed: () {
+            clickMode = "d";
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return Salary(
+                    isLoading: dialogLoading,
+                    costOnSaved: costOnSaved,
+                    titleOnSaved: titleOnSaved,
+                    onPress: () {
+                      if (globalKey.currentState.validate()) {
+                        globalKey.currentState.save();
+                        sendCommerce();
+                      }
+                    },
+                    isSalary: true,
+                    globalKey: globalKey,
+                  );
+                });
+          },
+        )));
 
-//    childButtons.add(UnicornButton(
-//        hasLabel: true,
-//        labelText: "وضعیت مربی ها",
-//        currentButton: FloatingActionButton(
-//            onPressed: () {
-//              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//                return CoachList();
-//              }));
-//            },
-//            heroTag: "وضعیت مربی ها",
-//            backgroundColor: Colors.green,
-//            mini: true,
-//            child: Icon(Icons.person))));
     salary();
+    if (fistLoad) {
+      fistLoad = false;
+      getCommerce();
+    }
     return Scaffold(
-      //backgroundColor: Colors.deepPurpleAccent,
+      key: key,
       floatingActionButton: UnicornDialer(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
           parentButtonBackground: Colors.redAccent,
@@ -140,105 +139,37 @@ class _Example extends State<Example> {
         backgroundColor: Colors.white,
         elevation: 5,
       ),
-      body: RefreshIndicator(
-        onRefresh: refreshList,
-        child: ListView.builder(
-          itemCount: cardList.length + 2,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height * .01,
-              );
-            }
-            if (index == 1) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * .1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    FlatButton(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * .41,
-                        child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "پرداختی ها",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  pardakhti.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            )),
-                      ),
-                      color: Colors.red,
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * .41,
-                        child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "دریافتی ها",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  daryafti.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            )),
-                      ),
-                      color: Colors.green,
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              );
-            }
-            if (index > 1) {
-              return GestureDetector(
-                child: cardList[index - 2],
-                onLongPress: () {
-//                setState(() {
-//                  print(cardList.length);
-//                  cardList.removeAt(index-2);
-//                  print(cardList.length);
-//                });
-//              print("remove");
-                showDialog(context: context,builder: (context){return DeleteOrNot(
-                  onDelete: () {
-                    setState(() {
-                      print(cardList.length);
-                      cardList.removeAt(index);
-                      print(cardList.length);
-                    });
-                  },
-                );});
-                },
-              );
-            }
-          },
-        ),
-      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              controller: _listScrollController,
+              itemCount: commerceList.length,
+              itemBuilder: (context, index) {
+                return AccountingCard(
+                    title: commerceList[index].title,
+                    date: "هنوز درست نشده",
+                    isSalary: commerceList[index].is_income,
+                    cost: commerceList[index].price.toString());
+              },
+            ),
     );
   }
-  int pardakhti = 0 ;
+
+  int pardakhti = 0;
   int daryafti = 0;
-  salary(){
+
+  salary() {
     daryafti = 0;
     pardakhti = 0;
-    for(int i = 0 ; i < cardList.length ; i++){
-      cardList[i].isSalary ? daryafti += int.parse(cardList[i].cost) : pardakhti += int.parse(cardList[i].cost);
+    for (int i = 0; i < cardList.length; i++) {
+      cardList[i].isSalary
+          ? daryafti += int.parse(cardList[i].cost)
+          : pardakhti += int.parse(cardList[i].cost);
     }
   }
+
   String title;
   String cost;
 
@@ -246,15 +177,32 @@ class _Example extends State<Example> {
     title = str;
   }
 
+  sendCommerce() async {
+    setState(() {
+      dialogLoading = true;
+    });
+    commerceEntity = await createCommerce(
+        url: URL.commerceCreate,
+        price: cost,
+        title: title,
+        is_income: clickMode == "p" ? false : true);
+    if (commerceEntity != null) {
+      fistLoad = true;
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("درخواست شما ثبت شد "),
+      ));
+    } else {
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("خطا در برقراری ارتباط با سرور "),
+      ));
+    }
+
+    setState(() {
+      dialogLoading = false;
+    });
+  }
+
   costOnSaved(String str) {
     cost = str;
-  }
-    Future<Null> refreshList() async {
-      refreshKey.currentState?.show(atTop: false);
-      await Future.delayed(Duration(seconds: 2));
-
-      setState(() {
-//        list = List.generate(random.nextInt(10), (i) => "Item $i");
-      });
   }
 }

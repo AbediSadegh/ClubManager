@@ -1,4 +1,6 @@
-import 'package:club_manager/pages/accounting/student/demand_note.dart';
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/student/pass_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +10,55 @@ class DemandNoteInformation extends StatefulWidget {
 }
 
 class _DemandNoteInformationState extends State<DemandNoteInformation> {
+  bool _isLoading = true;
+  ScrollController _listScrollController = new ScrollController();
+  bool fistLoad = true;
+  bool dialogLoading = false;
+  List<CheckEntity> checkList;
+   CheckListEntity checkListEntity;
+  String nextPage;
+
+  void initState() {
+    checkList = new List();
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getChecks(page: nextPage);
+        }
+      }
+    });
+    super.initState();
+  }
+
+  getChecks({String page: URL.checkList}) async {
+    _isLoading = true;
+    checkListEntity = await getCheckList(page);
+    setState(() {
+      checkList.addAll(checkListEntity.results);
+      nextPage = checkListEntity.next;
+      _isLoading = false;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    if (fistLoad){
+      fistLoad = false;
+      getChecks();
+    }
     return Scaffold(
       body: ListView.builder(
-          itemCount: note.length,
+          itemCount: checkList.length,
           itemBuilder: (context , index){
             return GestureDetector(
               onLongPress: (){
-                if(note[index].isPass ==false ) {
+                if(checkList[index].is_passed ==false ) {
                 showDialog(context: context,builder: (context){ return PassDialog(
                   yesPress: (){setState(() {
-                    note[index].isPass = true;
+                    checkList[index].is_passed = true;
                     Navigator.pop(context);
                   });},
                   cancelPress:(){Navigator.pop(context);},
@@ -38,13 +77,13 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
                     child: Column(
                       children: <Widget>[
                         createRow(
-                            Text(note[index].demandNoteAuthor),
+                            Text(checkList[index].name),
                             Text("نام نویسنده چک")),
                         createRow(
-                            Text(note[index].demandNoteDate),
+                            Text(checkList[index].date==null ? " " : checkList[index].date),
                             Text("تاریخ")),
                         createRow(
-                            note[index].isPass
+                            checkList[index].is_passed
                                 ? Text(
                               "پاس شده",
                               style: TextStyle(color: Colors.green),
@@ -55,7 +94,7 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
                             ),
                             Text("وضعیت")),
                         createRow(
-                            Text(note[index].demandNoteValue.toString()),
+                            Text(checkList[index].price.toString()),
                             Text("مبلغ")),
                       ],
                     ),
@@ -78,9 +117,3 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
     );
   }
 }
-List<DemandNote> note=[
-  DemandNote(demandNoteValue: 15000,isPass: false,demandNoteAuthor: "amirHossein",demandNoteDate: "98/01/22",demandNumber: 123456),
-  DemandNote(demandNoteValue: 25000,isPass: false,demandNoteAuthor: "hamed",demandNoteDate: "98/01/23",demandNumber: 123456),
-  DemandNote(demandNoteValue: 35000,isPass: false,demandNoteAuthor: "hossein",demandNoteDate: "98/01/24",demandNumber: 12155555),
-  DemandNote(demandNoteValue: 45000,isPass: false,demandNoteAuthor: "sadegh",demandNoteDate: "98/01/25",demandNumber: 156464),
-];

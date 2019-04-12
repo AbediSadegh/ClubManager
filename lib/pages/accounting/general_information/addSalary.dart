@@ -1,14 +1,22 @@
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
-
-class Salary extends StatelessWidget {
+class Salary extends StatefulWidget {
+  @override
+  _SalaryState createState() => _SalaryState();
   final bool isSalary;
   final globalKey;
   final onPress;
   final titleOnSaved;
+  bool isLoading;
   final costOnSaved;
-  Salary({@required this.isSalary,this.globalKey,this.onPress,this.costOnSaved,this.titleOnSaved});
+  Salary({@required this.isSalary,this.globalKey,this.onPress,this.costOnSaved,this.titleOnSaved,this.isLoading});
+
+
+}
+
+class _SalaryState extends State<Salary> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class Salary extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Form(
-              key: globalKey,
+              key:widget. globalKey,
               child: Column(
                 children: <Widget>[
                   Padding(
@@ -30,7 +38,7 @@ class Salary extends StatelessWidget {
                       icon: Icons.title,
                       label: "موضوع",
                       keyType: TextInputType.text,
-                      onSaved: titleOnSaved,
+                      onSaved: widget.titleOnSaved,
                       valid: (String str) {},
                     ),
                   ),
@@ -39,7 +47,7 @@ class Salary extends StatelessWidget {
                     child: FormTextField(
                       icon: Icons.credit_card,
                       label: "هزینه",
-                      onSaved: costOnSaved,
+                      onSaved:widget. costOnSaved,
                       keyType: TextInputType.number,
                       valid: (String str) {},
                     ),
@@ -53,9 +61,9 @@ class Salary extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton(
-                    child: Text("تایید",style: TextStyle(color: Colors.white),),
+                    child: widget.isLoading ? Center(child: CircularProgressIndicator(),): Text("تایید",style: TextStyle(color: Colors.white),),
                     color: Colors.grey,
-                    onPressed: onPress,
+                    onPressed: widget.onPress,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
@@ -67,6 +75,4 @@ class Salary extends StatelessWidget {
       ),
     );
   }
-
-
 }

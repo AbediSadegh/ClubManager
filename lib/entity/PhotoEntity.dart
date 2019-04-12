@@ -350,3 +350,110 @@ class StudentEntity {
     );
   }
 }
+class CommerceList {
+  String title;
+  bool is_income;
+  int price;
+
+
+  CommerceList({this.title, this.is_income, this.price});
+
+  factory CommerceList.fromJson(Map<String, dynamic> parsedJson) {
+    return CommerceList(
+      is_income: parsedJson['is_income'],
+      price: parsedJson['price'],
+      title: parsedJson['title'],
+    );
+  }
+}
+class CheckEntity {
+  String name;
+  String number;
+
+  CheckEntity({this.name, this.number, this.price, this.date, this.is_passed});
+
+  int price;
+  String date;
+  bool is_passed;
+
+
+
+
+  factory CheckEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return CheckEntity(
+      name: parsedJson['name'],
+      price: parsedJson['price'],
+      number: parsedJson['number'],
+
+      date: parsedJson['date'],
+      is_passed: parsedJson['is_passed'],
+    );
+  }
+}
+
+class CommerceListEntity {
+  int count;
+  String next;
+  String previous;
+  List<CommerceList> results;
+
+  factory CommerceListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<CommerceList> convert() {
+      var list = parsedJson['results'] as List;
+      List<CommerceList> imagesList =
+      list.map((i) => CommerceList.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return CommerceListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  CommerceListEntity({this.count, this.next, this.previous, this.results});
+}
+class StudentList {
+  List<String> student;
+
+  StudentList({this.student});
+
+  factory StudentList.fromJson(Map<String, dynamic> parsedJson) {
+    List<String> convert() {
+      var list = parsedJson['students'] as List;
+      List<String> imagesList =
+      list.map((i) => i).toList();
+      return imagesList;
+    }
+
+    return StudentList(
+        student: convert());
+  }
+
+}
+class CheckListEntity {
+  int count;
+  String next;
+  String previous;
+  List<CheckEntity> results;
+
+  factory CheckListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<CheckEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<CheckEntity> imagesList =
+      list.map((i) => CheckEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return CheckListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  CheckListEntity({this.count, this.next, this.previous, this.results});
+}
+
+

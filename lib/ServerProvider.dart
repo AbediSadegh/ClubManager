@@ -71,6 +71,17 @@ Future<CheckListEntity> getCheckList(String url) async {
   var product = new CheckListEntity.fromJson(jsonResPonse);
   return product;
 }
+Future<CheckPassEntity> passedCheck({String url,String id}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    // todo change
+  };
+
+  final response = await http.get(url, headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CheckPassEntity.fromJson(jsonResPonse);
+  return product;
+}
 
 Future<CommerceList> createCommerce(
     {String url, String title, bool is_income, String price}) async {
@@ -170,7 +181,7 @@ Future<RegisterEntity> register({String url}) async {
     return null;
   }
 }
-Future<StudentList> getStudentList(
+Future<StudentName> getStudentList(
     {String letter,String url}) async {
   Map<String, String> requestHeaders = {
     'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
@@ -181,6 +192,6 @@ Future<StudentList> getStudentList(
   };
   final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new StudentList.fromJson(jsonResPonse);
+  var product = new StudentName.fromJson(jsonResPonse);
   return product;
 }

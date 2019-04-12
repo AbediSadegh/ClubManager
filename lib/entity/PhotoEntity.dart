@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class PhotoEntityList {
   String content;
   String title;
@@ -369,12 +371,12 @@ class CommerceList {
 class CheckEntity {
   String name;
   String number;
-
-  CheckEntity({this.name, this.number, this.price, this.date, this.is_passed});
-
+  int id;
   int price;
   String date;
   bool is_passed;
+
+  CheckEntity({this.name, this.number, this.price, this.date, this.is_passed,this.id});
 
 
 
@@ -384,9 +386,18 @@ class CheckEntity {
       name: parsedJson['name'],
       price: parsedJson['price'],
       number: parsedJson['number'],
-
+      id: parsedJson['id'],
       date: parsedJson['date'],
       is_passed: parsedJson['is_passed'],
+    );
+  }
+}
+class CheckPassEntity {
+  String success;
+  CheckPassEntity({this.success});
+  factory CheckPassEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return CheckPassEntity(
+      success: parsedJson['success'],
     );
   }
 }
@@ -414,6 +425,7 @@ class CommerceListEntity {
 
   CommerceListEntity({this.count, this.next, this.previous, this.results});
 }
+
 class StudentList {
   List<String> student;
 
@@ -457,3 +469,28 @@ class CheckListEntity {
 }
 
 
+StudentName studentNameFromJson(String str) {
+  final jsonData = json.decode(str);
+  return StudentName.fromJson(jsonData);
+}
+
+String studentNameToJson(StudentName data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
+
+class StudentName {
+  List<String> students;
+
+  StudentName({
+    this.students,
+  });
+
+  factory StudentName.fromJson(Map<String, dynamic> json) => new StudentName(
+    students: json["students"] == null ? null : new List<String>.from(json["students"].map((x) => x)),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "students": students == null ? null : new List<dynamic>.from(students.map((x) => x)),
+  };
+}

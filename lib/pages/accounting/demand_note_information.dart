@@ -15,7 +15,7 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
   bool fistLoad = true;
   bool dialogLoading = false;
   List<CheckEntity> checkList;
-   CheckListEntity checkListEntity;
+  CheckListEntity checkListEntity;
   String nextPage;
 
   void initState() {
@@ -41,32 +41,47 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
       _isLoading = false;
     });
   }
-
+  passCheck({String page: URL.checkList,String id}) async {
+    _isLoading = true;
+    checkListEntity = await passedCheck(url: page,id: id);
+    setState(() {
+      checkList.addAll(checkListEntity.results);
+      nextPage = checkListEntity.next;
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (fistLoad){
+    if (fistLoad) {
       fistLoad = false;
       getChecks();
     }
     return Scaffold(
       body: ListView.builder(
           itemCount: checkList.length,
-          itemBuilder: (context , index){
+          itemBuilder: (context, index) {
             return GestureDetector(
-              onLongPress: (){
-                if(checkList[index].is_passed ==false ) {
-                showDialog(context: context,builder: (context){ return PassDialog(
-                  yesPress: (){setState(() {
-                    checkList[index].is_passed = true;
-                    Navigator.pop(context);
-                  });},
-                  cancelPress:(){Navigator.pop(context);},
-
-                );});
+              onLongPress: () {
+                if (checkList[index].is_passed == false) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return PassDialog(
+                          yesPress: () {
+                            setState(() {
+                              checkList[index].is_passed = true;
+                              Navigator.pop(context);
+                            });
+                          },
+                          cancelPress: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      });
                 }
               },
-              child:  Card(
+              child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 child: Container(
@@ -76,25 +91,25 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
                     padding: const EdgeInsets.all(14.0),
                     child: Column(
                       children: <Widget>[
-                        createRow(
-                            Text(checkList[index].name),
+                        createRow(Text(checkList[index].name),
                             Text("نام نویسنده چک")),
                         createRow(
-                            Text(checkList[index].date==null ? " " : checkList[index].date),
+                            Text(checkList[index].date == null
+                                ? " "
+                                : checkList[index].date),
                             Text("تاریخ")),
                         createRow(
                             checkList[index].is_passed
                                 ? Text(
-                              "پاس شده",
-                              style: TextStyle(color: Colors.green),
-                            )
+                                    "پاس شده",
+                                    style: TextStyle(color: Colors.green),
+                                  )
                                 : Text(
-                              "پاس نشده",
-                              style: TextStyle(color: Colors.red),
-                            ),
+                                    "پاس نشده",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
                             Text("وضعیت")),
-                        createRow(
-                            Text(checkList[index].price.toString()),
+                        createRow(Text(checkList[index].price.toString()),
                             Text("مبلغ")),
                       ],
                     ),
@@ -102,7 +117,6 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
                 ),
               ),
             );
-
           }),
     );
   }

@@ -352,6 +352,22 @@ class StudentEntity {
     );
   }
 }
+class StudentNameEntity {
+  String username;
+  String first_name;
+  String last_name;
+
+
+  StudentNameEntity({this.username, this.first_name, this.last_name});
+
+  factory StudentNameEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return StudentNameEntity(
+      first_name: parsedJson['first_name'],
+      last_name: parsedJson['last_name'],
+      username:  parsedJson['last_name'],
+    );
+  }
+}
 class CommerceList {
   String title;
   bool is_income;
@@ -425,25 +441,25 @@ class CommerceListEntity {
 
   CommerceListEntity({this.count, this.next, this.previous, this.results});
 }
-
 class StudentList {
-  List<String> student;
-
-  StudentList({this.student});
+  List<StudentNameEntity> students;
 
   factory StudentList.fromJson(Map<String, dynamic> parsedJson) {
-    List<String> convert() {
+    List<StudentNameEntity> convert() {
       var list = parsedJson['students'] as List;
-      List<String> imagesList =
-      list.map((i) => i).toList();
+      List<StudentNameEntity> imagesList =
+      list.map((i) => StudentNameEntity.fromJson(i)).toList();
       return imagesList;
     }
 
     return StudentList(
-        student: convert());
+        students: convert());
   }
 
+  StudentList({this.students});
+
 }
+
 class CheckListEntity {
   int count;
   String next;
@@ -469,28 +485,4 @@ class CheckListEntity {
 }
 
 
-StudentName studentNameFromJson(String str) {
-  final jsonData = json.decode(str);
-  return StudentName.fromJson(jsonData);
-}
 
-String studentNameToJson(StudentName data) {
-  final dyn = data.toJson();
-  return json.encode(dyn);
-}
-
-class StudentName {
-  List<String> students;
-
-  StudentName({
-    this.students,
-  });
-
-  factory StudentName.fromJson(Map<String, dynamic> json) => new StudentName(
-    students: json["students"] == null ? null : new List<String>.from(json["students"].map((x) => x)),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "students": students == null ? null : new List<dynamic>.from(students.map((x) => x)),
-  };
-}

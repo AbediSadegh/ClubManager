@@ -183,7 +183,7 @@ Future<RegisterEntity> register({String url}) async {
     return null;
   }
 }
-Future<StudentName> getStudentList(
+Future<StudentList> getStudentList(
     {String letter,String url}) async {
   Map<String, String> requestHeaders = {
     'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
@@ -194,6 +194,6 @@ Future<StudentName> getStudentList(
   };
   final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new StudentName.fromJson(jsonResPonse);
+  var product = new StudentList.fromJson(jsonResPonse);
   return product;
 }

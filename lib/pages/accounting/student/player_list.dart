@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 class PlayerList extends StatefulWidget {
   final String alephabetic;
 
-
   PlayerList({this.alephabetic});
 
   @override
@@ -18,11 +17,11 @@ class PlayerList extends StatefulWidget {
 class _PlayerListState extends State<PlayerList> {
   bool isLoading;
   bool first;
-  StudentName studentList;
+  StudentList studentList;
   Icon _searchIcon = new Icon(Icons.search);
   List names = new List();
   List filteredNames = new List();
-  Widget _appBarTitle = new Text( 'Search Example' );
+  Widget _appBarTitle = new Text('Search Example');
   String _searchText = "";
   final TextEditingController _filter = new TextEditingController();
 
@@ -34,12 +33,11 @@ class _PlayerListState extends State<PlayerList> {
 
   getStudentNameList({String page: URL.studentList}) async {
     studentList =
-    await getStudentList(url: URL.studentList, letter: widget.alephabetic);
+        await getStudentList(url: URL.studentList, letter: widget.alephabetic);
     setState(() {
       isLoading = false;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +45,19 @@ class _PlayerListState extends State<PlayerList> {
       first = false;
       getStudentNameList();
     }
-    return  isLoading ? Center(child: CircularProgressIndicator(),) : Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: _buildBar(context),
-          body:_buildList(),
-        ),
-      );
-    }
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Directionality(
+            textDirection: TextDirection.rtl,
+            child: Scaffold(
+              appBar: _buildBar(context),
+              body: _buildList(),
+            ),
+          );
+  }
+
   Widget _buildBar(BuildContext context) {
     return new AppBar(
       centerTitle: true,
@@ -62,10 +65,10 @@ class _PlayerListState extends State<PlayerList> {
       leading: new IconButton(
         icon: _searchIcon,
         onPressed: _searchPressed,
-
       ),
     );
   }
+
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
@@ -73,23 +76,23 @@ class _PlayerListState extends State<PlayerList> {
         this._appBarTitle = new TextField(
           controller: _filter,
           decoration: new InputDecoration(
-              prefixIcon: new Icon(Icons.search),
-              hintText: 'Search...'
-          ),
+              prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
         );
       } else {
         this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text( 'Search Example' );
+        this._appBarTitle = new Text('Search Example');
         filteredNames = names;
         _filter.clear();
       }
     });
   }
+
   Widget _buildList() {
     if (!(_searchText.isEmpty)) {
       List tempList = new List();
       for (int i = 0; i < studentList.students.length; i++) {
-        if (studentList.students[i].toLowerCase().contains(_searchText.toLowerCase())) {
+        if (studentList.students[i].first_name
+            .contains(_searchText.toLowerCase())) {
           tempList.add(filteredNames[i]);
         }
       }
@@ -105,6 +108,4 @@ class _PlayerListState extends State<PlayerList> {
       },
     );
   }
-
-  }
-
+}

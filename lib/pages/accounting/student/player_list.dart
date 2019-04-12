@@ -21,11 +21,29 @@ class _PlayerListState extends State<PlayerList> {
   Icon _searchIcon = new Icon(Icons.search);
   List names = new List();
   List filteredNames = new List();
-  Widget _appBarTitle = new Text('Search Example');
+  Widget _appBarTitle = new Text('لیست فوتبالیست ها');
   String _searchText = "";
   final TextEditingController _filter = new TextEditingController();
 
+  _PlayerListState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          filteredNames = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+
   void initState() {
+    //getStudentNameList();
+
     isLoading = true;
     first = true;
     super.initState();
@@ -36,6 +54,7 @@ class _PlayerListState extends State<PlayerList> {
         await getStudentList(url: URL.studentList, letter: widget.alephabetic);
     setState(() {
       isLoading = false;
+      _getNames();
     });
   }
 
@@ -75,12 +94,13 @@ class _PlayerListState extends State<PlayerList> {
         this._searchIcon = new Icon(Icons.close);
         this._appBarTitle = new TextField(
           controller: _filter,
+          style: TextStyle(color: Colors.white),
           decoration: new InputDecoration(
-              prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+              prefixIcon: new Icon(Icons.search,color:Colors.white,), hintText: 'Search...',hintStyle: TextStyle(color: Colors.white)),
         );
       } else {
-        this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text('Search Example');
+        this._searchIcon = new Icon(Icons.search,color: Colors.white,);
+        this._appBarTitle = new Text('لیست فوتبالیست ها');
         filteredNames = names;
         _filter.clear();
       }
@@ -91,9 +111,10 @@ class _PlayerListState extends State<PlayerList> {
     if (!(_searchText.isEmpty)) {
       List tempList = new List();
       for (int i = 0; i < studentList.students.length; i++) {
-        if (studentList.students[i].first_name
-            .contains(_searchText.toLowerCase())) {
-          tempList.add(filteredNames[i]);
+        String fullName = studentList.students[i].first_name + " " + studentList.students[i].last_name;
+        if (fullName
+            .contains(_searchText)) {
+          tempList.add(fullName);
         }
       }
       filteredNames = tempList;
@@ -102,10 +123,24 @@ class _PlayerListState extends State<PlayerList> {
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
         return new ListTile(
-          title: Text(filteredNames[index]['name']),
-          onTap: () => print(filteredNames[index]['name']),
+          title: Text(filteredNames[index]),
+          onTap: () => print(filteredNames[index]),
         );
       },
     );
+  }
+  void _getNames() async {
+    List tempList = new List();
+    //print(studentList.students.length==null ? "hahaaahhhhhhhhhhhh":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+    for (int i = 0; i < studentList.students.length; i++) {
+      String fullName = studentList.students[i].first_name + " " + studentList.students[i].last_name;
+      tempList.add(fullName);
+      //print("hahahahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    }
+    setState(() {
+      names = tempList;
+      names.shuffle();
+      filteredNames = names;
+    });
   }
 }

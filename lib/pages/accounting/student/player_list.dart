@@ -19,6 +19,12 @@ class _PlayerListState extends State<PlayerList> {
   bool isLoading;
   bool first;
   StudentName studentList;
+  Icon _searchIcon = new Icon(Icons.search);
+  List names = new List();
+  List filteredNames = new List();
+  Widget _appBarTitle = new Text( 'Search Example' );
+  String _searchText = "";
+  final TextEditingController _filter = new TextEditingController();
 
   void initState() {
     isLoading = true;
@@ -44,37 +50,61 @@ class _PlayerListState extends State<PlayerList> {
     return  isLoading ? Center(child: CircularProgressIndicator(),) : Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              widget.alephabetic,
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.white,
-          ),
-          body: ListView.builder(
-              itemCount: studentList.students.length,
-              itemBuilder: (context, index) {
-                print(widget.alephabetic);
-                return ListTile(
-                  onTap: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context) {
-                      return Profile(
-                        index: index,
-                      );
-                    }));
-                  },
-                  title: Text(
-                      studentList.students[index]),
-                  //isThreeLine: true,
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.orange,
-                  ),
-                );
-              }),
+          appBar: _buildBar(context),
+          body:_buildList(),
         ),
       );
     }
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+
+      ),
+    );
+  }
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search),
+              hintText: 'Search...'
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text( 'Search Example' );
+        filteredNames = names;
+        _filter.clear();
+      }
+    });
+  }
+  Widget _buildList() {
+    if (!(_searchText.isEmpty)) {
+      List tempList = new List();
+      for (int i = 0; i < studentList.students.length; i++) {
+        if (studentList.students[i].toLowerCase().contains(_searchText.toLowerCase())) {
+          tempList.add(filteredNames[i]);
+        }
+      }
+      filteredNames = tempList;
+    }
+    return ListView.builder(
+      itemCount: names == null ? 0 : filteredNames.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new ListTile(
+          title: Text(filteredNames[index]['name']),
+          onTap: () => print(filteredNames[index]['name']),
+        );
+      },
+    );
+  }
+
   }
 

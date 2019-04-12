@@ -16,6 +16,7 @@ class URL {
   static const String checkList= 'http://$padidehDomain/api/accounting/check-list/';
   static const String studentList= 'http://$padidehDomain/api/accounting/student-list/';
   static const String checkPass= 'http://$padidehDomain/api/accounting/check-pass/';
+//  static const String checkPass= 'http://$padidehDomain/api/accounting/check-pass/';
 
   static String token ='';
 }

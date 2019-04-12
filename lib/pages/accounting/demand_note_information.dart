@@ -15,6 +15,7 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
   bool fistLoad = true;
   bool dialogLoading = false;
   List<CheckEntity> checkList;
+  CheckPassEntity checkPassEntity;
   CheckListEntity checkListEntity;
   String nextPage;
 
@@ -36,18 +37,23 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
     _isLoading = true;
     checkListEntity = await getCheckList(page);
     setState(() {
+      if (fistLoad) checkList.clear();
       checkList.addAll(checkListEntity.results);
+
       nextPage = checkListEntity.next;
       _isLoading = false;
     });
   }
-  passCheck({String page: URL.checkList,String id}) async {
-    _isLoading = true;
-    checkListEntity = await passedCheck(url: page,id: id);
+
+  passCheck({String page: URL.checkPass, String id}) async {
     setState(() {
-      checkList.addAll(checkListEntity.results);
-      nextPage = checkListEntity.next;
-      _isLoading = false;
+      dialogLoading = true;
+    });
+    checkPassEntity = await passedCheck(url: page, id: id);
+    setState(() {
+      Navigator.pop(context);
+      dialogLoading = false;
+      fistLoad = true;
     });
   }
 
@@ -68,11 +74,9 @@ class _DemandNoteInformationState extends State<DemandNoteInformation> {
                       context: context,
                       builder: (context) {
                         return PassDialog(
+                          isLoading: dialogLoading,
                           yesPress: () {
-                            setState(() {
-                              checkList[index].is_passed = true;
-                              Navigator.pop(context);
-                            });
+                            passCheck(id: checkList[index].id.toString());
                           },
                           cancelPress: () {
                             Navigator.pop(context);

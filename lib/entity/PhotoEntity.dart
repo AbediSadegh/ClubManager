@@ -393,7 +393,7 @@ class CheckEntity {
   }
 }
 class CheckPassEntity {
-  String success;
+  bool success;
   CheckPassEntity({this.success});
   factory CheckPassEntity.fromJson(Map<String, dynamic> parsedJson) {
     return CheckPassEntity(

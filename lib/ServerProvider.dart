@@ -76,8 +76,10 @@ Future<CheckPassEntity> passedCheck({String url,String id}) async {
     'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
     // todo change
   };
-
-  final response = await http.get(url, headers: requestHeaders);
+  Map data = {
+    'id': id,
+  };
+  final response = await http.post(url,body :data, headers: requestHeaders);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new CheckPassEntity.fromJson(jsonResPonse);
   return product;

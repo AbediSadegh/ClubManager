@@ -21,7 +21,8 @@ class _AboutUsState extends State<AboutUs> {
       style: TextStyle(color: Colors.grey, fontSize: 16),
     );
   }
-  bool  first;
+
+  bool first;
   bool _isLoading;
   AboutProgrammerListEntity data;
 
@@ -42,45 +43,58 @@ class _AboutUsState extends State<AboutUs> {
 
   @override
   Widget build(BuildContext context) {
-    if (first){
+    if (first) {
       first = false;
-      if (widget.type=="po")
+      if (widget.type == "po")
         getdata(page: URL.urlAboutProgremmer);
       else
-        getdata(page:URL.urlAboutPadideh );
+        getdata(page: URL.urlAboutPadideh);
     }
     return _isLoading
         ? Center(
             child: CircularProgressIndicator(),
           )
-        : ListView(
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .05,
-              ),
-              Container(
-                height: 160,
-                child: Image.network(
-                  data.results[0].image,
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-              Divider(
-                color: Colors.red,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  data.results[0].content,
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                  textDirection: TextDirection.rtl,
-                ),
-              ),
-              Divider(
-                color: Colors.red,
-              ),
-              Center(
+        : data.results.length > 0
+            ? ListView(
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .05,
+                  ),
+                  Container(
+                    height: 160,
+                    child: Image.network(
+                      data.results[0].image,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.red,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Text(
+                      data.results[0].content,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.red,
+                  ),
+                  Center(
+                    child: FutureBuilder(
+                      future: buidVersion(),
+                      initialData: Text('نسخه :'),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        return snapshot.data;
+                      },
+                    ),
+                  ),
+                ],
+              )
+            : Container(
+                alignment: Alignment.center,
                 child: FutureBuilder(
                   future: buidVersion(),
                   initialData: Text('نسخه :'),
@@ -88,8 +102,6 @@ class _AboutUsState extends State<AboutUs> {
                     return snapshot.data;
                   },
                 ),
-              ),
-            ],
-          );
+              );
   }
 }

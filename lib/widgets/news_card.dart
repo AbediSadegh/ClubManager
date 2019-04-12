@@ -67,13 +67,21 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                         tag: widget.url + '__news',
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(7.5),
-                          child: FadeInImage.assetNetwork(
-                            width: deviceSize.width * 0.85,
-                            placeholder: 'assets/images/logo.png',
-                            image: widget.image,
-                            fit: BoxFit.fill,
-                            alignment: Alignment.center,
-                          ),
+                          child:
+                              (widget.image != null && widget.image.isNotEmpty)
+                                  ? FadeInImage.assetNetwork(
+                                      width: deviceSize.width * 0.85,
+                                      placeholder: 'assets/images/logo.png',
+                                      image: widget.image,
+                                      fit: BoxFit.contain,
+                                      alignment: Alignment.center,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/logo.png',
+                                      width: deviceSize.width * 0.85,
+                                      alignment: Alignment.center,
+                                      fit: BoxFit.contain,
+                                    ),
                         ),
                       ),
                     ),
@@ -125,7 +133,7 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
             ),
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 14.0),
+                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
                 width: deviceSize.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

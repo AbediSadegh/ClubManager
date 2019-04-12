@@ -41,11 +41,15 @@ class NewsViewerState extends State<NewsViewer> {
         ),
         actions: <Widget>[
           Container(
+            width: MediaQuery.of(context).size.width * 0.9,
             padding: EdgeInsets.only(right: 15.0),
-            alignment: Alignment.center,
-            child: Text(widget.title,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(color: Colors.white, fontSize: 20.0)),
+            alignment: Alignment.centerRight,
+            child: Text(
+              widget.title,
+              textDirection: TextDirection.rtl,
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
@@ -66,16 +70,25 @@ class NewsViewerState extends State<NewsViewer> {
                         height: mediaSize.height * 0.45,
                         child: Hero(
                           tag: widget.tag,
-                          child: CarouselSlider(
-                            items: List.generate(
-                                newsEntity.newsImages.length,
-                                (index) => Image.network(
-                                    newsEntity.newsImages[index].newsImage)),
-                            aspectRatio: 2.0,
-                            viewportFraction: 0.6,
-                            reverse: true,
-                            enlargeCenterPage: true,
-                          ),
+                          child: newsEntity.newsImages.length != 0
+                              ? CarouselSlider(
+                                  items: List.generate(
+                                    newsEntity.newsImages.length,
+                                    (index) => Image.network(
+                                        newsEntity.newsImages[index].newsImage),
+                                  ),
+                                  aspectRatio: 2.2,
+                                  viewportFraction: 0.8,
+                                  reverse: true,
+                                  enlargeCenterPage: true,
+                                )
+                              : newsEntity.newsImages.length == 0
+                                  ? Image.asset(
+                                      'assets/images/logo.png',
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Image.network(
+                                      newsEntity.newsImages[index].newsImage),
                         ),
                       ),
                       Container(

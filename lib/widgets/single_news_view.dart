@@ -77,8 +77,8 @@ class NewsViewerState extends State<NewsViewer> {
                                     (index) => Image.network(
                                         newsEntity.newsImages[index].newsImage),
                                   ),
-                                  aspectRatio: 2.0,
-                                  viewportFraction: 0.6,
+                                  aspectRatio: 2.2,
+                                  viewportFraction: 0.8,
                                   reverse: true,
                                   enlargeCenterPage: true,
                                 )

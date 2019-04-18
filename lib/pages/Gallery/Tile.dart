@@ -1,8 +1,6 @@
 import 'package:club_manager/entity/IntSize.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Viewer.dart';
-import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatefulWidget {

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:club_manager/FakeEntity.dart';
 import 'package:flutter/material.dart';
-import 'package:club_manager/ServerProvider.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new SplashScreenState();

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:club_manager/pages/Gallery/GalleryMainView.dart';
 import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:club_manager/widgets/background.dart';

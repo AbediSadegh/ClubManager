@@ -3,7 +3,6 @@ import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
 import 'package:flutter/material.dart';
-import 'package:club_manager/FakeEntity.dart';
 import 'dart:math';
 
 class ExerciseList extends StatefulWidget {

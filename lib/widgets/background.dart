@@ -10,12 +10,12 @@ class AppBackground extends StatelessWidget{
         Container(
           width: _deviceSize.width / 2,
           height: _deviceSize.height,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorDark,
         ),
         Container(
           width: _deviceSize.width / 2,
           height: _deviceSize.height,
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ],
     );

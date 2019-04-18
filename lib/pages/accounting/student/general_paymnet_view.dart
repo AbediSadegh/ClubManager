@@ -1,4 +1,3 @@
-import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/accounting/student/add_demand_profile.dart';
 import 'package:club_manager/pages/accounting/student/demand_note.dart';

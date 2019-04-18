@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/news_entity.dart';
-import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/entity/news_page_entity.dart';
 import 'package:club_manager/widgets/background.dart';
 import 'package:club_manager/widgets/news_card.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class News extends StatefulWidget {
   final NewsPageEntity pager;

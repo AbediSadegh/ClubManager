@@ -1,4 +1,3 @@
-import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:club_manager/widgets/single_news_view.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +20,9 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
     return Card(
+//      color: Theme.of(context).scaffoldBackgroundColor,
+//    color: Color(0xfff09c67),
+//      color: Color(0xfffacf5a),
       elevation: 10.0,
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.5),
       child: GestureDetector(
@@ -86,14 +88,20 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                       child: Text(
                         widget.title,
                         textDirection: TextDirection.rtl,
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .title
+                            .copyWith(color: Colors.white),
                       ),
                     ),
                     Container(
                       child: Text(
                         widget.subtitle,
                         textDirection: TextDirection.rtl,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(color: Colors.white),
                       ),
                     ),
                   ],

@@ -1,4 +1,3 @@
-import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
 import 'package:flutter/material.dart';
 

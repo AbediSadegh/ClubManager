@@ -8,12 +8,12 @@ import 'package:club_manager/pages/signup&login/register/start.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class loginDialog extends StatefulWidget {
+class LoginDialog extends StatefulWidget {
   @override
-  _loginDialogState createState() => _loginDialogState();
+  _LoginDialogState createState() => _LoginDialogState();
 }
 
-class _loginDialogState extends State<loginDialog>
+class _LoginDialogState extends State<LoginDialog>
     with TickerProviderStateMixin {
   GlobalKey<FormState> phoneNumberKey = GlobalKey<FormState>();
   GlobalKey<FormState> smsNumberKey = GlobalKey<FormState>();

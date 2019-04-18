@@ -1,4 +1,3 @@
-import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 
 class CV extends StatefulWidget {

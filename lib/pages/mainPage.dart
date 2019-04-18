@@ -314,7 +314,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
-            return loginDialog();
+            return LoginDialog();
           },
         ),
       );

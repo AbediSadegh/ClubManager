@@ -1,7 +1,6 @@
 import 'package:club_manager/pages/accounting/coach/coach.dart';
 import 'package:club_manager/pages/accounting/coach/show_detail_of_coach_accounting.dart';
 import 'package:flutter/material.dart';
-import 'package:unicorndial/unicorndial.dart';
 
 class NewCoachProfile extends StatefulWidget {
   final index;

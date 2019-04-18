@@ -22,9 +22,9 @@ class _StartState extends State<Start> {
   GeneralPage generalPage;
   EducationPage educationPage;
   FamilyStatusPage familyStatusPage;
-  healthPage health;
+  HealthPage health;
   NoticePage noticePage;
-  timePeriod timePer;
+  TimePeriod timePer;
   Player play;
   bool first;
   bool _isLoading;
@@ -54,7 +54,7 @@ class _StartState extends State<Start> {
           familyStatusPage = FamilyStatusPage(
             controller: controller,
           ),
-          health = healthPage(
+          health = HealthPage(
             controller: controller,
           ),
           noticePage = NoticePage(
@@ -88,7 +88,7 @@ class _StartState extends State<Start> {
               }
             },
           ),
-          timePer = timePeriod(controller: controller),
+          timePer = TimePeriod(controller: controller),
         ],
       ),
     );

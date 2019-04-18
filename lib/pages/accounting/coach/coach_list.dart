@@ -1,7 +1,6 @@
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/pages/accounting/coach/coach.dart';
 import 'package:club_manager/pages/accounting/coach/new_coach_profile.dart';
 import 'package:flutter/material.dart';
 

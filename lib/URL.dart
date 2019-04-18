@@ -3,7 +3,7 @@ class URL {
   static const String urlGalley = 'http://$padidehDomain/api/gallery';
   static const String urlNews = 'http://$padidehDomain/api/news';
   static const String urlFame = 'http://$padidehDomain/api/fame';
-  static const String urlcoachList = 'http://$padidehDomain/api/users/coach-list';
+  static const String urlcoachList = 'http://$padidehDomain/api/coach/list';
   static const String urlAboutProgremmer = 'http://$padidehDomain/api/about-us/programmer';
   static const String urlAboutPadideh = 'http://$padidehDomain/api/about-us/information';
   static const String urlSocail = 'http://$padidehDomain/api/support/social/';
@@ -14,7 +14,7 @@ class URL {
   static const String commerceList = 'http://$padidehDomain/api/accounting/commerce-list/';
   static const String commerceCreate = 'http://$padidehDomain/api/accounting/commerce-create/';
   static const String checkList= 'http://$padidehDomain/api/accounting/check-list/';
-  static const String studentList= 'http://$padidehDomain/api/accounting/student-list/';
+  static const String studentList= 'http://$padidehDomain/api/player/list/';
   static const String checkPass= 'http://$padidehDomain/api/accounting/check-pass/';
 //  static const String checkPass= 'http://$padidehDomain/api/accounting/check-pass/';
 

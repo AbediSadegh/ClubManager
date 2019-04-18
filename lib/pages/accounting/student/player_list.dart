@@ -64,19 +64,16 @@ class _PlayerListState extends State<PlayerList> {
       first = false;
       getStudentNameList();
     }
-    return isLoading
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : Directionality(
+    return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               appBar: _buildBar(context),
-              body: _buildList(),
+              body:isLoading ?   Center(child: CircularProgressIndicator(),):
+              _buildList(),
             ),
           );
   }
-
+  //
   Widget _buildBar(BuildContext context) {
     return new AppBar(
       centerTitle: true,

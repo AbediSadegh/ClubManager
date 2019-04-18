@@ -11,6 +11,8 @@ class ExerciseList extends StatefulWidget {
   _ExerciseListState createState() => _ExerciseListState();
 }
 
+List<ExerciseEntity> exerciseEntity;
+
 class _ExerciseListState extends State<ExerciseList>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
@@ -19,7 +21,6 @@ class _ExerciseListState extends State<ExerciseList>
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
   bool fistLoad = true;
-  List<ExerciseEntity> exerciseEntity;
   ExerciseListEntity exerciseList;
   String nextPage;
 
@@ -31,10 +32,12 @@ class _ExerciseListState extends State<ExerciseList>
       nextPage = exerciseList.next;
       _isLoading = false;
     });
+    _controller.forward();
   }
 
   @override
   void initState() {
+    super.initState();
     exerciseEntity = new List();
     _listScrollController.addListener(() {
       double maxScroll = _listScrollController.position.maxScrollExtent;
@@ -45,26 +48,23 @@ class _ExerciseListState extends State<ExerciseList>
         }
       }
     });
-    super.initState();
     int i = 0;
-    super.initState();
     _controller =
         AnimationController(duration: Duration(seconds: 5), vsync: this);
     _animation = Tween<double>(begin: 0, end: 592).animate(_controller)
       ..addListener(() {
-        if (i < _animation.value / 50 && i < min(FakeData.tasks.length, 9)) {
+        if (i < _animation.value / 50 && i < min(exerciseEntity.length, 9)) {
           _listkey.currentState.insertItem(i, duration: Duration(seconds: 1));
           i++;
         }
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          for (; i < FakeData.tasks.length; i++) {
+          for (; i < exerciseEntity.length; i++) {
             _listkey.currentState.insertItem(i, duration: Duration(seconds: 0));
           }
         }
       });
-    _controller.forward();
   }
 
   @override
@@ -82,7 +82,7 @@ class _ExerciseListState extends State<ExerciseList>
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {
-       return _isLoading
+        return _isLoading
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -159,10 +159,16 @@ class _EcerciseListState extends State<EcerciseList> {
       itemBuilder: (context, index, animation) {
         Exercise t = Exercise(
             animation: animation,
-            color: FakeData.tasks[index].color,
-            title: FakeData.tasks[index].title,
-            time: FakeData.tasks[index].time,
-            subtitle: FakeData.tasks[index].subtitle);
+            color: exerciseEntity[index].color == 0
+                ? Colors.yellow
+                : exerciseEntity[index].color == 1
+                    ? Colors.blue
+                    : exerciseEntity[index].color == 2
+                        ? Colors.red
+                        : Colors.green,
+            title: exerciseEntity[index].title,
+            time: exerciseEntity[index].time,
+            subtitle: exerciseEntity[index].subtitle);
         return t;
       },
     );

@@ -11,8 +11,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFFF44336),
         primaryColorDark: Color(0xFFD32F2F),
-        primaryColorLight: Color(0xFFFFCDD2),
-        accentColor: Color(0xFFFFEB3B),
+        primaryColorLight: Color(0xFFFF614E),
+        backgroundColor: Color(0xFFFFEB3B),
+        accentColor: Color(0xFF444444),
         dividerColor: Color(0xFFBDBDBD),
       ),
       home: MainPage(),

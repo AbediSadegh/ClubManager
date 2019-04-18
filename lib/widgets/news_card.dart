@@ -1,5 +1,3 @@
-//import 'package:club_manager/FakeEntity.dart';
-//import 'package:club_manager/entity/news_field_entity.dart';
 import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:club_manager/widgets/single_news_view.dart';
 import 'package:flutter/material.dart';
@@ -9,21 +7,9 @@ class NewsItemPreview extends StatefulWidget {
   final String title;
   final String image;
   final String subtitle;
-  final GestureTapCallback onDelete;
-  final GestureTapCallback onEdit;
-  static bool setChange = true;
 
-  NewsItemPreview(
-      {this.url,
-      this.title,
-      this.image,
-      this.subtitle,
-      this.onDelete,
-      this.onEdit})
-      : assert(title.isNotEmpty &&
-            onEdit != null &&
-            onDelete != null &&
-            subtitle.isNotEmpty);
+  NewsItemPreview({this.url, this.title, this.image, this.subtitle})
+      : assert(title.isNotEmpty && subtitle.isNotEmpty);
 
   State<NewsItemPreview> createState() => NewsItemPreviewState();
 }
@@ -83,48 +69,6 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                                       fit: BoxFit.contain,
                                     ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: changeActive,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 5.0),
-                            width: deviceSize.width / 3 - 10,
-                            height: deviceSize.height * 0.4,
-                            child: FlatButton(
-                              color: Color.fromRGBO(247, 223, 9, 0.6),
-                              onPressed: widget.onEdit,
-                              child: Text(
-                                'ویرایش',
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 5.0),
-                            width: deviceSize.width / 3 - 10,
-                            height: deviceSize.height * 0.4,
-                            child: FlatButton(
-                              color: Color.fromRGBO(247, 13, 9, 0.6),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return DeleteOrNot(
-                                        onDelete: widget.onDelete,
-                                      );
-                                    });
-                              },
-                              child: Text(
-                                'حذف',
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],

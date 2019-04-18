@@ -39,7 +39,6 @@ class BaseItemState extends State<BaseItem> {
               child: ClipRRect(
                 child: FadeInImage.assetNetwork(
                   placeholder: 'assets/images/logo.png',
-//                  image: widget.imgURL,
                   image: 'https://picsum.photos/500/225?image=143',
                   alignment: Alignment.center,
                   height: deviceSize.height * 0.25,
@@ -48,22 +47,6 @@ class BaseItemState extends State<BaseItem> {
                 ),
                 borderRadius: BorderRadius.circular(5.0),
               ),
-//              todo comment the above ClipRRect and uncomment the following
-//              child: CarouselSlider(
-//                items: List.generate(
-//                  1,
-//                  (index) => SizedBox(
-//                        width: deviceSize.width * 0.65,
-//                        child: Image.network(
-//                          'https://picsum.photos/500/225?image=${index + 100}',
-//                          fit: BoxFit.contain,
-//                        ),
-//                      ),
-//                ),
-//                aspectRatio: 1.777,
-//                viewportFraction: 0.8,
-//                enlargeCenterPage: true,
-//              ),
               margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15.0))),

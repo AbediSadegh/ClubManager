@@ -7,8 +7,7 @@ class CV extends StatefulWidget {
   final String license;
   final String education;
   final String description;
-  final GestureTapCallback onEdit;
-  final GestureTapCallback onDelete;
+
 
   CV(
       {@required this.imgURL,
@@ -16,8 +15,7 @@ class CV extends StatefulWidget {
       @required this.license,
       this.education,
       @required this.description,
-      this.onEdit,
-      this.onDelete})
+      })
       : assert(imgURL != null &&
             imgURL.isNotEmpty &&
             name != null &&
@@ -118,44 +116,44 @@ class _CVState extends State<CV> {
                     image: this.widget.imgURL,
                     fit: BoxFit.cover,
                   ),
-                  Visibility(
-                    visible: isEditing,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: _size.width / 3,
-                          height: cardHeight / 2 - 10,
-                          child: FlatButton(
-                              color: Color.fromRGBO(247, 223, 9, 0.6),
-                              onPressed: widget.onEdit,
-                              child: Text(
-                                'ویرایش',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                        Container(
-                          width: _size.width / 3,
-                          height: cardHeight / 2 - 10,
-                          child: FlatButton(
-                              color: Color.fromRGBO(247, 13, 9, 0.6),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return DeleteOrNot(
-                                        onDelete: widget.onDelete,
-                                      );
-                                    });
-                              },
-                              child: Text(
-                                'حذف',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
+//                  Visibility(
+//                    visible: isEditing,
+//                    child: Column(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: <Widget>[
+//                        Container(
+//                          width: _size.width / 3,
+//                          height: cardHeight / 2 - 10,
+//                          child: FlatButton(
+//                              color: Color.fromRGBO(247, 223, 9, 0.6),
+//                              onPressed: widget.onEdit,
+//                              child: Text(
+//                                'ویرایش',
+//                                style: TextStyle(color: Colors.white),
+//                              )),
+//                        ),
+//                        Container(
+//                          width: _size.width / 3,
+//                          height: cardHeight / 2 - 10,
+//                          child: FlatButton(
+//                              color: Color.fromRGBO(247, 13, 9, 0.6),
+//                              onPressed: () {
+//                                showDialog(
+//                                    context: context,
+//                                    builder: (context) {
+//                                      return DeleteOrNot(
+//                                        onDelete: widget.onDelete,
+//                                      );
+//                                    });
+//                              },
+//                              child: Text(
+//                                'حذف',
+//                                style: TextStyle(color: Colors.white),
+//                              )),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
                 ],
               ),
             ),
@@ -181,7 +179,7 @@ class _CVState extends State<CV> {
           height: height,
           width: width,
           margin: EdgeInsets.only(bottom: 2.0),
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorLight,
           child: isEditing
               ? FlatButton(
                   child: Icon(
@@ -207,7 +205,7 @@ class _CVState extends State<CV> {
               padding: EdgeInsets.only(right: 10.0, left: 10.0),
               margin: EdgeInsets.only(bottom: 2.0),
               height: height,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColorLight,
               child: child),
         ),
       ],

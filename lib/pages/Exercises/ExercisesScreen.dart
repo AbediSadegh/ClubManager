@@ -1,3 +1,6 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/widgets/Exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:club_manager/FakeEntity.dart';
@@ -12,8 +15,36 @@ class _ExerciseListState extends State<ExerciseList>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
+
+  bool _isLoading = true;
+  ScrollController _listScrollController = new ScrollController();
+  bool fistLoad = true;
+  List<ExerciseEntity> exerciseEntity;
+  ExerciseListEntity exerciseList;
+  String nextPage;
+
+  getExerciseList({String page: URL.exerciseList}) async {
+    _isLoading = true;
+    exerciseList = await getExercise(url: page);
+    setState(() {
+      exerciseEntity.addAll(exerciseList.results);
+      nextPage = exerciseList.next;
+      _isLoading = false;
+    });
+  }
+
   @override
   void initState() {
+    exerciseEntity = new List();
+    _listScrollController.addListener(() {
+      double maxScroll = _listScrollController.position.maxScrollExtent;
+      double currentScroll = _listScrollController.position.pixels;
+      if (maxScroll - currentScroll <= 200) {
+        if (!_isLoading && nextPage != null) {
+          getExerciseList(page: nextPage);
+        }
+      }
+    });
     super.initState();
     int i = 0;
     super.initState();
@@ -43,62 +74,74 @@ class _ExerciseListState extends State<ExerciseList>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return Scaffold(
-            body: Stack(
-              children: <Widget>[
-                Container(
-                  child: Opacity(
-                    opacity:
-                        _animation.value / 200 < 1 ? _animation.value / 200 : 1,
-                    child: ClipPath(
-                      clipper: DialogonalClipper(),
-                      child: Image.asset(
-                        'assets/images/excercise-header.jpg',
-                        fit: BoxFit.cover,
-                        height: 240,
-                        colorBlendMode: BlendMode.srcOver,
-                        color: Color.fromARGB(120, 20, 10, 40),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 240),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: Container(
-                          width: 5,
-                          height: _animation.value,
-                          color: Colors.grey[300],
+  Widget build(BuildContext context) {
+    if (fistLoad) {
+      fistLoad = false;
+      getExerciseList();
+    }
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+       return _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scaffold(
+                body: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Opacity(
+                        opacity: _animation.value / 200 < 1
+                            ? _animation.value / 200
+                            : 1,
+                        child: ClipPath(
+                          clipper: DialogonalClipper(),
+                          child: Image.asset(
+                            'assets/images/excercise-header.jpg',
+                            fit: BoxFit.cover,
+                            height: 240,
+                            colorBlendMode: BlendMode.srcOver,
+                            color: Color.fromARGB(120, 20, 10, 40),
+                          ),
                         ),
-                        top: 0.0,
-                        right: 17.0,
                       ),
-                      EcerciseList()
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: 180,
-                  right: 30,
-                  child: Opacity(
-                    opacity:
-                        _animation.value / 200 < 1 ? _animation.value / 200 : 1,
-                    child: Text(
-                      'تمرینات',
-                      style: TextStyle(fontSize: 34.0),
                     ),
-                  ),
+                    Container(
+                      margin: EdgeInsets.only(top: 240),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: Container(
+                              width: 5,
+                              height: _animation.value,
+                              color: Colors.grey[300],
+                            ),
+                            top: 0.0,
+                            right: 17.0,
+                          ),
+                          EcerciseList()
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 180,
+                      right: 30,
+                      child: Opacity(
+                        opacity: _animation.value / 200 < 1
+                            ? _animation.value / 200
+                            : 1,
+                        child: Text(
+                          'تمرینات',
+                          style: TextStyle(fontSize: 34.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      );
+              );
+      },
+    );
+  }
 }
 
 class EcerciseList extends StatefulWidget {

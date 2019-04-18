@@ -81,7 +81,7 @@ class _CoachListState extends State<CoachList> {
                   },
                   leading: CircleAvatar(
                     backgroundColor: Colors.orangeAccent,
-                    child: Text(list[index].user.last_name.substring(0,1),
+                    child: Text(list[index].user.last_name.length >=1 ? list[index].user.last_name.substring(0,1) :  list[index].user.last_name,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

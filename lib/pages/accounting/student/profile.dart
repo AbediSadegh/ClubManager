@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Text(
-                          "پست مورد علاقه",
+                          profileEntity.position,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Colors.purple),
@@ -140,10 +140,10 @@ class _ProfileState extends State<Profile> {
                           ),
                           Colors.green),
                     ),
-                    /*GestureDetector(
+                    GestureDetector(
                 onTap: () {
                   String urlLuncher =
-                      players[widget.index].homePhone.toString();
+                      profileEntity.home_phone;
                   launchURL(urlLuncher);
                 },
                 child: createContainerField(
@@ -153,11 +153,11 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(
-                      players[widget.index].homePhone.toString(),
+                      profileEntity.home_phone,
                       style: TextStyle(color: Colors.white),
                     ),
                     Colors.red),
-              ),*/
+              ),
                     GestureDetector(
                       onTap: () {
                         launchURL(profileEntity.mom_phone);

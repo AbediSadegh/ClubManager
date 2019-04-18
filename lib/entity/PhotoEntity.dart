@@ -299,6 +299,7 @@ class RegisterEntity {
   String first_name;
   String last_name;
   StudentEntity student;
+
   RegisterEntity(
       {this.username, this.first_name, this.last_name, this.student});
 
@@ -311,18 +312,27 @@ class RegisterEntity {
     );
   }
 }
+
 class ProfileEntity {
   String mom_phone;
   String dad_phone;
+  String position;
+  String home_phone;
   StudentNameEntity user;
 
-
-  ProfileEntity({this.mom_phone, this.dad_phone, this.user});
+  ProfileEntity(
+      {this.mom_phone,
+      this.dad_phone,
+      this.user,
+      this.home_phone,
+      this.position});
 
   factory ProfileEntity.fromJson(Map<String, dynamic> parsedJson) {
     return ProfileEntity(
       mom_phone: parsedJson['mom_phone'],
       dad_phone: parsedJson['dad_phone'],
+      home_phone: parsedJson['home_phone'],
+      position: parsedJson['position'],
       user: StudentNameEntity.fromJson(parsedJson['user']),
     );
   }
@@ -368,11 +378,11 @@ class StudentEntity {
     );
   }
 }
+
 class StudentNameEntity {
   String username;
   String first_name;
   String last_name;
-
 
   StudentNameEntity({this.username, this.first_name, this.last_name});
 
@@ -380,15 +390,15 @@ class StudentNameEntity {
     return StudentNameEntity(
       first_name: parsedJson['first_name'],
       last_name: parsedJson['last_name'],
-      username:  parsedJson['username'],
+      username: parsedJson['username'],
     );
   }
 }
+
 class CommerceList {
   String title;
   bool is_income;
   int price;
-
 
   CommerceList({this.title, this.is_income, this.price});
 
@@ -400,6 +410,7 @@ class CommerceList {
     );
   }
 }
+
 class CheckEntity {
   String name;
   String number;
@@ -408,10 +419,8 @@ class CheckEntity {
   String date;
   bool is_passed;
 
-  CheckEntity({this.name, this.number, this.price, this.date, this.is_passed,this.id});
-
-
-
+  CheckEntity(
+      {this.name, this.number, this.price, this.date, this.is_passed, this.id});
 
   factory CheckEntity.fromJson(Map<String, dynamic> parsedJson) {
     return CheckEntity(
@@ -424,9 +433,12 @@ class CheckEntity {
     );
   }
 }
+
 class CheckPassEntity {
   bool success;
+
   CheckPassEntity({this.success});
+
   factory CheckPassEntity.fromJson(Map<String, dynamic> parsedJson) {
     return CheckPassEntity(
       success: parsedJson['success'],
@@ -444,7 +456,7 @@ class CommerceListEntity {
     List<CommerceList> convert() {
       var list = parsedJson['results'] as List;
       List<CommerceList> imagesList =
-      list.map((i) => CommerceList.fromJson(i)).toList();
+          list.map((i) => CommerceList.fromJson(i)).toList();
       return imagesList;
     }
 
@@ -457,6 +469,7 @@ class CommerceListEntity {
 
   CommerceListEntity({this.count, this.next, this.previous, this.results});
 }
+
 class StudentList {
   List<StudentNameEntity> students;
 
@@ -464,16 +477,14 @@ class StudentList {
     List<StudentNameEntity> convert() {
       var list = parsedJson['players'] as List;
       List<StudentNameEntity> imagesList =
-      list.map((i) => StudentNameEntity.fromJson(i)).toList();
+          list.map((i) => StudentNameEntity.fromJson(i)).toList();
       return imagesList;
     }
 
-    return StudentList(
-        students: convert());
+    return StudentList(students: convert());
   }
 
   StudentList({this.students});
-
 }
 
 class CheckListEntity {
@@ -486,7 +497,7 @@ class CheckListEntity {
     List<CheckEntity> convert() {
       var list = parsedJson['results'] as List;
       List<CheckEntity> imagesList =
-      list.map((i) => CheckEntity.fromJson(i)).toList();
+          list.map((i) => CheckEntity.fromJson(i)).toList();
       return imagesList;
     }
 
@@ -500,5 +511,44 @@ class CheckListEntity {
   CheckListEntity({this.count, this.next, this.previous, this.results});
 }
 
+class ExerciseEntity {
+  String title;
+  String subtitle;
+  String time;
+  int color;
 
+  ExerciseEntity({this.title, this.subtitle, this.time, this.color});
 
+  factory ExerciseEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return ExerciseEntity(
+      title: parsedJson['title'],
+      subtitle: parsedJson['subtitle'],
+      time: parsedJson['time'],
+      color: parsedJson['color'],
+    );
+  }
+}
+
+class ExerciseListEntity {
+  int count;
+  String next;
+  String previous;
+  List<ExerciseEntity> results;
+
+  factory ExerciseListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<ExerciseEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<ExerciseEntity> imagesList =
+          list.map((i) => ExerciseEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return ExerciseListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  ExerciseListEntity({this.count, this.next, this.previous, this.results});
+}

@@ -50,7 +50,7 @@ Future<AboutProgrammerListEntity> loadAboutProgrammer(String url) async {
 
 Future<CommerceListEntity> getCommerceList(String url) async {
   Map<String, String> requestHeaders = {
-    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    'Authorization':token,
     // todo change
   };
 
@@ -62,7 +62,7 @@ Future<CommerceListEntity> getCommerceList(String url) async {
 
 Future<CheckListEntity> getCheckList(String url) async {
   Map<String, String> requestHeaders = {
-    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    'Authorization': token,
     // todo change
   };
 
@@ -73,7 +73,7 @@ Future<CheckListEntity> getCheckList(String url) async {
 }
 Future<CheckPassEntity> passedCheck({String url,String id}) async {
   Map<String, String> requestHeaders = {
-    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    'Authorization':token,
     // todo change
   };
   Map data = {
@@ -88,7 +88,7 @@ Future<CheckPassEntity> passedCheck({String url,String id}) async {
 Future<CommerceList> createCommerce(
     {String url, String title, bool is_income, String price}) async {
   Map<String, String> requestHeaders = {
-    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    'Authorization': token,
     // todo change
   };
   Map<String, dynamic> data = {
@@ -209,5 +209,14 @@ Future<ProfileEntity> getProfileData(
   final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new ProfileEntity.fromJson(jsonResPonse);
+  return product;
+}
+
+Future<ExerciseListEntity> getExercise(
+    {String url}) async {
+
+  final response = await http.get(url);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new ExerciseListEntity.fromJson(jsonResPonse);
   return product;
 }

@@ -1,4 +1,3 @@
-import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
@@ -42,7 +41,7 @@ class _ProfileState extends State<Profile> {
       first = false;
       getProfile();
     }
-  return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -58,87 +57,90 @@ class _ProfileState extends State<Profile> {
             )
           : ListView(
               children: <Widget>[
-          Column(
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 30),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * .25,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * .5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 30),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * .25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                              height:
-                                  MediaQuery.of(context).size.height * .12,
                               width: MediaQuery.of(context).size.width * .5,
-                              child: FittedBox(
-                                child: Text(
-                                  profileEntity.user.first_name,
-                                  style: TextStyle(color: Colors.black),
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        .12,
+                                    width:
+                                        MediaQuery.of(context).size.width * .5,
+                                    child: FittedBox(
+                                      child: Text(
+                                        profileEntity.user.first_name,
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        .12,
+                                    width:
+                                        MediaQuery.of(context).size.width * .40,
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Text(profileEntity.user.last_name,
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Container(
-                              height:
-                                  MediaQuery.of(context).size.height * .12,
-                              width: MediaQuery.of(context).size.width * .40,
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: Text(profileEntity.user.last_name,
-                                    style: TextStyle(color: Colors.black)),
+                              height: MediaQuery.of(context).size.height * .35,
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: Image(
+                                fit: BoxFit.fitHeight,
+                                image: NetworkImage(
+                                    "https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/fc-bayern-muenchen-v-vfb-stuttgart-bundesliga-5c6171549eef2db581000001.jpg"),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * .35,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Image(
-                          fit: BoxFit.fitHeight,
-                          image: NetworkImage(
-                              "https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/fc-bayern-muenchen-v-vfb-stuttgart-bundesliga-5c6171549eef2db581000001.jpg"),
+                    ),
+                    createContainerField(
+                        context,
+                        Text(
+                          "پست مورد علاقه",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              createContainerField(
-                  context,
-                  Text(
-                    "پست مورد علاقه",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  Text(
-                    "پست مورد علاقه",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  Colors.purple),
-              GestureDetector(
-                onTap: () {
-                  launchURL(profileEntity.dad_phone);
-                },
-                child: createContainerField(
-                    context,
-                    Text(
-                      "شماره تلفن پدر",
-                      style: TextStyle(color: Colors.white),
+                        Text(
+                          "پست مورد علاقه",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Colors.purple),
+                    GestureDetector(
+                      onTap: () {
+                        launchURL(profileEntity.dad_phone);
+                      },
+                      child: createContainerField(
+                          context,
+                          Text(
+                            "شماره تلفن پدر",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            profileEntity.dad_phone,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Colors.green),
                     ),
-                    Text(
-                      profileEntity.dad_phone,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Colors.green),
-              ),
-              /*GestureDetector(
+                    /*GestureDetector(
                 onTap: () {
                   String urlLuncher =
                       players[widget.index].homePhone.toString();
@@ -156,56 +158,56 @@ class _ProfileState extends State<Profile> {
                     ),
                     Colors.red),
               ),*/
-              GestureDetector(
-                onTap: () {
-                  launchURL(profileEntity.mom_phone);
-                },
-                child: createContainerField(
-                    context,
-                    Text(
-                      "شماره تلفن مادر",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      profileEntity.mom_phone,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Colors.blueAccent),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  child: Container(
-                      height: MediaQuery.of(context).size.height * .06,
-                      width: MediaQuery.of(context).size.width * .38,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        launchURL(profileEntity.mom_phone);
+                      },
+                      child: createContainerField(
+                          context,
                           Text(
-                            "وضعیت مالی",
+                            "شماره تلفن مادر",
                             style: TextStyle(color: Colors.white),
                           ),
-                          Icon(
-                            Icons.assignment,
-                            color: Colors.white,
-                          )
-                        ],
-                      )),
-                  onPressed: () {
-//                    Navigator.of(context)
-//                        .push(MaterialPageRoute(builder: (context) {
-//                      return GeneralpaymentView(
-//                        playerIndex: widget.index,
-//                      );
-//                    }));
-                  },
-                  color: Colors.blueGrey,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                          Text(
+                            profileEntity.mom_phone,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Colors.blueAccent),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        child: Container(
+                            height: MediaQuery.of(context).size.height * .06,
+                            width: MediaQuery.of(context).size.width * .38,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "وضعیت مالی",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.assignment,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return GeneralpaymentView(
+                              userName: widget.userName,
+                            );
+                          }));
+                        },
+                        color: Colors.blueGrey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
               ],
             ),
     );
@@ -221,8 +223,7 @@ Widget createTextRow(Text text1, Text text2) {
   );
 }
 
-Widget createContainerField(
-    context, Text text1, Text text2, Color color) {
+Widget createContainerField(context, Text text1, Text text2, Color color) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(

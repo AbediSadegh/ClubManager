@@ -5,7 +5,7 @@ import 'package:club_manager/entity/news_page_entity.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+String token ="Token 9a21590cc1840b82c8911c47302faaaa410693a9";
 Future loadGallery(String url) async {
   final response = await http.get(url);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
@@ -186,7 +186,7 @@ Future<RegisterEntity> register({String url}) async {
 Future<StudentList> getStudentList(
     {String letter,String url}) async {
   Map<String, String> requestHeaders = {
-    'Authorization': 'Token 08451194b15956d5daed088e098cf251683a393c',
+    'Authorization': token,
     // todo change
   };
   Map<String, dynamic> data = {
@@ -195,5 +195,19 @@ Future<StudentList> getStudentList(
   final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new StudentList.fromJson(jsonResPonse);
+  return product;
+}
+Future<ProfileEntity> getProfileData(
+    {String userName,String url}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'username': userName,
+  };
+  final response = await http.post(url, headers: requestHeaders, body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new ProfileEntity.fromJson(jsonResPonse);
   return product;
 }

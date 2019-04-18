@@ -40,7 +40,6 @@ class _PlayerListState extends State<PlayerList> {
     });
   }
 
-
   void initState() {
     //getStudentNameList();
 
@@ -65,14 +64,18 @@ class _PlayerListState extends State<PlayerList> {
       getStudentNameList();
     }
     return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Scaffold(
-              appBar: _buildBar(context),
-              body:isLoading ?   Center(child: CircularProgressIndicator(),):
-              _buildList(),
-            ),
-          );
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: _buildBar(context),
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : _buildList(),
+      ),
+    );
   }
+
   //
   Widget _buildBar(BuildContext context) {
     return new AppBar(
@@ -93,10 +96,18 @@ class _PlayerListState extends State<PlayerList> {
           controller: _filter,
           style: TextStyle(color: Colors.white),
           decoration: new InputDecoration(
-              prefixIcon: new Icon(Icons.search,color:Colors.white,), hintText: 'Search...',hintStyle: TextStyle(color: Colors.white)),
+              prefixIcon: new Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              hintText: 'Search...',
+              hintStyle: TextStyle(color: Colors.white)),
         );
       } else {
-        this._searchIcon = new Icon(Icons.search,color: Colors.white,);
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.white,
+        );
         this._appBarTitle = new Text('لیست فوتبالیست ها');
         filteredNames = names;
         _filter.clear();
@@ -108,9 +119,10 @@ class _PlayerListState extends State<PlayerList> {
     if (!(_searchText.isEmpty)) {
       List tempList = new List();
       for (int i = 0; i < studentList.students.length; i++) {
-        String fullName = studentList.students[i].first_name + " " + studentList.students[i].last_name;
-        if (fullName
-            .contains(_searchText)) {
+        String fullName = studentList.students[i].first_name +
+            " " +
+            studentList.students[i].last_name;
+        if (fullName.contains(_searchText)) {
           tempList.add(fullName);
         }
       }
@@ -120,19 +132,40 @@ class _PlayerListState extends State<PlayerList> {
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
         return new ListTile(
+          // todo mahdi
           title: Text(filteredNames[index]),
-          onTap: () => print(filteredNames[index]),
+          onTap: () {
+            String userName;
+            for (int i = 0; i < studentList.students.length; i++) {
+              String fullName = studentList.students[i].first_name +
+                  " " +
+                  studentList.students[i].last_name;
+
+              if (fullName == filteredNames[index]) {
+                userName = studentList.students[i].username;
+              }
+            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Profile(
+                      userName: userName,
+                    ),
+              ),
+            );
+          },
         );
       },
     );
   }
+
   void _getNames() async {
     List tempList = new List();
-    //print(studentList.students.length==null ? "hahaaahhhhhhhhhhhh":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
     for (int i = 0; i < studentList.students.length; i++) {
-      String fullName = studentList.students[i].first_name + " " + studentList.students[i].last_name;
+      String fullName = studentList.students[i].first_name +
+          " " +
+          studentList.students[i].last_name;
       tempList.add(fullName);
-      //print("hahahahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     }
     setState(() {
       names = tempList;

@@ -311,6 +311,22 @@ class RegisterEntity {
     );
   }
 }
+class ProfileEntity {
+  String mom_phone;
+  String dad_phone;
+  StudentNameEntity user;
+
+
+  ProfileEntity({this.mom_phone, this.dad_phone, this.user});
+
+  factory ProfileEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return ProfileEntity(
+      mom_phone: parsedJson['mom_phone'],
+      dad_phone: parsedJson['dad_phone'],
+      user: StudentNameEntity.fromJson(parsedJson['user']),
+    );
+  }
+}
 
 class StudentEntity {
   String national_code;
@@ -364,7 +380,7 @@ class StudentNameEntity {
     return StudentNameEntity(
       first_name: parsedJson['first_name'],
       last_name: parsedJson['last_name'],
-      username:  parsedJson['last_name'],
+      username:  parsedJson['username'],
     );
   }
 }
@@ -446,7 +462,7 @@ class StudentList {
 
   factory StudentList.fromJson(Map<String, dynamic> parsedJson) {
     List<StudentNameEntity> convert() {
-      var list = parsedJson['students'] as List;
+      var list = parsedJson['players'] as List;
       List<StudentNameEntity> imagesList =
       list.map((i) => StudentNameEntity.fromJson(i)).toList();
       return imagesList;

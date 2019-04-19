@@ -7,15 +7,13 @@ class CV extends StatefulWidget {
   final String education;
   final String description;
 
-
-  CV(
-      {@required this.imgURL,
-      @required this.name,
-      @required this.license,
-      this.education,
-      @required this.description,
-      })
-      : assert(imgURL != null &&
+  CV({
+    @required this.imgURL,
+    @required this.name,
+    @required this.license,
+    this.education,
+    @required this.description,
+  }) : assert(imgURL != null &&
             imgURL.isNotEmpty &&
             name != null &&
             name.isNotEmpty &&
@@ -102,9 +100,8 @@ class _CVState extends State<CV> {
             ),
             Container(
               height: double.infinity,
-              decoration: BoxDecoration(
-                color: Color(0xFFcf3030),
-              ),
+              decoration:
+                  BoxDecoration(color: Theme.of(context).primaryColorLight),
               margin: EdgeInsets.only(left: 3.0, bottom: 2.0),
               child: Stack(
                 children: <Widget>[
@@ -115,44 +112,6 @@ class _CVState extends State<CV> {
                     image: this.widget.imgURL,
                     fit: BoxFit.cover,
                   ),
-//                  Visibility(
-//                    visible: isEditing,
-//                    child: Column(
-//                      mainAxisAlignment: MainAxisAlignment.center,
-//                      children: <Widget>[
-//                        Container(
-//                          width: _size.width / 3,
-//                          height: cardHeight / 2 - 10,
-//                          child: FlatButton(
-//                              color: Color.fromRGBO(247, 223, 9, 0.6),
-//                              onPressed: widget.onEdit,
-//                              child: Text(
-//                                'ویرایش',
-//                                style: TextStyle(color: Colors.white),
-//                              )),
-//                        ),
-//                        Container(
-//                          width: _size.width / 3,
-//                          height: cardHeight / 2 - 10,
-//                          child: FlatButton(
-//                              color: Color.fromRGBO(247, 13, 9, 0.6),
-//                              onPressed: () {
-//                                showDialog(
-//                                    context: context,
-//                                    builder: (context) {
-//                                      return DeleteOrNot(
-//                                        onDelete: widget.onDelete,
-//                                      );
-//                                    });
-//                              },
-//                              child: Text(
-//                                'حذف',
-//                                style: TextStyle(color: Colors.white),
-//                              )),
-//                        ),
-//                      ],
-//                    ),
-//                  ),
                 ],
               ),
             ),

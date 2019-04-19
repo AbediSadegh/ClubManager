@@ -11,7 +11,6 @@ class Gallery extends StatefulWidget {
   final List<String> years;
   final bool isAdmin;
 
-
   Gallery({@required this.years, @required this.isAdmin}) {
     assert(years != null);
   }
@@ -23,15 +22,18 @@ class Gallery extends StatefulWidget {
 class _GalleryState extends State<Gallery> {
   String currAlbum;
   CategoryItem categoryItem;
+
   @override
   void initState() {
     super.initState();
   }
+
   static List<DropdownMenuItem<CategoryItem>> _items = List();
   static CategoryItem currVal;
   CategoryItemList categoryItemList;
-  bool isLoading= true;
-  getCategory({String page: URL.galleryCategory})async{
+  bool isLoading = true;
+
+  getCategory({String page: URL.galleryCategory}) async {
     categoryItemList = await getCategoryList(url: page);
     categoryItemList.categoryList.forEach((val) {
       _items.add(DropdownMenuItem<CategoryItem>(
@@ -45,42 +47,42 @@ class _GalleryState extends State<Gallery> {
           alignment: Alignment.center,
         ),
       ));
-    }
-    );
-  setState(() {
-    isLoading = false;
-    currVal = _items[0].value;
-  });
+    });
+    setState(() {
+      isLoading = false;
+      currVal = _items[0].value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
 //    assert(photos.isNotEmpty);
-    if(isLoading){
+    if (isLoading) {
       getCategory();
     }
     assert(widget.years != null);
     Size _deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          actions: <Widget>[
-            !isLoading ? GalleryTopBar(
-              //currVal: currAlbum,
-              items: _items,
-                currentValue: currVal,
-                years: widget.years,
-              onChange: (CategoryItem item){
-                setState(() {
-                  currVal = item;
-                  currAlbum = item.title;
-                  //categoryItem = item;
-                });
-              }
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        actions: <Widget>[
+          !isLoading
+              ? GalleryTopBar(
+                  //currVal: currAlbum,
+                  items: _items,
+                  currentValue: currVal,
+                  years: widget.years,
+                  onChange: (CategoryItem item) {
+                    setState(() {
+                      currVal = item;
+                      currAlbum = item.title;
+                      //categoryItem = item;
+                    });
+                  }
 
 //                  (str) {
 //                if (str != currAlbum) {
@@ -89,21 +91,32 @@ class _GalleryState extends State<Gallery> {
 //                  });
 //                }
 //              },
-            ) : CircularProgressIndicator(),
-          ],
-        ),
-        body: !isLoading ? Stack(
-          children: <Widget>[
-            AppBackground(),
-            PhotoGallery(
-              categoryItem: currVal,
-              //currAlbum: currAlbum,
-              deviceSize: _deviceSize,
-              onChange: () {
-                this.setState(() {});
-              },
+                  )
+              : Container(
+                  padding: EdgeInsets.only(right: 25.0),
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(),
+                ),
+        ],
+      ),
+      body: !isLoading
+          ? Stack(
+              children: <Widget>[
+                AppBackground(),
+                PhotoGallery(
+                  categoryItem: currVal,
+                  //currAlbum: currAlbum,
+                  deviceSize: _deviceSize,
+                  onChange: () {
+                    this.setState(() {});
+                  },
+                ),
+              ],
+            )
+          : Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
             ),
-          ],
-        ): CircularProgressIndicator()) ;
+    );
   }
 }

@@ -26,7 +26,6 @@ class GalleryTopBarState extends State<GalleryTopBar> {
 
 
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10.0, 20.0, 0),
       alignment: Alignment.centerRight,

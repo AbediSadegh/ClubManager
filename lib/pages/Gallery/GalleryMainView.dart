@@ -11,11 +11,11 @@ class PhotoGallery extends StatefulWidget {
 
 //  final Map<String, List<Photograph>> photos;
   final Size deviceSize;
-  final String currAlbum; //todo use this field to get the album you want
+//  final String currAlbum; //todo use this field to get the album you want
   final GestureTapCallback onChange;
   final CategoryItem categoryItem;
-  PhotoGallery(
-      {@required this.currAlbum,
+  PhotoGallery({
+//      {@required this.currAlbum,
       @required this.deviceSize,
       @required this.onChange,
         @required this.categoryItem

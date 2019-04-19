@@ -4,9 +4,17 @@ import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/entity/news_page_entity.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-String token ="Token 9a21590cc1840b82c8911c47302faaaa410693a9";
-Future loadGallery(String url) async {
-  final response = await http.get(url);
+String token ="Token 24ea395d3f41d0bf0cd07311974abafe5757399c";
+Future loadGallery({String url,int id}) async {
+  print("hellllllllllllllllllllllllllllllllllllllllllo");
+    Map<String, String> requestHeaders = {
+    'Authorization': token,
+  };//http://185.213.166.42:8000/api/gallery/category/
+    print(id.toString());
+    Map<String, String> data = {
+    'category': id.toString(),
+  };
+  final response = await http.post(url,headers: requestHeaders,body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new PhotoList.fromJson(jsonResPonse);
   return product;

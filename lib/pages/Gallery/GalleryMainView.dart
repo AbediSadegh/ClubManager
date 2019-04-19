@@ -13,11 +13,13 @@ class PhotoGallery extends StatefulWidget {
   final Size deviceSize;
   final String currAlbum; //todo use this field to get the album you want
   final GestureTapCallback onChange;
-
+  final CategoryItem categoryItem;
   PhotoGallery(
       {@required this.currAlbum,
       @required this.deviceSize,
-      @required this.onChange});
+      @required this.onChange,
+        @required this.categoryItem
+      });
 
   State<PhotoGallery> createState() => state;
 }
@@ -32,6 +34,7 @@ class PhotoGalleryState extends State<
   List<PhotoEntityList> _pics;
   PhotoList photoList;
   String nextPage;
+  int id;
   List<IntSize> generator(int quantity, double width, double height) {
     List<IntSize> l = List();
     height = height / 2;
@@ -59,7 +62,9 @@ class PhotoGalleryState extends State<
 
   getPhotos({String page: URL.urlGalley}) async {
     _isLoading = true;
-    photoList = await loadGallery(page);
+    int id =widget.categoryItem.id;
+    photoList = await loadGallery(url: page,id: id);
+
     setState(() {
       _pics.addAll(photoList.results);
       nextPage = photoList.next;
@@ -74,6 +79,7 @@ class PhotoGalleryState extends State<
       getPhotos();
       fistLoad = false;
     }
+
     print('IT IS GALLERY MAIN VIEW');
     return Center(
       child: _isLoading

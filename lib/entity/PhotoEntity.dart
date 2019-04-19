@@ -609,7 +609,7 @@ class CategoryItemList{
 
   CategoryItemList({this.categoryList});
 
-  factory CategoryItemList.fromJson(Map<String, dynamic> parsedJson){
+  factory CategoryItemList.fromJson(parsedJson){
     List<CategoryItem> convert() {
       var list = parsedJson as List;
       List<CategoryItem> categoryList =

@@ -220,3 +220,36 @@ Future<ExerciseListEntity> getExercise(
   var product = new ExerciseListEntity.fromJson(jsonResPonse);
   return product;
 }
+Future<ExerciseUserListEntity> getPayment(
+    {String url,String userName}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'username': userName,
+  };
+  final response = await http.post(url,body: data,headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new ExerciseUserListEntity.fromJson(jsonResPonse);
+  return product;
+}
+Future<CheckCreateEntity> createCheck(
+    {String url,String userName,String name,String number,String price,String date}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  print(date.toString());
+  Map<String, dynamic> data = {
+    'user': userName,
+    'name': name,
+    'number': number,
+    'price': price,
+    'date' : date.replaceAll("/", "")
+  };
+  final response = await http.post(url,body: data,headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CheckCreateEntity.fromJson(jsonResPonse);
+  return product;
+}

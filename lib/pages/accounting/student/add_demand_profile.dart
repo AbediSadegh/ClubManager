@@ -10,8 +10,16 @@ class DemandNoteDialog extends StatelessWidget {
   final nameOnSaved;
   final demandNumberOnSaved;
   final demandMoenyOnSaved;
+  bool isLoading;
 
-  DemandNoteDialog({this.textEditingController,this.demandNumberOnSaved,this.buttonPress,this.keyForm,this.nameOnSaved,this.demandMoenyOnSaved});
+  DemandNoteDialog(
+      {this.textEditingController,
+      this.demandNumberOnSaved,
+      this.buttonPress,
+      this.keyForm,
+      this.nameOnSaved,
+      this.demandMoenyOnSaved,
+      this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,7 @@ class DemandNoteDialog extends StatelessWidget {
                       obsecure: false,
                       onSaved: nameOnSaved,
                       valid: (String str) {
-                        if(str.length < 2 && str==null){
+                        if (str.length < 2 && str == null) {
                           return "مقدار صحیح را وارد کنید";
                         }
                       },
@@ -53,7 +61,7 @@ class DemandNoteDialog extends StatelessWidget {
                       isEnable: true,
                       icon: Icons.assignment,
                       valid: (String str) {
-                        if(str.length < 2 && str==null){
+                        if (str.length < 2 && str == null) {
                           return "مقدار صحیح را وارد کنید";
                         }
                       },
@@ -66,7 +74,7 @@ class DemandNoteDialog extends StatelessWidget {
                       isEnable: true,
                       icon: Icons.credit_card,
                       valid: (String str) {
-                        if(str.length < 4){
+                        if (str.length < 4) {
                           return "مقدار صحیح را وارد کنید";
                         }
                       },
@@ -77,9 +85,12 @@ class DemandNoteDialog extends StatelessWidget {
                       child: TextField(
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          labelText: "انتخاب تاریخ",
-                          labelStyle: TextStyle(color: Colors.white),
-                          icon: Icon(Icons.date_range,color: Colors.white,),
+                            labelText: "انتخاب تاریخ",
+                            labelStyle: TextStyle(color: Colors.white),
+                            icon: Icon(
+                              Icons.date_range,
+                              color: Colors.white,
+                            ),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
                             disabledBorder: UnderlineInputBorder(
@@ -99,8 +110,21 @@ class DemandNoteDialog extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical:14.0),
-                      child: FlatButton(child: Text("تایید",style: TextStyle(color: Colors.white),),onPressed: buttonPress,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),color: Colors.grey,),
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
+                      child: isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : FlatButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: buttonPress,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Colors.grey,
+                            ),
                     ),
                   ],
                 ),
@@ -111,21 +135,4 @@ class DemandNoteDialog extends StatelessWidget {
       ),
     );
   }
-//  String name;
-//  nameOnSaved(String str){
-//    name = str;
-//  }
-//  int demandNumber;
-//  demandNumberOnSaved(String str){
-//    demandNumber = int.parse(str);
-//  }
-//  int moeny;
-//  demandMoenyOnSaved(String str){
-//    moeny = int.parse(str);
-//  }
-//  String date;
-//  dateOnSaved(){
-//    date =textEditingController.toString();
-//  }
-
 }

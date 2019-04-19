@@ -433,6 +433,24 @@ class CheckEntity {
     );
   }
 }
+class CheckCreateEntity {
+  String number;
+  String user;
+  String name;
+  int price;
+
+
+  CheckCreateEntity({this.number, this.user, this.name, this.price});
+
+  factory CheckCreateEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return CheckCreateEntity(
+      name: parsedJson['name'],
+      price: parsedJson['price'],
+      number: parsedJson['number'],
+      user: parsedJson['user'],
+    );
+  }
+}
 
 class CheckPassEntity {
   bool success;
@@ -551,4 +569,23 @@ class ExerciseListEntity {
   }
 
   ExerciseListEntity({this.count, this.next, this.previous, this.results});
+}
+class ExerciseUserListEntity {
+
+  List<CheckEntity> checks;
+
+  factory ExerciseUserListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<CheckEntity> convert() {
+      var list = parsedJson['checks'] as List;
+      List<CheckEntity> imagesList =
+          list.map((i) => CheckEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return ExerciseUserListEntity(
+        checks: convert());
+  }
+
+  ExerciseUserListEntity({this.checks});
+
 }

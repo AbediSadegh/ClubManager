@@ -1,4 +1,3 @@
-import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
@@ -6,9 +5,9 @@ import 'package:club_manager/pages/accounting/student/profile.dart';
 import 'package:flutter/material.dart';
 
 class PlayerList extends StatefulWidget {
-  final String alephabetic;
+  final String alphabet;
 
-  PlayerList({this.alephabetic});
+  PlayerList({this.alphabet});
 
   @override
   _PlayerListState createState() => _PlayerListState();
@@ -50,7 +49,7 @@ class _PlayerListState extends State<PlayerList> {
 
   getStudentNameList({String page: URL.studentList}) async {
     studentList =
-        await getStudentList(url: URL.studentList, letter: widget.alephabetic);
+        await getStudentList(url: URL.studentList, letter: widget.alphabet);
     setState(() {
       isLoading = false;
       _getNames();

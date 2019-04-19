@@ -1,5 +1,3 @@
-import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 class Salary extends StatefulWidget {

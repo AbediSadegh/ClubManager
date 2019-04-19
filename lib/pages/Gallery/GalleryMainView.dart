@@ -2,11 +2,9 @@ import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/IntSize.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/entity/photograph.dart';
 import 'package:club_manager/pages/Gallery/Tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:path/path.dart';
 
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
@@ -100,14 +98,6 @@ class PhotoGalleryState extends State<
           photo: _pics[index],
           size: l[index],
           deviceSize: widget.deviceSize,
-          onDelete: () {
-            widget.onChange();
-//            widget.photos[currAlbum].removeAt(index);
-            //todo delete an item of gallery here
-          },
-          onEdit: () {
-            onEdit(context, index);
-          },
         );
       },
     );

@@ -3,18 +3,18 @@ import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class timePeriod extends StatefulWidget {
+class TimePeriod extends StatefulWidget {
   final PageController controller;
   //final func;
   String selectedTime;
 
-  timePeriod({@required this.controller});
+  TimePeriod({@required this.controller});
 
   @override
-  _timePeriodState createState() => _timePeriodState();
+  _TimePeriodState createState() => _TimePeriodState();
 }
 
-class _timePeriodState extends State<timePeriod> {
+class _TimePeriodState extends State<TimePeriod> {
   int groupValue = 0;
   String notice = "توجه : در ابتدا باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
@@ -23,7 +23,7 @@ class _timePeriodState extends State<timePeriod> {
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller;
 
-  _timePeriodState({this.controller});
+  _TimePeriodState({this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,6 @@ import 'dart:async' show Future;
 import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/entity/news_page_entity.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 String token ="Token 9a21590cc1840b82c8911c47302faaaa410693a9";

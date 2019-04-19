@@ -54,6 +54,7 @@ class NewsViewerState extends State<NewsViewer> {
         ],
       ),
       body: Container(
+        color: Color(0xff37474f),
         child: isLoading
             ? Center(
                 child: CircularProgressIndicator(),
@@ -97,6 +98,7 @@ class NewsViewerState extends State<NewsViewer> {
                         child: Text(
                           newsEntity.content,
                           textDirection: TextDirection.rtl,
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ],

@@ -4,7 +4,6 @@ import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/accounting/general_information/addSalary.dart';
 import 'package:club_manager/pages/accounting/page1/accounting_home_page.dart';
-import 'package:club_manager/widgets/deletePermission.dart';
 import 'package:flutter/material.dart';
 import 'package:unicorndial/unicorndial.dart';
 

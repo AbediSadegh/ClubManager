@@ -1,4 +1,3 @@
-import 'package:club_manager/FakeEntity.dart';
 import 'package:club_manager/pages/accounting/coach/activity.dart';
 import 'package:club_manager/pages/accounting/coach/card_activity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
@@ -183,7 +182,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return CastumDialog(
+                      return costumDialog(
                           monthIndex: widget.monthIndex,
                           coachIndex: widget.coachIndex,
                           activityIndex: index - 1);
@@ -199,7 +198,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
 
   static GlobalKey<FormState> key = GlobalKey<FormState>();
 
-  Widget CastumDialog({int coachIndex, int monthIndex, int activityIndex}) {
+  Widget costumDialog({int coachIndex, int monthIndex, int activityIndex}) {
     final DialogHeight = MediaQuery.of(context).size.height * .45;
     String numberOnSaved;
     String detaill;

@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
-import 'package:club_manager/entity/cv_entity.dart';
+import 'package:club_manager/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:club_manager/widgets/single_trainer_cv.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CVViewer extends StatefulWidget {
   final bool isAdmin;
@@ -59,50 +56,30 @@ class _CVViewerState extends State<CVViewer> {
       getCoachList();
     }
     return Scaffold(
-      floatingActionButton: widget.isAdmin
-          ? FloatingActionButton(
-              child: Icon(Icons.mode_edit),
-              onPressed: () {
-//                editAdd(
-//                  isAdd: true,
-//                  context: context,
-//                  deviceSize: MediaQuery.of(context).size,
-//                );
-              },
-            )
-          : Container(),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              controller: _listScrollController,
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                return CV(
-                  imgURL: list[index].image,
-                  description: list[index].content,
-                  license: list[index].level,
-                  name: list[index].user.first_name +
-                      " " +
-                      list[index].user.last_name,
-                  education: " ",
-                  onEdit: () {
-//                    editAdd(
-//                        deviceSize: MediaQuery.of(context).size,
-//                        context: context,
-//                        index: index,
-//                        isAdd: false);
-                  },
-                  onDelete: () {
-                    //todo : delete a Coach CV here
-                    setState(() {
-//                      widget.cvs.removeAt(index);
-                    });
-                  },
-                );
-              },
-            ),
+      body: Stack(
+        children: <Widget>[
+          AppBackground(),
+          _isLoading
+              ? Center(
+            child: CircularProgressIndicator(),
+          )
+              : ListView.builder(
+            controller: _listScrollController,
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return CV(
+                imgURL: list[index].image,
+                description: list[index].content,
+                license: list[index].level,
+                name: list[index].user.first_name +
+                    " " +
+                    list[index].user.last_name,
+                education: " ",
+              );
+            },
+          ),
+        ],
+      )
     );
   }
 //

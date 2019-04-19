@@ -127,7 +127,7 @@ class Alephabetic extends StatelessWidget {
   circleAvatarN(String str,int index,BuildContext context){
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context){return PlayerList(alephabetic: str,);}));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context){return PlayerList(alphabet: str,);}));
       },
       child: CircleAvatar(
         radius: 25,

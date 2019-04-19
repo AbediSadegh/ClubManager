@@ -52,7 +52,7 @@ class _AboutPageState extends State<AboutPage> {
         alignment: Alignment.center,
         height: containerHeight * .18,
         width: containerWidth * .5,
-        child: NewListTile(
+        child: ListTile(
           //contentPadding: EdgeInsets.symmetric(horizontal: 10),
           title: Text(
             title,
@@ -64,7 +64,7 @@ class _AboutPageState extends State<AboutPage> {
               style: TextStyle(fontSize: 11.0, color: Colors.white),
             ),
           ),
-          icon: Icon(
+          leading: Icon(
             icon,
             size: 15.0,
             color: Colors.white,

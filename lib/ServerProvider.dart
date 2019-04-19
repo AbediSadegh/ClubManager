@@ -252,3 +252,18 @@ Future<CheckCreateEntity> createCheck(
   var product = new CheckCreateEntity.fromJson(jsonResPonse);
   return product;
 }
+
+Future<CategoryItemList> getCategoryList(
+    {String url}) async {
+//  Map<String, String> requestHeaders = {
+//    'Authorization': token,
+//    // todo change
+//  };
+//  Map<String, dynamic> data = {
+//    'letter': letter,
+//  };
+  final response = await http.get(url,);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CategoryItemList.fromJson(jsonResPonse);
+  return product;
+}

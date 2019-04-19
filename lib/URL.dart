@@ -20,6 +20,7 @@ class URL {
   static const String exerciseList= 'http://$padidehDomain/api/exercise/list/';
   static const String commerceUser= 'http://$padidehDomain/api/player/accounting/';
   static const String createCheck= 'http://$padidehDomain/api/accounting/check-create/';
+  static const String galleryCategory = "http://$padidehDomain/api/gallery/category-list";
 
   static String token ='';
 }

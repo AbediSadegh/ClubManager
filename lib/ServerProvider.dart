@@ -7,10 +7,32 @@ import 'package:http/http.dart' as http;
 
 String token = "Token 9a21590cc1840b82c8911c47302faaaa410693a9";
 
-Future loadGallery(String url) async {
-  final response = await http.get(url);
+Future loadGallery({String url,int id}) async {
+  print("hellllllllllllllllllllllllllllllllllllllllllo");
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+  };//http://185.213.166.42:8000/api/gallery/category/
+  print(id.toString());
+  Map<String, String> data = {
+    'category': id.toString(),
+  };
+  final response = await http.post(url+"/",body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new PhotoList.fromJson(jsonResPonse);
+  return product;
+}
+Future<CategoryItemList> getCategoryList(
+    {String url}) async {
+//  Map<String, String> requestHeaders = {
+//    'Authorization': token,
+//    // todo change
+//  };
+//  Map<String, dynamic> data = {
+//    'letter': letter,
+//  };
+  final response = await http.get(url,);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CategoryItemList.fromJson(jsonResPonse);
   return product;
 }
 

@@ -1,6 +1,6 @@
 class URL {
   static const padidehDomain = '185.213.166.42:8000';
-  static const String urlGalley = 'http://$padidehDomain/api/gallery';
+  static const String urlGalley = 'http://$padidehDomain/api/gallery/category';
   static const String urlNews = 'http://$padidehDomain/api/news';
   static const String urlFame = 'http://$padidehDomain/api/fame';
   static const String urlcoachList = 'http://$padidehDomain/api/coach/list';
@@ -22,6 +22,7 @@ class URL {
   static const String createCheck= 'http://$padidehDomain/api/accounting/check-create/';
   static const String setPresence= 'http://$padidehDomain/api/coach/session/';
   static const String getPeriods= 'http://$padidehDomain/api/plan/list/';
+  static const String galleryCategory = "http://$padidehDomain/api/gallery/category-list";
 
   static String token ='';
 }

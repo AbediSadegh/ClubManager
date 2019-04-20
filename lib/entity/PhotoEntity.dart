@@ -14,7 +14,7 @@ class PhotoEntityList {
         title: parsedJson['title'],
         file: parsedJson['file'],
         is_video: parsedJson['is_video'],
-        image: parsedJson['image']);
+        image: "http://185.213.166.42:8000"+parsedJson['image']);
   }
 }
 

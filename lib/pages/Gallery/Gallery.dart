@@ -12,6 +12,7 @@ class Gallery extends StatefulWidget {
   final bool isAdmin;
 
 
+
   Gallery({@required this.years, @required this.isAdmin}) {
     assert(years != null);
   }
@@ -23,14 +24,18 @@ class Gallery extends StatefulWidget {
 class _GalleryState extends State<Gallery> {
   String currAlbum;
   CategoryItem categoryItem;
+  bool isLoading;
+  bool first;
   @override
   void initState() {
+    isLoading= true;
+    first = true;
     super.initState();
+    _items = List();
   }
-  static List<DropdownMenuItem<CategoryItem>> _items = List();
+  static List<DropdownMenuItem<CategoryItem>> _items;
   static CategoryItem currVal;
   CategoryItemList categoryItemList;
-  bool isLoading= true;
   getCategory({String page: URL.galleryCategory})async{
     categoryItemList = await getCategoryList(url: page);
     categoryItemList.categoryList.forEach((val) {
@@ -48,6 +53,7 @@ class _GalleryState extends State<Gallery> {
     }
     );
   setState(() {
+    first = false;
     isLoading = false;
     currVal = _items[0].value;
   });
@@ -56,7 +62,7 @@ class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
 //    assert(photos.isNotEmpty);
-    if(isLoading){
+    if(first){
       getCategory();
     }
     assert(widget.years != null);
@@ -71,7 +77,7 @@ class _GalleryState extends State<Gallery> {
           actions: <Widget>[
             !isLoading ? GalleryTopBar(
               //currVal: currAlbum,
-              items: _items,
+                items: _items,
                 currentValue: currVal,
                 years: widget.years,
               onChange: (CategoryItem item){
@@ -89,12 +95,13 @@ class _GalleryState extends State<Gallery> {
 //                  });
 //                }
 //              },
-            ) : CircularProgressIndicator(),
+            ) : SizedBox(height: 0,width: 0,),
           ],
         ),
-        body: !isLoading ? Stack(
+        body: Stack(
           children: <Widget>[
             AppBackground(),
+            !isLoading ?
             PhotoGallery(
               categoryItem: currVal,
               //currAlbum: currAlbum,
@@ -102,8 +109,8 @@ class _GalleryState extends State<Gallery> {
               onChange: () {
                 this.setState(() {});
               },
-            ),
+            ) : CircularProgressIndicator(),
           ],
-        ): CircularProgressIndicator()) ;
-  }
+        )) ;
+    }
 }

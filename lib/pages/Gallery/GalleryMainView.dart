@@ -11,11 +11,13 @@ class PhotoGallery extends StatefulWidget {
 
 //  final Map<String, List<Photograph>> photos;
   final Size deviceSize;
+  bool fistLoad;
   final String currAlbum; //todo use this field to get the album you want
   final GestureTapCallback onChange;
   final CategoryItem categoryItem;
   PhotoGallery(
       {@required this.currAlbum,
+        this.fistLoad =true,
       @required this.deviceSize,
       @required this.onChange,
         @required this.categoryItem
@@ -29,7 +31,7 @@ class PhotoGalleryState extends State<
 {
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
-  bool fistLoad = true;
+
   List<IntSize> l;
   List<PhotoEntityList> _pics;
   PhotoList photoList;
@@ -64,7 +66,9 @@ class PhotoGalleryState extends State<
     _isLoading = true;
     int id =widget.categoryItem.id;
     photoList = await loadGallery(url: page,id: id);
-
+    if(_pics.length == 0){
+      print("hello");
+    }else _pics.removeRange(0, _pics.length);
     setState(() {
       _pics.addAll(photoList.results);
       nextPage = photoList.next;
@@ -75,12 +79,15 @@ class PhotoGalleryState extends State<
   }
 
   Widget build(BuildContext context) {
-    if (fistLoad) {
+
+    if (widget.fistLoad) {
       getPhotos();
-      fistLoad = false;
+      widget.fistLoad = false;
+      print('IT IS GALLERY MAIN VIEW');
     }
 
-    print('IT IS GALLERY MAIN VIEW');
+
+
     return Center(
       child: _isLoading
           ? CircularProgressIndicator()

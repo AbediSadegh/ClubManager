@@ -14,7 +14,7 @@ Future loadGallery({String url,int id}) async {
     Map<String, String> data = {
     'category': id.toString(),
   };
-  final response = await http.post(url,headers: requestHeaders,body: data);
+  final response = await http.post(url+"/",body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new PhotoList.fromJson(jsonResPonse);
   return product;

@@ -105,7 +105,7 @@ class ViewerState extends State<Viewer> {
 //      fit: BoxFit.contain,
 //    );
     return Image.network(
-      widget._photo.file,
+      widget._photo.image,
       fit: BoxFit.contain,
     );
   }

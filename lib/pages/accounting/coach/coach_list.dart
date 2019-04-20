@@ -74,7 +74,7 @@ class _CoachListState extends State<CoachList> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return NewCoachProfile(
-                        index: index,
+                        user: list[index],//todo
                       );
                     }));
                   },

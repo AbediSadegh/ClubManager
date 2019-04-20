@@ -1,3 +1,4 @@
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
@@ -84,7 +85,7 @@ class _StartState extends State<Start> {
               );
               if (first) {
                 first = false;
-                sendData();
+                sendData(username: LoginData.username);
               }
             },
           ),
@@ -94,11 +95,11 @@ class _StartState extends State<Start> {
     );
   }
 
-  sendData({String page: URL.register}) async {
+  sendData({String username}) async {
     setState(() {
       _isLoading = true;
     });
-    registerEntity = await register(url: page);
+    registerEntity = await register(url: URL.register+username+"/");
     setState(() {
       _isLoading = false;
     });

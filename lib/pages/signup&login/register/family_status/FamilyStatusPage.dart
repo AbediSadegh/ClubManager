@@ -73,7 +73,7 @@ class FamilyStatusPage extends StatelessWidget {
                 ),
                 FamilyStatusForm(
                   formKey: familyFormKey,
-                  fatherPhoneNumber: fatherWork,
+                  fatherPhoneNumber: fatherPhoneNumber,
                   fatherWork: fatherWork,
                   homeAddress: homeAddress,
                   homePhoneNumber: homePhoneNumber,

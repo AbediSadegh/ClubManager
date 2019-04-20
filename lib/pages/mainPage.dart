@@ -310,6 +310,14 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     String token = sp.getString('token');
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return LoginDialog();
+        },
+      ),
+    );
+    return;// todo change
     if (token == null) {
       Navigator.of(context).push(
         MaterialPageRoute(

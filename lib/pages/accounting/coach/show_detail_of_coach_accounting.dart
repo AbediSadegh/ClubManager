@@ -1,3 +1,6 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/coach/activity.dart';
 import 'package:club_manager/pages/accounting/coach/card_activity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
@@ -7,23 +10,40 @@ import 'package:jalali_date/jalali_date.dart';
 import 'package:unicorndial/unicorndial.dart';
 
 class ShowMonthActivity extends StatefulWidget {
-  final yearIndex = 0;
-  final monthIndex;
-  final coachIndex;
-
-  ShowMonthActivity({this.monthIndex, this.coachIndex});
+  final String userName;
+  final String month;
+  final String year;
+  ShowMonthActivity(
+      { this.userName, this.month, this.year});
 
   @override
   _ShowMonthActivityState createState() => _ShowMonthActivityState();
 }
 
 class _ShowMonthActivityState extends State<ShowMonthActivity> {
+  bool _isLoading;
+  PresenceEntity presenceEntity;
+
+  void presence({bool presence}) async {
+    _isLoading = true;
+    presenceEntity = await setPresence(
+        url: URL.setPresence,
+        userName: widget.userName,
+        attendance: presence,
+        date: widget.year+widget.month+"01");
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    _isLoading = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    coaches[widget.coachIndex]
-        .yearActivity[widget.yearIndex]
-        .month[widget.monthIndex]
-        .paidCost();
 
     var childButtons = List<UnicornButton>();
     childButtons.add(UnicornButton(
@@ -35,49 +55,35 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           mini: true,
           child: Icon(Icons.check),
           onPressed: () {
-            coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].hozoor++;
-            setState(() {
-              String date = "جلسه ی " +
-                  PersianDate.now().toString(showDate: true, showTime: false);
-              coaches[widget.coachIndex]
-                  .yearActivity[widget.yearIndex]
-                  .month[widget.monthIndex]
-                  .activity
-                  .add(Activity(
-                    text: Text("حضور",style: TextStyle(color: Colors.green),),
-                    title: date,
-                    cost: coaches[widget.coachIndex].attendanceTrueCost,
-                    isPay: false,
-                  ));
-            });
+            presence(presence: true);
           },
         )));
 
-    childButtons.add(UnicornButton(
-        hasLabel: true,
-        labelText: "تاخیر",
-        currentButton: FloatingActionButton(
-            onPressed: () {
-              coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].delay++;
-              setState(() {
-                String date = "جلسه ی " +
-                    PersianDate.now().toString(showDate: true, showTime: false);
-                coaches[widget.coachIndex]
-                    .yearActivity[widget.yearIndex]
-                    .month[widget.monthIndex]
-                    .activity
-                    .add(Activity(
-                      text: Text("تاخیر",style: TextStyle(color: Colors.orange),),
-                      title: date,
-                      cost: coaches[widget.coachIndex].delayCost,
-                      isPay: false,
-                    ));
-              });
-            },
-            heroTag: "تاخیر",
-            backgroundColor: Colors.orange,
-            mini: true,
-            child: Icon(Icons.error_outline))));
+//    childButtons.add(UnicornButton(
+//        hasLabel: true,
+//        labelText: "تاخیر",
+//        currentButton: FloatingActionButton(
+//            onPressed: () {
+//              coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].delay++;
+//              setState(() {
+//                String date = "جلسه ی " +
+//                    PersianDate.now().toString(showDate: true, showTime: false);
+//                coaches[widget.coachIndex]
+//                    .yearActivity[widget.yearIndex]
+//                    .month[widget.monthIndex]
+//                    .activity
+//                    .add(Activity(
+//                      text: Text("تاخیر",style: TextStyle(color: Colors.orange),),
+//                      title: date,
+//                      cost: coaches[widget.coachIndex].delayCost,
+//                      isPay: false,
+//                    ));
+//              });
+//            },
+//            heroTag: "تاخیر",
+//            backgroundColor: Colors.orange,
+//            mini: true,
+//            child: Icon(Icons.error_outline))));
 
     childButtons.add(UnicornButton(
         hasLabel: true,
@@ -88,21 +94,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           mini: true,
           child: Icon(Icons.close),
           onPressed: () {
-            coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].absent++;
-            setState(() {
-              String date = "جلسه ی " +
-                  PersianDate.now().toString(showDate: true, showTime: false);
-              coaches[widget.coachIndex]
-                  .yearActivity[widget.yearIndex]
-                  .month[widget.monthIndex]
-                  .activity
-                  .add(Activity(
-                    text: Text("غیبت",style: TextStyle(color: Colors.red),),
-                    title: date,
-                    cost: coaches[widget.coachIndex].attendanceFalseCost,
-                    isPay: false,
-                  ));
-            });
+            presence(presence: false);
           },
         )));
 
@@ -115,13 +107,13 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           mini: true,
           child: Icon(Icons.credit_card),
           onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return addCost(
-                      monthIndex: widget.monthIndex,
-                      coachIndex: widget.coachIndex);
-                });
+//            showDialog(
+//                context: context,
+//                builder: (context) {
+//                  return addCost(
+//                      monthIndex: widget.monthIndex,
+//                      coachIndex: widget.coachIndex);
+//                });
           },
         )));
     childButtons.add(UnicornButton(
@@ -136,7 +128,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return absentInformation();
+//                  return absentInformation();
                 });
           },
         )));
@@ -147,52 +139,11 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           orientation: UnicornOrientation.VERTICAL,
           parentButton: Icon(Icons.add),
           childButtons: childButtons),
-      body: ListView.builder(
-          itemCount: coaches[widget.coachIndex]
-                  .yearActivity[widget.yearIndex]
-                  .month[widget.monthIndex]
-                  .activity
-                  .length +
-              1,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return Container(
-                height: MediaQuery.of(context).size.height * .08,
-                color: coaches[widget.coachIndex]
-                            .yearActivity[widget.yearIndex]
-                            .month[widget.monthIndex]
-                            .cost <=
-                        0
-                    ? Colors.green
-                    : Colors.red,
-                child: Center(
-                  child: Text(
-                    coaches[widget.coachIndex]
-                        .yearActivity[widget.yearIndex]
-                        .month[widget.monthIndex]
-                        .cost
-                        .toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              );
-            }
-            return CardActivity(
-              onLongPress: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return costumDialog(
-                          monthIndex: widget.monthIndex,
-                          coachIndex: widget.coachIndex,
-                          activityIndex: index - 1);
-                    });
-              },
-              coachIndex: widget.coachIndex,
-              monthIndex: widget.monthIndex,
-              activityIndex: index - 1,
-            );
-          }),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Center(child: Container(color: Colors.amberAccent),),
     );
   }
 
@@ -271,11 +222,13 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
                     setState(() {
                       if (key.currentState.validate()) {
                         key.currentState.save();
-                        coaches[coachIndex]
-                            .yearActivity[widget.yearIndex]
-                            .month[monthIndex]
-                            .activity[activityIndex]
-                            .isPay = true;
+//                        coaches[coachIndex]
+//                            .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity[activityIndex]
+//                            .isPay = true;
+
+
 //                        coaches[coachIndex]
 //                        .yearActivity[widget.yearIndex]
 //                            .month[monthIndex]
@@ -360,17 +313,20 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
                   setState(() {
                     if (formKey.currentState.validate()) {
                       formKey.currentState.save();
-                      setState(() {
-                        coaches[coachIndex]
-                            .yearActivity[widget.yearIndex]
-                            .month[monthIndex]
-                            .activity
-                            .add(Activity(
-                                isPay: true,
-                                title: "پرداخت",
-                                cost: cost,
-                                text:  Text("پرداخت",style: TextStyle(color: Colors.blue),)));
-                      });
+//                      setState(() {
+//                        coaches[coachIndex]
+//                            .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity
+//                            .add(Activity(
+//                                isPay: true,
+//                                title: "پرداخت",
+//                                cost: cost,
+//                                text: Text(
+//                                  "پرداخت",
+//                                  style: TextStyle(color: Colors.blue),
+//                                )));
+//                      });
                     }
                   });
                   Navigator.pop(context);
@@ -387,54 +343,84 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
       ),
     );
   }
-  Widget absentInformation(){
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 5,
-      backgroundColor: Colors.blueGrey,
-      child: Container(
-        height: MediaQuery.of(context).size.height * .25,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("تعداد جلسات حضور",style: TextStyle(color: Colors.white),),
-                  Text(coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].hozoor.toString(),style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("تعداد جلسات تاخیر",style: TextStyle(color: Colors.white)),
-                  Text(coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].delay.toString(),style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("تعداد جلسات غبیت",style: TextStyle(color: Colors.white)),
-                  Text(coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].absent.toString(),style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
-            FlatButton(
-              child: Text("تایید",style: TextStyle(color: Colors.white),),
-              onPressed: (){Navigator.pop(context);},
-              color: Colors.grey,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
+//  Widget absentInformation() {
+//    return Dialog(
+//      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+//      elevation: 5,
+//      backgroundColor: Colors.blueGrey,
+//      child: Container(
+//        height: MediaQuery.of(context).size.height * .25,
+//        child: Column(
+//          children: <Widget>[
+//            Padding(
+//              padding: const EdgeInsets.all(8.0),
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  Text(
+//                    "تعداد جلسات حضور",
+//                    style: TextStyle(color: Colors.white),
+//                  ),
+//                  Text(
+//                      coaches[widget.coachIndex]
+//                          .yearActivity[widget.yearIndex]
+//                          .month[widget.monthIndex]
+//                          .hozoor
+//                          .toString(),
+//                      style: TextStyle(color: Colors.white)),
+//                ],
+//              ),
+//            ),
+//            Padding(
+//              padding: const EdgeInsets.all(8.0),
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  Text("تعداد جلسات تاخیر",
+//                      style: TextStyle(color: Colors.white)),
+//                  Text(
+//                      coaches[widget.coachIndex]
+//                          .yearActivity[widget.yearIndex]
+//                          .month[widget.monthIndex]
+//                          .delay
+//                          .toString(),
+//                      style: TextStyle(color: Colors.white)),
+//                ],
+//              ),
+//            ),
+//            Padding(
+//              padding: const EdgeInsets.all(8.0),
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  Text("تعداد جلسات غبیت",
+//                      style: TextStyle(color: Colors.white)),
+//                  Text(
+//                      coaches[widget.coachIndex]
+//                          .yearActivity[widget.yearIndex]
+//                          .month[widget.monthIndex]
+//                          .absent
+//                          .toString(),
+//                      style: TextStyle(color: Colors.white)),
+//                ],
+//              ),
+//            ),
+//            FlatButton(
+//              child: Text(
+//                "تایید",
+//                style: TextStyle(color: Colors.white),
+//              ),
+//              onPressed: () {
+//                Navigator.pop(context);
+//              },
+//              color: Colors.grey,
+//              shape: RoundedRectangleBorder(
+//                  borderRadius: BorderRadius.circular(15)),
+//            ),
+//          ],
+//        ),
+//      ),
+//    );
+//  }
 }

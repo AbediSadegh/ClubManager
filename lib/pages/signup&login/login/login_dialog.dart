@@ -265,7 +265,7 @@ class _LoginDialogState extends State<LoginDialog>
       key.currentState.showSnackBar(SnackBar(
         content: Text("کد نادرست است "),
       ));
-    } else if (codEntity.is_registered == "true") {
+    } else if (codEntity.is_registered == true) {
       _saveToekn(codEntity.token);
       Navigator.push(
         context,
@@ -273,7 +273,7 @@ class _LoginDialogState extends State<LoginDialog>
           builder: (context) => MainPage(),
         ),
       );
-    } else if (codEntity.is_registered == "false") {
+    } else if (codEntity.is_registered == false) {
       LoginData.username = phone;
       URL.token = codEntity.token;
       Navigator.pushReplacement(
@@ -285,6 +285,7 @@ class _LoginDialogState extends State<LoginDialog>
     }
     click = false;
   }
+
   _saveToekn(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);

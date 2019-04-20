@@ -158,14 +158,15 @@ class CoachListEntity {
 class UserEntity {
   String first_name;
   String last_name;
-
+  String username;
   factory UserEntity.fromJson(Map<String, dynamic> parsedJson) {
     return UserEntity(
         first_name: parsedJson['first_name'],
+        username: parsedJson['username'],
         last_name: parsedJson['last_name']);
   }
 
-  UserEntity({this.first_name, this.last_name});
+  UserEntity({this.first_name, this.last_name,this.username});
 }
 
 class CoachEntity {
@@ -278,7 +279,7 @@ class SendPhoneEntity {
 
 class SendCodEntity {
   String token;
-  String is_registered;
+  bool is_registered;
   bool success;
 
   SendCodEntity({this.token, this.is_registered, this.success});
@@ -303,10 +304,9 @@ class RegisterEntity {
 
   factory RegisterEntity.fromJson(Map<String, dynamic> parsedJson) {
     return RegisterEntity(
-      username: parsedJson['username'],
       first_name: parsedJson['first_name'],
       last_name: parsedJson['last_name'],
-      student: StudentEntity.fromJson(parsedJson['student']),
+      student: StudentEntity.fromJson(parsedJson['player']),
     );
   }
 }
@@ -389,6 +389,22 @@ class StudentNameEntity {
       first_name: parsedJson['first_name'],
       last_name: parsedJson['last_name'],
       username: parsedJson['username'],
+    );
+  }
+}
+class PresenceEntity {
+  int absence;
+  bool success;
+  int presence;
+
+
+  PresenceEntity({this.absence, this.success, this.presence});
+
+  factory PresenceEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return PresenceEntity(
+      presence: parsedJson['presence'],
+      success: parsedJson['success'],
+      absence: parsedJson['absence'],
     );
   }
 }
@@ -567,6 +583,52 @@ class ExerciseListEntity {
   }
 
   ExerciseListEntity({this.count, this.next, this.previous, this.results});
+}
+
+class PeriodEntity {
+  String end_date;
+  String first_date;
+  String name;
+  int id;
+  int price;
+
+
+  PeriodEntity({this.end_date, this.first_date, this.name, this.id, this.price});
+
+  factory PeriodEntity.fromJson(Map<String, dynamic> parsedJson) {
+    return PeriodEntity(
+      end_date: parsedJson['end_date'],
+      first_date: parsedJson['first_date'],
+      name: parsedJson['name'],
+      id: parsedJson['id'],
+      price: parsedJson['price'],
+    );
+  }
+}
+
+class PeriodListEntity {
+  int count;
+  String next;
+  String previous;
+  List<PeriodEntity> results;
+
+  factory PeriodListEntity.fromJson(Map<String, dynamic> parsedJson) {
+    List<PeriodEntity> convert() {
+      var list = parsedJson['results'] as List;
+      List<PeriodEntity> imagesList =
+          list.map((i) => PeriodEntity.fromJson(i)).toList();
+      return imagesList;
+    }
+
+    return PeriodListEntity(
+        count: parsedJson['count'],
+        next: parsedJson['next'],
+        previous: parsedJson['previous'],
+        results: convert());
+  }
+
+  PeriodListEntity({this.count, this.next, this.previous, this.results});
+
 }
 class ExerciseUserListEntity {
 

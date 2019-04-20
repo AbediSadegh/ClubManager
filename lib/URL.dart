@@ -10,7 +10,7 @@ class URL {
   static const String sendComment = 'http://$padidehDomain/api/support/create/';
   static const String sendPhone = 'http://$padidehDomain/api/users/create-pin/';
   static const String sendCod = 'http://$padidehDomain/api/users/verify-pin/';
-  static const String register = 'http://$padidehDomain/api/users/student-create/';
+  static const String register = 'http://$padidehDomain/api/player/create/';
   static const String commerceList = 'http://$padidehDomain/api/accounting/commerce-list/';
   static const String commerceCreate = 'http://$padidehDomain/api/accounting/commerce-create/';
   static const String checkList= 'http://$padidehDomain/api/accounting/check-list/';
@@ -20,6 +20,8 @@ class URL {
   static const String exerciseList= 'http://$padidehDomain/api/exercise/list/';
   static const String commerceUser= 'http://$padidehDomain/api/player/accounting/';
   static const String createCheck= 'http://$padidehDomain/api/accounting/check-create/';
+  static const String setPresence= 'http://$padidehDomain/api/coach/session/';
+  static const String getPeriods= 'http://$padidehDomain/api/plan/list/';
 
   static String token ='';
 }

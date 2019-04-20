@@ -23,6 +23,7 @@ class URL {
   static const String setPresence= 'http://$padidehDomain/api/coach/session/';
   static const String getPeriods= 'http://$padidehDomain/api/plan/list/';
   static const String galleryCategory = "http://$padidehDomain/api/gallery/category-list";
+  static const String coachpay = "http://$padidehDomain/api/coach/pay/";
 
   static String token ='';
 }

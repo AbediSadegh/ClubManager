@@ -682,3 +682,33 @@ class CategoryItemList{
     return CategoryItemList(categoryList: convert());
   }
 }
+
+class ShowMonthActivityEntity {
+  int id;
+  String date;
+  int price;
+  ShowMonthActivityEntity({this.id,this.date,this.price});
+  factory ShowMonthActivityEntity.fromJson(Map<String, dynamic> json) =>
+      new ShowMonthActivityEntity(
+        id: json["id"],
+        date: json["date"],
+        price: json["price"],
+      );
+}
+
+class ShowMonthActivityList{
+  List<ShowMonthActivityEntity> monthActivty;
+
+  ShowMonthActivityList({this.monthActivty});
+
+  factory ShowMonthActivityList.fromJson(parsedJson){
+    List<ShowMonthActivityEntity> convert() {
+      var list = parsedJson as List;
+      List<ShowMonthActivityEntity> categoryList =
+      list.map((i) => ShowMonthActivityEntity.fromJson(i)).toList();
+      return categoryList;
+    }
+
+    return ShowMonthActivityList(monthActivty: convert());
+  }
+}

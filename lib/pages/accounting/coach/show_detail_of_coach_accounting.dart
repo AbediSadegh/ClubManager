@@ -23,6 +23,7 @@ class ShowMonthActivity extends StatefulWidget {
 class _ShowMonthActivityState extends State<ShowMonthActivity> {
   bool _isLoading;
   PresenceEntity presenceEntity;
+  ShowMonthActivityList monthActivity;
 
   void presence({bool presence}) async {
     _isLoading = true;
@@ -41,7 +42,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
     _isLoading = false;
     super.initState();
   }
-
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
 
@@ -132,6 +133,18 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
                 });
           },
         )));
+
+    getCoachDetailOfMonthList({String page: URL.coachpay}) async {
+      String username = widget.userName;
+      monthActivity =
+      await getCoachDetailOfMonth(url: page,username:username);
+      setState(() {
+        isLoading = false;
+      });
+    }
+    if(isLoading){
+    getCoachDetailOfMonthList();
+    }
     return Scaffold(
       floatingActionButton: UnicornDialer(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
@@ -139,11 +152,18 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           orientation: UnicornOrientation.VERTICAL,
           parentButton: Icon(Icons.add),
           childButtons: childButtons),
-      body: _isLoading
+      body: isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Center(child: Container(color: Colors.amberAccent),),
+          : ListView.builder(
+          itemCount: monthActivity.monthActivty.length,
+          itemBuilder: (context,index){
+            return CardActivity(onLongPress: null,date:monthActivity.monthActivty[index].date,
+            id: monthActivity.monthActivty[index].id,
+            price: monthActivity.monthActivty[index].price,
+            );
+          }),
     );
   }
 

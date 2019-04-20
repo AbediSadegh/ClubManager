@@ -5,7 +5,7 @@ import 'package:club_manager/entity/news_page_entity.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-String token = "Token 9a21590cc1840b82c8911c47302faaaa410693a9";
+String token = "Token b893d1e8672b62c6c1507e4b2841f1030a6a173d";
 
 Future loadGallery({String url,int id}) async {
   print("hellllllllllllllllllllllllllllllllllllllllllo");
@@ -303,5 +303,18 @@ Future<PeriodListEntity> getPlane({String url}) async {
   final response = await http.get(url);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new PeriodListEntity.fromJson(jsonResPonse);
+  return product;
+}
+Future<ShowMonthActivityList> getCoachDetailOfMonth(
+    {String url,String username}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+  };
+  Map<String, dynamic> data = {
+    'username': username,
+  };
+  final response = await http.post(url,headers: requestHeaders,body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new ShowMonthActivityList.fromJson(jsonResPonse);
   return product;
 }

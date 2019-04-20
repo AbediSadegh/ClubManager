@@ -2,17 +2,24 @@ import 'package:club_manager/pages/accounting/coach/coach.dart';
 import 'package:flutter/material.dart';
 
 class CardActivity extends StatelessWidget {
-  final monthIndex;
-  final coachIndex;
-  final activityIndex;
+  //final monthIndex;
+  //final coachIndex;
+  //final activityIndex;
   final onLongPress;
   final yearIndex=0;
+  final int id;
+  final String date;
+  final int price;
   CardActivity(
       {
+        this.price,
+        this.id,
+        this.date,
         this.onLongPress,
-        @required this.monthIndex,
-      @required this.coachIndex,
-      @required this.activityIndex});
+        //@required this.monthIndex,
+      //@required this.coachIndex,
+      //@required this.activityIndex
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +46,7 @@ class CardActivity extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("عنوان : "),
-                      Text(coaches[coachIndex]
-                          .yearActivity[yearIndex]
-                          .month[monthIndex]
-                          .activity[activityIndex]
-                          .title),
+                      Text(id.toString()),
                     ],
                   ),
                 ),
@@ -53,11 +56,7 @@ class CardActivity extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("هزینه : "),
-                      Text(coaches[coachIndex]
-                          .yearActivity[yearIndex]
-                          .month[monthIndex]
-                          .activity[activityIndex]
-                          .cost),
+                      Text(price.toString()),
                     ],
                   ),
                 ),
@@ -67,10 +66,7 @@ class CardActivity extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("وضعیت : "),
-                      coaches[coachIndex]
-                          .yearActivity[yearIndex]
-                          .month[monthIndex]
-                          .activity[activityIndex].text,
+                      Text("پرداختی"),
 //                      Text(
 //                        coaches[coachIndex]
 //                            .yearActivity[yearIndex]

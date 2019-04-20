@@ -14,7 +14,7 @@ class PhotoEntityList {
         title: parsedJson['title'],
         file: parsedJson['file'],
         is_video: parsedJson['is_video'],
-        image: parsedJson['image']);
+        image: "http://185.213.166.42:8000"+parsedJson['image']);
   }
 }
 
@@ -648,4 +648,37 @@ class ExerciseUserListEntity {
 
   ExerciseUserListEntity({this.checks});
 
+}
+class CategoryItem {
+  final int id;
+  final String title;
+
+  CategoryItem({
+    this.id,
+    this.title,
+  });
+
+  factory CategoryItem.fromJson(Map<String, dynamic> json) =>
+      new CategoryItem(
+        id: json["id"],
+        title: json["title"],
+      );
+
+}
+
+class CategoryItemList{
+  List<CategoryItem> categoryList;
+
+  CategoryItemList({this.categoryList});
+
+  factory CategoryItemList.fromJson(parsedJson){
+    List<CategoryItem> convert() {
+      var list = parsedJson as List;
+      List<CategoryItem> categoryList =
+      list.map((i) => CategoryItem.fromJson(i)).toList();
+      return categoryList;
+    }
+
+    return CategoryItemList(categoryList: convert());
+  }
 }

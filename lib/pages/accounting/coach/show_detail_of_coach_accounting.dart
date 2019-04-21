@@ -130,7 +130,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  String date = widget.year+ "/" + widget.month + "/" +"01";
+                  String date = widget.year+ widget.month +"01";
                   print(date);
                   String username = widget.userName;
                   return absentInformationDialog(userName: username, Date: date);

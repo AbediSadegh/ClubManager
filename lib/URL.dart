@@ -25,6 +25,6 @@ class URL {
   static const String galleryCategory = "http://$padidehDomain/api/gallery/category-list";
   static const String coachpay = "http://$padidehDomain/api/coach/pay/";
   static const String attendance = "http://$padidehDomain/api/coach/attendance/";
-
+  static const String addPay = "http://$padidehDomain/api/coach/add/pay/";
   static String token ='';
 }

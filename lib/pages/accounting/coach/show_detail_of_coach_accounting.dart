@@ -109,13 +109,13 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           mini: true,
           child: Icon(Icons.credit_card),
           onPressed: () {
-//            showDialog(
-//                context: context,
-//                builder: (context) {
-//                  return addCost(
-//                      monthIndex: widget.monthIndex,
-//                      coachIndex: widget.coachIndex);
-//                });
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return addCost(
+                      month: widget.month,
+                      year: widget.year);
+                });
           },
         )));
     childButtons.add(UnicornButton(
@@ -140,8 +140,11 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
 
     getCoachDetailOfMonthList({String page: URL.coachpay}) async {
       String username = widget.userName;
+      String date = widget.year+widget.month+"01";
+      print(date);
+      print(username);
       monthActivity =
-      await getCoachDetailOfMonth(url: page,username:username);
+      await getCoachDetailOfMonth(url: page,username:username,date: date);
       setState(() {
         isLoading = false;
       });
@@ -280,8 +283,22 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
   String cost;
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Widget addCost({int coachIndex, int monthIndex}) {
+  Widget addCost({String year, String month}) {
     final dialogHeight = MediaQuery.of(context).size.height * .35;
+
+    addpay({String page: URL.addPay,String pay}) async {
+      String username = widget.userName;
+      String date = widget.year+widget.month+"01";
+      print(date);
+      print(username);
+      ShowMonthActivityEntity payComponent=await addPayment(url: page,userName: username,date: date,price: pay);
+      print(payComponent);
+      setState(() {
+        isLoading = false;
+        monthActivity.monthActivty.add(payComponent);
+      });
+    }
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.blueGrey,
@@ -333,10 +350,12 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
               child: FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                onPressed: () {
+                onPressed: ()async {
                   setState(() {
                     if (formKey.currentState.validate()) {
                       formKey.currentState.save();
+                      int price = int.parse(cost);
+                      addpay(pay: cost);
 //                      setState(() {
 //                        coaches[coachIndex]
 //                            .yearActivity[widget.yearIndex]

@@ -99,7 +99,7 @@ class _absentInformationDialogState extends State<absentInformationDialog> {
             ),
           ],
         ),
-      ) : Container(child: CircularProgressIndicator(),),
+      ) : Container(height: MediaQuery.of(context).size.height * .25,),
     );
   }
 }

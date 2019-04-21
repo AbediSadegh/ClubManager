@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.zarinpal.ewallets.purchase.OnCallbackRequestPaymentListener;
 import com.zarinpal.ewallets.purchase.OnCallbackVerificationPaymentListener;
@@ -41,6 +42,7 @@ public class MainActivity extends FlutterActivity {
                 new MethodChannel.MethodCallHandler() {
                     @Override
                     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+                        Toast.makeText(MainActivity.this,"amirhosen",Toast.LENGTH_LONG).show();
                         price = call.method;
                         resultt = result;
                         payment();
@@ -55,17 +57,19 @@ public class MainActivity extends FlutterActivity {
 
 
         payment.setMerchantID("d5dac2a0-5ce0-11e9-bfa0-000c295eb8fc");
-        payment.setAmount(Long.parseLong(price));
-        payment.setDescription("پرداخت هزینه دوره");
-        payment.setCallbackURL("return://zarinpalpayment");
+        payment.setAmount(10);
+        payment.setDescription("In App Purchase Test SDK");
+        payment.setCallbackURL("app://amirhosen");
 
 
-        ZarinPal.getPurchase(getApplicationContext()).startPayment(payment, new OnCallbackRequestPaymentListener() {
+        ZarinPal.getPurchase(MainActivity.this).startPayment(payment, new OnCallbackRequestPaymentListener() {
             @Override
             public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
+
                 startActivity(intent);
             }
         });
+
 
     }
 }

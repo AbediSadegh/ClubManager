@@ -1,4 +1,5 @@
 import 'package:club_manager/pages/mainPage.dart';
+import 'package:club_manager/pages/signup&login/register/select_time_period/time_period.dart';
 import 'package:club_manager/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,4 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//asdasdfasf

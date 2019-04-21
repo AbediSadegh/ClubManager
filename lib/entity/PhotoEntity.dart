@@ -14,7 +14,7 @@ class PhotoEntityList {
         title: parsedJson['title'],
         file: parsedJson['file'],
         is_video: parsedJson['is_video'],
-        image: "http://185.213.166.42:8000"+parsedJson['image']);
+        image: "http://185.213.166.42:8000" + parsedJson['image']);
   }
 }
 
@@ -159,6 +159,7 @@ class UserEntity {
   String first_name;
   String last_name;
   String username;
+
   factory UserEntity.fromJson(Map<String, dynamic> parsedJson) {
     return UserEntity(
         first_name: parsedJson['first_name'],
@@ -166,7 +167,7 @@ class UserEntity {
         last_name: parsedJson['last_name']);
   }
 
-  UserEntity({this.first_name, this.last_name,this.username});
+  UserEntity({this.first_name, this.last_name, this.username});
 }
 
 class CoachEntity {
@@ -392,11 +393,11 @@ class StudentNameEntity {
     );
   }
 }
+
 class PresenceEntity {
   int absence;
   bool success;
   int presence;
-
 
   PresenceEntity({this.absence, this.success, this.presence});
 
@@ -447,12 +448,12 @@ class CheckEntity {
     );
   }
 }
+
 class CheckCreateEntity {
   String number;
   String user;
   String name;
   int price;
-
 
   CheckCreateEntity({this.number, this.user, this.name, this.price});
 
@@ -592,8 +593,8 @@ class PeriodEntity {
   int id;
   int price;
 
-
-  PeriodEntity({this.end_date, this.first_date, this.name, this.id, this.price});
+  PeriodEntity(
+      {this.end_date, this.first_date, this.name, this.id, this.price});
 
   factory PeriodEntity.fromJson(Map<String, dynamic> parsedJson) {
     return PeriodEntity(
@@ -628,10 +629,9 @@ class PeriodListEntity {
   }
 
   PeriodListEntity({this.count, this.next, this.previous, this.results});
-
 }
-class ExerciseUserListEntity {
 
+class ExerciseUserListEntity {
   List<CheckEntity> checks;
 
   factory ExerciseUserListEntity.fromJson(Map<String, dynamic> parsedJson) {
@@ -642,13 +642,12 @@ class ExerciseUserListEntity {
       return imagesList;
     }
 
-    return ExerciseUserListEntity(
-        checks: convert());
+    return ExerciseUserListEntity(checks: convert());
   }
 
   ExerciseUserListEntity({this.checks});
-
 }
+
 class CategoryItem {
   final int id;
   final String title;
@@ -658,24 +657,22 @@ class CategoryItem {
     this.title,
   });
 
-  factory CategoryItem.fromJson(Map<String, dynamic> json) =>
-      new CategoryItem(
+  factory CategoryItem.fromJson(Map<String, dynamic> json) => new CategoryItem(
         id: json["id"],
         title: json["title"],
       );
-
 }
 
-class CategoryItemList{
+class CategoryItemList {
   List<CategoryItem> categoryList;
 
   CategoryItemList({this.categoryList});
 
-  factory CategoryItemList.fromJson(parsedJson){
+  factory CategoryItemList.fromJson(parsedJson) {
     List<CategoryItem> convert() {
       var list = parsedJson as List;
       List<CategoryItem> categoryList =
-      list.map((i) => CategoryItem.fromJson(i)).toList();
+          list.map((i) => CategoryItem.fromJson(i)).toList();
       return categoryList;
     }
 
@@ -687,7 +684,9 @@ class ShowMonthActivityEntity {
   int id;
   String date;
   int price;
-  ShowMonthActivityEntity({this.id,this.date,this.price});
+
+  ShowMonthActivityEntity({this.id, this.date, this.price});
+
   factory ShowMonthActivityEntity.fromJson(Map<String, dynamic> json) =>
       new ShowMonthActivityEntity(
         id: json["id"],
@@ -696,16 +695,48 @@ class ShowMonthActivityEntity {
       );
 }
 
-class ShowMonthActivityList{
+class AttendanceEntity {
+  int absence;
+  int presence;
+
+  AttendanceEntity({this.absence, this.presence, this.success});
+
+  bool success;
+
+  factory AttendanceEntity.fromJson(Map<String, dynamic> json) =>
+      new AttendanceEntity(
+        absence: json["absence"],
+        presence: json["presence"],
+        success: json["success"],
+      );
+}
+class FeeEntity {
+  int pay;
+  int fee;
+
+
+  FeeEntity({this.pay, this.fee, this.success});
+
+  bool success;
+
+  factory FeeEntity.fromJson(Map<String, dynamic> json) =>
+      new FeeEntity(
+        pay: json["pay"],
+        fee: json["fee"],
+        success: json["success"],
+      );
+}
+
+class ShowMonthActivityList {
   List<ShowMonthActivityEntity> monthActivty;
 
   ShowMonthActivityList({this.monthActivty});
 
-  factory ShowMonthActivityList.fromJson(parsedJson){
+  factory ShowMonthActivityList.fromJson(parsedJson) {
     List<ShowMonthActivityEntity> convert() {
       var list = parsedJson as List;
       List<ShowMonthActivityEntity> categoryList =
-      list.map((i) => ShowMonthActivityEntity.fromJson(i)).toList();
+          list.map((i) => ShowMonthActivityEntity.fromJson(i)).toList();
       return categoryList;
     }
 

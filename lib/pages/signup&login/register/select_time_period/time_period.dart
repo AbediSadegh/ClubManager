@@ -28,14 +28,13 @@ class _TimePeriodState extends State<TimePeriod> {
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller;
 
-
   static const platform = const MethodChannel('pay');
   String _statePayment = 'Unknown battery level.';
 
   Future<void> payment() async {
     String statePayment;
     try {
-      final int result = await platform.invokeMethod(price);
+      final int result = await platform.invokeMethod("10");
       statePayment = 'Battery level at $result % .';
     } on PlatformException catch (e) {
       statePayment = "Failed to get battery level: '${e.message}'.";
@@ -171,7 +170,7 @@ class _TimePeriodState extends State<TimePeriod> {
                           style: TextStyle(color: gradientEnd, fontSize: 15),
                         ),
                         onPressed: () {
-                            payment();
+                          payment();
                         },
                         color: Colors.white,
                         shape: RoundedRectangleBorder(

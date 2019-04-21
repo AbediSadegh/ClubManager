@@ -36,11 +36,15 @@ android {
         applicationId "com.example.club_manager"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled = true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -55,8 +59,12 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.zarinpal:purchase:0.0.3-beta'
+    implementation('com.zarinpal:purchase:0.0.8-beta') {
+        exclude group: 'com.mcxiaoke.volley:library:1.1.1', module: 'library'
+    }
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    implementation files('src/javax.servlet-api-4.0.1.jar')
 }

@@ -318,3 +318,30 @@ Future<ShowMonthActivityList> getCoachDetailOfMonth(
   var product = new ShowMonthActivityList.fromJson(jsonResPonse);
   return product;
 }
+Future<AttendanceEntity> getAttendance(
+    {String url,String username,String date}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+  };
+  Map<String, dynamic> data = {
+    'username': username,
+    'date': date,
+  };
+  final response = await http.post(url,headers: requestHeaders,body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new AttendanceEntity.fromJson(jsonResPonse);
+  return product;
+}
+Future<AttendanceEntity> totalPayment(
+    {String url,String username}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+  };
+  Map<String, dynamic> data = {
+    'username': username,
+  };
+  final response = await http.post(url,headers: requestHeaders,body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new AttendanceEntity.fromJson(jsonResPonse);
+  return product;
+}

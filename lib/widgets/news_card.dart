@@ -20,9 +20,6 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
     return Card(
-//      color: Theme.of(context).scaffoldBackgroundColor,
-//    color: Color(0xfff09c67),
-//      color: Color(0xfffacf5a),
       elevation: 10.0,
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.5),
       child: GestureDetector(

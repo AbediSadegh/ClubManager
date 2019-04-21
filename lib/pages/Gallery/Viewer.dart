@@ -99,11 +99,6 @@ class ViewerState extends State<Viewer> {
   }
 
   Widget fadeInImage() {
-//    return FadeInImage.assetNetwork(
-//      placeholder: 'assets/images/logo.png',
-//      image: this.widget._photo.file,
-//      fit: BoxFit.contain,
-//    );
     return Image.network(
       widget._photo.image,
       fit: BoxFit.contain,

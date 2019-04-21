@@ -1,5 +1,3 @@
-import 'package:club_manager/ServerProvider.dart';
-import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +6,20 @@ class GalleryTopBar extends StatefulWidget {
   final ValueChanged<CategoryItem> onChange;
   final CategoryItem currentValue;
   final items;
-  GalleryTopBar({this.items,this.years, this.onChange,this.currentValue});
+
+  GalleryTopBar({this.items, this.years, this.onChange, this.currentValue});
 
   State<GalleryTopBar> createState() => GalleryTopBarState();
 }
 
 class GalleryTopBarState extends State<GalleryTopBar> {
-
   bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
     //assert(widget.years != null);
-
   }
-
-
 
   Widget build(BuildContext context) {
     return Container(
@@ -54,6 +50,6 @@ class GalleryTopBarState extends State<GalleryTopBar> {
           ),
         ],
       ),
-    ) ;
+    );
   }
 }

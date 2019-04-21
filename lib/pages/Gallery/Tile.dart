@@ -46,18 +46,20 @@ class _TileState extends State<Tile> {
                           border: Border.all(color: Colors.grey, width: 1.5)),
                       child: Image.asset(
                         'assets/images/video-player.png',
-//                        fit: BoxFit.contain,
                       ),
                     )
                   : Stack(
-                alignment: Alignment.center,
-              fit: StackFit.expand,
+                      alignment: Alignment.center,
+                      fit: StackFit.expand,
                       children: <Widget>[
                         Container(
                           alignment: Alignment.center,
                           child: CircularProgressIndicator(),
                         ),
-                        Image.network(widget.photo.image,fit: BoxFit.fill,),
+                        Image.network(
+                          widget.photo.image,
+                          fit: BoxFit.fill,
+                        ),
                       ],
                     ),
             ),
@@ -66,46 +68,4 @@ class _TileState extends State<Tile> {
       ],
     );
   }
-
-//  Widget editDeleteWidget() {
-//    return Row(
-//      crossAxisAlignment: CrossAxisAlignment.center,
-//      mainAxisAlignment: MainAxisAlignment.center,
-//      mainAxisSize: MainAxisSize.max,
-//      children: <Widget>[
-//        Container(
-//          height: size.height - 10,
-//          width: size.width / 2 - 10,
-//          child: FlatButton(
-//            onPressed: widget.onEdit,
-//            child: Text(
-//              'ویرایش',
-//              style: TextStyle(color: Colors.white, fontSize: _fontSize),
-//            ),
-//            color: Color.fromRGBO(247, 223, 9, 0.6),
-//          ),
-//        ),
-//        Container(
-//          height: size.height - 10,
-//          width: size.width / 2 - 10,
-//          child: FlatButton(
-//            onPressed: () {
-//              showDialog(
-//                  context: context,
-//                  builder: (context) {
-//                    return DeleteOrNot(
-//                      onDelete: widget.onDelete,
-//                    );
-//                  });
-//            },
-//            child: Text(
-//              'حذف',
-//              style: TextStyle(color: Colors.white, fontSize: _fontSize),
-//            ),
-//            color: Color.fromRGBO(247, 13, 9, 0.6),
-//          ),
-//        ),
-//      ],
-//    );
-//  }
 }

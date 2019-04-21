@@ -7,7 +7,6 @@ import 'package:club_manager/widgets/background.dart';
 import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
-//  final Map<String, List<Photograph>> photos;
   final List<String> years;
   final bool isAdmin;
 
@@ -61,7 +60,6 @@ class _GalleryState extends State<Gallery> {
 
   @override
   Widget build(BuildContext context) {
-//    assert(photos.isNotEmpty);
     if(first){
       getCategory();
     }
@@ -87,14 +85,6 @@ class _GalleryState extends State<Gallery> {
                   //categoryItem = item;
                 });
               }
-
-//                  (str) {
-//                if (str != currAlbum) {
-//                  this.setState(() {
-//                    currAlbum = str;
-//                  });
-//                }
-//              },
             ) : SizedBox(height: 0,width: 0,),
           ],
         ),

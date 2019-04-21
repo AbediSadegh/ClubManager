@@ -50,32 +50,39 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                 margin: EdgeInsets.all(8),
                 child: Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: NetworkImage(widget.user.image),
+                    Container(
+                      width: MediaQuery.of(context).size.width*.45,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(widget.user.image),
+                        ),
                       ),
                     ),
                     //coaches[index].familyName
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "نام :  " + widget.user.user.first_name,
-                            style: TextStyle(fontSize: 20),
+                    Container(
+                      width: MediaQuery.of(context).size.width*.45,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "نام :  " + widget.user.user.first_name,
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "فامیل : " + widget.user.user.last_name,
-                            style: TextStyle(fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "فامیل : " + widget.user.user.last_name,
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

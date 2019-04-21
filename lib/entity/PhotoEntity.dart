@@ -712,3 +712,15 @@ class ShowMonthActivityList{
     return ShowMonthActivityList(monthActivty: convert());
   }
 }
+class MonthAttendanceEntity{
+  int absence;
+  //String date;
+  int presence;
+  MonthAttendanceEntity({this.absence,this.presence});
+  factory MonthAttendanceEntity.fromJson(Map<String, dynamic> json) =>
+      new MonthAttendanceEntity(
+        absence: json["absence"],
+    //    date: json["date"],
+        presence: json["presence"],
+      );
+}

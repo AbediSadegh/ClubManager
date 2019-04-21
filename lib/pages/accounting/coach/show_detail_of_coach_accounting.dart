@@ -1,6 +1,7 @@
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
+import 'package:club_manager/pages/accounting/coach/absent_informationDialg.dart';
 import 'package:club_manager/pages/accounting/coach/activity.dart';
 import 'package:club_manager/pages/accounting/coach/card_activity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
@@ -129,7 +130,10 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
             showDialog(
                 context: context,
                 builder: (context) {
-//                  return absentInformation();
+                  String date = widget.year+ "/" + widget.month + "/" +"01";
+                  print(date);
+                  String username = widget.userName;
+                  return absentInformationDialog(userName: username, Date: date);
                 });
           },
         )));
@@ -364,83 +368,5 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
     );
   }
 
-//  Widget absentInformation() {
-//    return Dialog(
-//      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-//      elevation: 5,
-//      backgroundColor: Colors.blueGrey,
-//      child: Container(
-//        height: MediaQuery.of(context).size.height * .25,
-//        child: Column(
-//          children: <Widget>[
-//            Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  Text(
-//                    "تعداد جلسات حضور",
-//                    style: TextStyle(color: Colors.white),
-//                  ),
-//                  Text(
-//                      coaches[widget.coachIndex]
-//                          .yearActivity[widget.yearIndex]
-//                          .month[widget.monthIndex]
-//                          .hozoor
-//                          .toString(),
-//                      style: TextStyle(color: Colors.white)),
-//                ],
-//              ),
-//            ),
-//            Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  Text("تعداد جلسات تاخیر",
-//                      style: TextStyle(color: Colors.white)),
-//                  Text(
-//                      coaches[widget.coachIndex]
-//                          .yearActivity[widget.yearIndex]
-//                          .month[widget.monthIndex]
-//                          .delay
-//                          .toString(),
-//                      style: TextStyle(color: Colors.white)),
-//                ],
-//              ),
-//            ),
-//            Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  Text("تعداد جلسات غبیت",
-//                      style: TextStyle(color: Colors.white)),
-//                  Text(
-//                      coaches[widget.coachIndex]
-//                          .yearActivity[widget.yearIndex]
-//                          .month[widget.monthIndex]
-//                          .absent
-//                          .toString(),
-//                      style: TextStyle(color: Colors.white)),
-//                ],
-//              ),
-//            ),
-//            FlatButton(
-//              child: Text(
-//                "تایید",
-//                style: TextStyle(color: Colors.white),
-//              ),
-//              onPressed: () {
-//                Navigator.pop(context);
-//              },
-//              color: Colors.grey,
-//              shape: RoundedRectangleBorder(
-//                  borderRadius: BorderRadius.circular(15)),
-//            ),
-//          ],
-//        ),
-//      ),
-//    );
-//  }
+
 }

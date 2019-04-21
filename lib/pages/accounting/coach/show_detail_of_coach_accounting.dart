@@ -1,6 +1,7 @@
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
+import 'package:club_manager/pages/accounting/coach/absent_informationDialg.dart';
 import 'package:club_manager/pages/accounting/coach/activity.dart';
 import 'package:club_manager/pages/accounting/coach/card_activity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
@@ -13,8 +14,8 @@ class ShowMonthActivity extends StatefulWidget {
   final String userName;
   final String month;
   final String year;
-
-  ShowMonthActivity({this.userName, this.month, this.year});
+  ShowMonthActivity(
+      { this.userName, this.month, this.year});
 
   @override
   _ShowMonthActivityState createState() => _ShowMonthActivityState();
@@ -24,60 +25,28 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
   bool _isLoading;
   PresenceEntity presenceEntity;
   ShowMonthActivityList monthActivity;
-  AttendanceEntity attendanceEntity;
-bool first;
+
   void presence({bool presence}) async {
     _isLoading = true;
     presenceEntity = await setPresence(
         url: URL.setPresence,
         userName: widget.userName,
         attendance: presence,
-        date: widget.year + widget.month + "01");
+        date: widget.year+widget.month+"01");
     setState(() {
       _isLoading = false;
-      first = true;
     });
-  }
-  void totalPayment({bool presence}) async {
-    _isLoading = true;
-    presenceEntity = await setPresence(
-        url: URL.setPresence,
-        userName: widget.userName,
-        attendance: presence,
-        date: widget.year + widget.month + "01");
-    setState(() {
-      _isLoading = false;
-      first = true;
-    });
-  }
-  void attendance({String userName, BuildContext context}) async {
-    _isLoading = true;
-    attendanceEntity = await getAttendance(
-        url: URL.attendance,
-        username: widget.userName,
-        date: widget.year + widget.month + "01");
-    setState(() {
-      _isLoading = false;
-      first = true;
-    });
-    showDialog(
-        context: context,
-        builder: (context) {
-          return absentInformation();
-        });
   }
 
   @override
   void initState() {
-    first = true;
     _isLoading = false;
     super.initState();
   }
-
   bool isLoading = true;
-
   @override
   Widget build(BuildContext context) {
+
     var childButtons = List<UnicornButton>();
     childButtons.add(UnicornButton(
         hasLabel: true,
@@ -91,6 +60,33 @@ bool first;
             presence(presence: true);
           },
         )));
+
+//    childButtons.add(UnicornButton(
+//        hasLabel: true,
+//        labelText: "تاخیر",
+//        currentButton: FloatingActionButton(
+//            onPressed: () {
+//              coaches[widget.coachIndex].yearActivity[widget.yearIndex].month[widget.monthIndex].delay++;
+//              setState(() {
+//                String date = "جلسه ی " +
+//                    PersianDate.now().toString(showDate: true, showTime: false);
+//                coaches[widget.coachIndex]
+//                    .yearActivity[widget.yearIndex]
+//                    .month[widget.monthIndex]
+//                    .activity
+//                    .add(Activity(
+//                      text: Text("تاخیر",style: TextStyle(color: Colors.orange),),
+//                      title: date,
+//                      cost: coaches[widget.coachIndex].delayCost,
+//                      isPay: false,
+//                    ));
+//              });
+//            },
+//            heroTag: "تاخیر",
+//            backgroundColor: Colors.orange,
+//            mini: true,
+//            child: Icon(Icons.error_outline))));
+
     childButtons.add(UnicornButton(
         hasLabel: true,
         labelText: "غیبت",
@@ -106,6 +102,24 @@ bool first;
 
     childButtons.add(UnicornButton(
         hasLabel: true,
+        labelText: "پرداخت",
+        currentButton: FloatingActionButton(
+          heroTag: "پرداخت",
+          backgroundColor: Colors.blue,
+          mini: true,
+          child: Icon(Icons.credit_card),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return addCost(
+                      month: widget.month,
+                      year: widget.year);
+                });
+          },
+        )));
+    childButtons.add(UnicornButton(
+        hasLabel: true,
         labelText: "اطلاعات",
         currentButton: FloatingActionButton(
           heroTag: "اطلاعات",
@@ -113,21 +127,30 @@ bool first;
           mini: true,
           child: Icon(Icons.info),
           onPressed: () {
-            attendance(context: context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  String date = widget.year+ widget.month +"01";
+                  print(date);
+                  String username = widget.userName;
+                  return absentInformationDialog(userName: username, Date: date);
+                });
           },
         )));
 
     getCoachDetailOfMonthList({String page: URL.coachpay}) async {
       String username = widget.userName;
+      String date = widget.year+widget.month+"01";
+      print(date);
+      print(username);
       monthActivity =
-          await getCoachDetailOfMonth(url: page, username: username);
+      await getCoachDetailOfMonth(url: page,username:username,date: date);
       setState(() {
         isLoading = false;
       });
     }
-
-    if (first) {
-      getCoachDetailOfMonthList();
+    if(isLoading){
+    getCoachDetailOfMonthList();
     }
     return Scaffold(
       floatingActionButton: UnicornDialer(
@@ -141,58 +164,13 @@ bool first;
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
-              itemCount: monthActivity.monthActivty.length,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Column(
-                    children: <Widget>[
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: Colors.green,
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Center(
-                                  child: Text("1"),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: Colors.red,
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Center(
-                                  child: Text("1"),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CardActivity(
-                        onLongPress: null,
-                        date: monthActivity.monthActivty[index].date,
-                        id: monthActivity.monthActivty[index].id,
-                        price: monthActivity.monthActivty[index].price,
-                      )
-                    ],
-                  );
-                } else {
-                  return CardActivity(
-                    onLongPress: null,
-                    date: monthActivity.monthActivty[index].date,
-                    id: monthActivity.monthActivty[index].id,
-                    price: monthActivity.monthActivty[index].price,
-                  );
-                }
-              }),
+          itemCount: monthActivity.monthActivty.length,
+          itemBuilder: (context,index){
+            return CardActivity(onLongPress: null,date:monthActivity.monthActivty[index].date,
+            id: monthActivity.monthActivty[index].id,
+            price: monthActivity.monthActivty[index].price,
+            );
+          }),
     );
   }
 
@@ -271,6 +249,23 @@ bool first;
                     setState(() {
                       if (key.currentState.validate()) {
                         key.currentState.save();
+//                        coaches[coachIndex]
+//                            .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity[activityIndex]
+//                            .isPay = true;
+
+
+//                        coaches[coachIndex]
+//                        .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity[activityIndex]
+//                            .transaction = numberOnSaved;
+//                        coaches[coachIndex]
+//                        .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity[activityIndex]
+//                            .details = detaill;
                         Navigator.of(context).pop();
                       }
                     });
@@ -288,8 +283,22 @@ bool first;
   String cost;
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Widget addCost({int coachIndex, int monthIndex}) {
+  Widget addCost({String year, String month}) {
     final dialogHeight = MediaQuery.of(context).size.height * .35;
+
+    addpay({String page: URL.addPay,String pay}) async {
+      String username = widget.userName;
+      String date = widget.year+widget.month+"01";
+      print(date);
+      print(username);
+      ShowMonthActivityEntity payComponent=await addPayment(url: page,userName: username,date: date,price: pay);
+      print(payComponent);
+      setState(() {
+        isLoading = false;
+        monthActivity.monthActivty.add(payComponent);
+      });
+    }
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.blueGrey,
@@ -301,6 +310,21 @@ bool first;
               key: formKey,
               child: Column(
                 children: <Widget>[
+//                  Padding(
+//                    padding: const EdgeInsets.all(8.0),
+//                    child: FormTextField(
+//                      onSaved: (String str) {
+//                        title = str;
+//                      },
+//                      valid: (String str) {
+//                        if (str.length < 2) {
+//                          return "لطفا عنوان مورد نظر خود را وارد کنید";
+//                        }
+//                      },
+//                      icon: Icons.title,
+//                      label: "عنوان",
+//                    ),
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FormTextField(
@@ -326,10 +350,26 @@ bool first;
               child: FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                onPressed: () {
+                onPressed: ()async {
                   setState(() {
                     if (formKey.currentState.validate()) {
                       formKey.currentState.save();
+                      int price = int.parse(cost);
+                      addpay(pay: cost);
+//                      setState(() {
+//                        coaches[coachIndex]
+//                            .yearActivity[widget.yearIndex]
+//                            .month[monthIndex]
+//                            .activity
+//                            .add(Activity(
+//                                isPay: true,
+//                                title: "پرداخت",
+//                                cost: cost,
+//                                text: Text(
+//                                  "پرداخت",
+//                                  style: TextStyle(color: Colors.blue),
+//                                )));
+//                      });
                     }
                   });
                   Navigator.pop(context);
@@ -347,56 +387,5 @@ bool first;
     );
   }
 
-  Widget absentInformation() {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 5,
-      backgroundColor: Colors.blueGrey,
-      child: Container(
-        height: MediaQuery.of(context).size.height * .25,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "تعداد جلسات حضور",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(attendanceEntity.presence.toString(),
-                      style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("تعداد جلسات غبیت",
-                      style: TextStyle(color: Colors.white)),
-                  Text(attendanceEntity.absence.toString(),
-                      style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
-            FlatButton(
-              child: Text(
-                "تایید",
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: Colors.grey,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 }

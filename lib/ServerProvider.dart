@@ -306,19 +306,6 @@ Future<PeriodListEntity> getPlane({String url}) async {
   return product;
 }
 Future<ShowMonthActivityList> getCoachDetailOfMonth(
-    {String url,String username}) async {
-  Map<String, String> requestHeaders = {
-    'Authorization': token,
-  };
-  Map<String, dynamic> data = {
-    'username': username,
-  };
-  final response = await http.post(url,headers: requestHeaders,body: data);
-  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new ShowMonthActivityList.fromJson(jsonResPonse);
-  return product;
-}
-Future<AttendanceEntity> getAttendance(
     {String url,String username,String date}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
@@ -329,19 +316,39 @@ Future<AttendanceEntity> getAttendance(
   };
   final response = await http.post(url,headers: requestHeaders,body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new AttendanceEntity.fromJson(jsonResPonse);
+  var product = new ShowMonthActivityList.fromJson(jsonResPonse);
   return product;
 }
-Future<AttendanceEntity> totalPayment(
-    {String url,String username}) async {
+
+Future<MonthAttendanceEntity> getMonthAttendance(
+    {String url,String username,String date}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
   };
   Map<String, dynamic> data = {
     'username': username,
+    'date' : date,
   };
   final response = await http.post(url,headers: requestHeaders,body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
-  var product = new AttendanceEntity.fromJson(jsonResPonse);
+  var product = new MonthAttendanceEntity.fromJson(jsonResPonse);
+  return product;
+}
+
+Future<ShowMonthActivityEntity> addPayment({String url, String userName,String date,String price}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'user':  userName,
+    'date':  date,
+    'price': price,
+  };
+  final response = await http.post(url, body: data, headers: requestHeaders);
+  print("successfull");
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  print(response.statusCode);
+  var product = new ShowMonthActivityEntity.fromJson(jsonResPonse);
   return product;
 }

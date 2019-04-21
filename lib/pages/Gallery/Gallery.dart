@@ -99,7 +99,9 @@ class _GalleryState extends State<Gallery> {
               onChange: () {
                 this.setState(() {});
               },
-            ) : CircularProgressIndicator(),
+            ) : Center(
+              child: CircularProgressIndicator(),
+            ),
           ],
         )) ;
     }

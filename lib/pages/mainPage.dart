@@ -28,7 +28,7 @@ class MainPage extends StatefulWidget {
     'افتخارات',
     'پشتیبانی',
     'درباره ما',
-    'test',
+    'حسابداری',
   ];
   static const itemIcons = <IconData>[
     Icons.check,

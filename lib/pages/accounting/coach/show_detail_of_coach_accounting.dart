@@ -25,17 +25,25 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
   bool _isLoading;
   PresenceEntity presenceEntity;
   ShowMonthActivityList monthActivity;
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
 
   void presence({bool presence}) async {
     _isLoading = true;
-    presenceEntity = await setPresence(
-        url: URL.setPresence,
-        userName: widget.userName,
-        attendance: presence,
-        date: widget.year+widget.month+"01");
+    try{
+      presenceEntity = await setPresence(
+          url: URL.setPresence,
+          userName: widget.userName,
+          attendance: presence,
+          date: widget.year+widget.month+"01");
+    }catch(e){
+      scaffoldState.currentState.showSnackBar(SnackBar(content: Text("خطا در ثبت اطلاعات لطفا وضعیت شبکه خود را برسی کنید"),duration: Duration(seconds: 1),));
+    }
     setState(() {
       _isLoading = false;
     });
+    if(presenceEntity==null){
+      scaffoldState.currentState.showSnackBar(SnackBar(content: Text("خطا در ثبت اطلاعات لطفا وضعیت شبکه خود را برسی کنید"),duration: Duration(seconds: 1),));
+    }else  scaffoldState.currentState.showSnackBar(SnackBar(content: Text("با موفقیت ثبت شد"),duration: Duration(seconds: 1),));
   }
 
   @override
@@ -58,6 +66,9 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           child: Icon(Icons.check),
           onPressed: () {
             presence(presence: true);
+            if(presenceEntity== null){
+              Scaffold.of(context).showSnackBar(SnackBar(content: Text("خطا در ثبت اطلاعات لطفا وضعیت شبکه خود را برسی کنید"),duration: Duration(seconds: 1),));
+            }
           },
         )));
 
@@ -97,6 +108,9 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
           child: Icon(Icons.close),
           onPressed: () {
             presence(presence: false);
+            if(presenceEntity== null){
+              Scaffold.of(context).showSnackBar(SnackBar(content: Text("خطا در ثبت اطلاعات لطفا وضعیت شبکه خود را برسی کنید"),duration: Duration(seconds: 1),));
+            }
           },
         )));
 
@@ -153,6 +167,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
     getCoachDetailOfMonthList();
     }
     return Scaffold(
+      key: scaffoldState,
       floatingActionButton: UnicornDialer(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
           parentButtonBackground: Colors.redAccent,
@@ -291,7 +306,13 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
       String date = widget.year+widget.month+"01";
       print(date);
       print(username);
-      ShowMonthActivityEntity payComponent=await addPayment(url: page,userName: username,date: date,price: pay);
+      ShowMonthActivityEntity payComponent;
+      try{
+        payComponent=await addPayment(url: page,userName: username,date: date,price: pay);
+
+      }catch(e){
+        scaffoldState.currentState.showSnackBar(SnackBar(content: Text("خطا در برقراری ارتباط با سرور")));
+      }
       print(payComponent);
       setState(() {
         isLoading = false;

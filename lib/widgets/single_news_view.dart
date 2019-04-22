@@ -71,12 +71,13 @@ class NewsViewerState extends State<NewsViewer> {
                         height: mediaSize.height * 0.45,
                         child: Hero(
                           tag: widget.tag,
-                          child: newsEntity.newsImages.length != 0
+                          child: newsEntity.newsImages.length > 1
                               ? CarouselSlider(
                                   items: List.generate(
                                     newsEntity.newsImages.length,
                                     (index) => Image.network(
-                                        newsEntity.newsImages[index].newsImage),
+                                        newsEntity.newsImages[index].newsImage,
+                                    fit: BoxFit.contain,),
                                   ),
                                   aspectRatio: 2.2,
                                   viewportFraction: 0.8,

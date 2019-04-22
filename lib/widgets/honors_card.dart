@@ -32,7 +32,7 @@ class BaseItemState extends State<BaseItem> {
             child: ClipRRect(
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/images/logo.png',
-                image: 'https://picsum.photos/500/225?image=143',
+                image: widget.imgURL,
                 alignment: Alignment.center,
                 height: deviceSize.height * 0.25,
                 width: deviceSize.width * 0.65,

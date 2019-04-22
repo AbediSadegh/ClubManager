@@ -82,7 +82,6 @@ class _GalleryState extends State<Gallery> {
                 setState(() {
                   currVal = item;
                   currAlbum = item.title;
-                  //categoryItem = item;
                 });
               }
             ) : SizedBox(height: 0,width: 0,),
@@ -94,7 +93,6 @@ class _GalleryState extends State<Gallery> {
             !isLoading ?
             PhotoGallery(
               categoryItem: currVal,
-              //currAlbum: currAlbum,
               deviceSize: _deviceSize,
               onChange: () {
                 this.setState(() {});

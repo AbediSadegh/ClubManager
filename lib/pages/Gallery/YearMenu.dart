@@ -15,12 +15,6 @@ class GalleryTopBar extends StatefulWidget {
 class GalleryTopBarState extends State<GalleryTopBar> {
   bool isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    //assert(widget.years != null);
-  }
-
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 10.0, 20.0, 0),

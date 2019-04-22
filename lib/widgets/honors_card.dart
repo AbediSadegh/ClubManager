@@ -25,7 +25,6 @@ class BaseItemState extends State<BaseItem> {
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
     return Card(
-//        color: Color.fromRGBO(240, 240, 240, 1.0),
       margin: EdgeInsets.symmetric(vertical: 8.5, horizontal: 10.5),
       elevation: 3.5,
       child: Column(
@@ -52,44 +51,6 @@ class BaseItemState extends State<BaseItem> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-//                   RaisedButton(
-//                          elevation: 7.5,
-//                          onPressed: () {
-//                            showDialog(
-//                                context: context,
-//                                builder: (context) {
-//                                  return new DeleteOrNot(
-//                                    onDelete: widget.onDelete,
-//                                  );
-//                                });
-//                          },
-//                          child: Text(
-//                            'حذف',
-//                            style: TextStyle(color: Colors.white),
-//                          ),
-//                          color: Color.fromRGBO(58, 58, 62, 1.0),
-//                          shape: RoundedRectangleBorder(
-//                              borderRadius: BorderRadius.circular(20.0)),
-//                        ),
-//                  Container(
-//                    width: deviceSize.width / 15,
-//                  ),
-//                  _editActive
-//                      ? RaisedButton(
-//                          elevation: 7.5,
-//                          onPressed: widget.onEdit,
-//                          child: Text(
-//                            'ویرایش',
-//                            style: TextStyle(color: Colors.white),
-//                          ),
-//                          color: Color.fromRGBO(58, 58, 62, 1.0),
-//                          shape: RoundedRectangleBorder(
-//                              borderRadius: BorderRadius.circular(20.0)),
-//                        )
-//                      : Container(),
-//                  Container(
-//                    width: deviceSize.width / 15,
-//                  ),
                   Text(
                     widget.title,
                     textAlign: TextAlign.center,
@@ -104,7 +65,6 @@ class BaseItemState extends State<BaseItem> {
             collapsed: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
-//                color: Color.fromRGBO(240, 240, 240, 1.0),
                 color: Theme.of(context).cardColor,
               ),
               padding: EdgeInsets.all(5.0),
@@ -133,7 +93,6 @@ class BaseItemState extends State<BaseItem> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-//                    color: Color.fromRGBO(240, 240, 240, 1.0),
                   color: Theme.of(context).cardColor,
                   ),
                   margin: EdgeInsets.all(10.0),

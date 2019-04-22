@@ -9,7 +9,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class PhotoGallery extends StatefulWidget {
   final PhotoGalleryState state = PhotoGalleryState();
 
-//  final Map<String, List<Photograph>> photos;
   final Size deviceSize;
   bool fistLoad;
   final GestureTapCallback onChange;
@@ -25,7 +24,7 @@ class PhotoGallery extends StatefulWidget {
 }
 
 class PhotoGalleryState extends State<
-    PhotoGallery> //    with AutomaticKeepAliveClientMixin<PhotoGallery>
+    PhotoGallery>
 {
   bool _isLoading = true;
   ScrollController _listScrollController = new ScrollController();
@@ -64,7 +63,6 @@ class PhotoGalleryState extends State<
     int id = widget.categoryItem.id;
     photoList = await loadGallery(url: page, id: id);
     if (_pics.length == 0) {
-      print("hello");
     } else
       _pics.removeRange(0, _pics.length);
     setState(() {
@@ -80,7 +78,6 @@ class PhotoGalleryState extends State<
     if (widget.fistLoad) {
       getPhotos();
       widget.fistLoad = false;
-      print('IT IS GALLERY MAIN VIEW');
     }
     return Center(
       child: _isLoading

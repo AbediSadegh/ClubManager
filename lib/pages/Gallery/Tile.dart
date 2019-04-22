@@ -43,6 +43,7 @@ class _TileState extends State<Tile> {
               child: widget.photo.is_video
                   ? Container(
                       decoration: BoxDecoration(
+                        color: Colors.white,
                           border: Border.all(color: Colors.grey, width: 1.5)),
                       child: Image.asset(
                         'assets/images/video-player.png',

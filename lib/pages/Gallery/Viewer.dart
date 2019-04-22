@@ -52,7 +52,9 @@ class ViewerState extends State<Viewer> {
                 width: widget._deviceSize.width,
                 height: widget._deviceSize.height,
                 alignment: Alignment.center,
-                child: CircularProgressIndicator(),
+                child: widget._photo.is_video
+                    ? Container()
+                    : CircularProgressIndicator(),
               ),
               Hero(
                 // using the photograph photo url itself as a tag

@@ -74,35 +74,23 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
                 ),
               ),
             ),
-            GestureDetector(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
-                width: deviceSize.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        widget.title,
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
+              width: deviceSize.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: Text(widget.title,
                         textDirection: TextDirection.rtl,
-                        style: Theme.of(context)
-                            .textTheme
-                            .title
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        widget.subtitle,
+                        style: Theme.of(context).textTheme.title),
+                  ),
+                  Container(
+                    child: Text(widget.subtitle,
                         textDirection: TextDirection.rtl,
-                        style: Theme.of(context)
-                            .textTheme
-                            .body1
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
+                        style: Theme.of(context).textTheme.body1),
+                  ),
+                ],
               ),
             ),
           ],

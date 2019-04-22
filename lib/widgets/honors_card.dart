@@ -19,7 +19,6 @@ class BaseItem extends StatefulWidget {
 }
 
 class BaseItemState extends State<BaseItem> {
-
   Size deviceSize;
 
   Widget build(BuildContext context) {
@@ -47,20 +46,23 @@ class BaseItemState extends State<BaseItem> {
           ),
           ExpandablePanel(
             header: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15.0),
+              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
+              width: deviceSize.width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                        fontSize: 25.0, color: Colors.white),
+                  Container(
+                    width: deviceSize.width * 0.88,
+                    child: Text(
+                      widget.title,
+//                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      style: Theme.of(context).textTheme.title,
+                    ),
                   ),
                 ],
               ),
-              width: deviceSize.width,
             ),
             collapsed: Container(
               decoration: BoxDecoration(
@@ -75,7 +77,7 @@ class BaseItemState extends State<BaseItem> {
                     widget.description,
                     textDirection: TextDirection.rtl,
                     maxLines: 2,
-                    style: TextStyle(color: Colors.white),
+                    style: Theme.of(context).textTheme.body1,
                   ),
                   Container(
                     width: deviceSize.width,
@@ -93,7 +95,7 @@ class BaseItemState extends State<BaseItem> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Theme.of(context).cardColor,
+                    color: Theme.of(context).cardColor,
                   ),
                   margin: EdgeInsets.all(10.0),
                   padding: EdgeInsets.all(5.0),
@@ -101,7 +103,7 @@ class BaseItemState extends State<BaseItem> {
                     widget.description,
                     softWrap: true,
                     textDirection: TextDirection.rtl,
-                    style: TextStyle(color: Colors.white),
+                    style: Theme.of(context).textTheme.body1,
                   ),
                 ),
                 Icon(Icons.expand_less, color: Theme.of(context).dividerColor)

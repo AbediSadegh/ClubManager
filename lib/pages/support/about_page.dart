@@ -100,16 +100,9 @@ class _AboutPageState extends State<AboutPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      "پشتیبانی",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
                                   IconButton(
                                     icon: Icon(
-                                      Icons.arrow_forward_ios,
+                                      Icons.arrow_back_ios,
                                       color: Colors.white,
                                     ),
                                     onPressed: () {
@@ -117,6 +110,13 @@ class _AboutPageState extends State<AboutPage> {
                                         Navigator.of(context).pop();
                                       }
                                     },
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      "پشتیبانی",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -187,7 +187,7 @@ class _AboutPageState extends State<AboutPage> {
                       child: sendCommentLoading
                           ? Center(
                               child: SizedBox(
-                                height: 30.0,
+                                  height: 30.0,
                                   width: 30.0,
                                   child: CircularProgressIndicator()),
                             )

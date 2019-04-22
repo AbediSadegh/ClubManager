@@ -187,6 +187,7 @@ class _Example extends State<Example> {
         is_income: clickMode == "p" ? false : true);
     if (commerceEntity != null) {
       fistLoad = true;
+      commerceList.clear();
       key.currentState.showSnackBar(SnackBar(
         content: Text("درخواست شما ثبت شد "),
       ));

@@ -47,13 +47,13 @@ class BaseItemState extends State<BaseItem> {
           ExpandablePanel(
             header: Container(
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
-              width: deviceSize.width,
+              width: deviceSize.width * 0.9,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    width: deviceSize.width * 0.88,
+                    width: deviceSize.width * 0.9,
                     child: Text(
                       widget.title,
 //                      textAlign: TextAlign.center,

@@ -44,54 +44,43 @@ class NewsItemPreviewState extends State<NewsItemPreview> {
               alignment: Alignment.center,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 5.0),
-                      child: Hero(
-                        tag: widget.url + '__news',
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(7.5),
-                          child:
-                              (widget.image != null && widget.image.isNotEmpty)
-                                  ? FadeInImage.assetNetwork(
-                                      width: deviceSize.width * 0.85,
-                                      placeholder: 'assets/images/logo.png',
-                                      image: widget.image,
-                                      fit: BoxFit.contain,
-                                      alignment: Alignment.center,
-                                    )
-                                  : Image.asset(
-                                      'assets/images/logo.png',
-                                      width: deviceSize.width * 0.85,
-                                      alignment: Alignment.center,
-                                      fit: BoxFit.contain,
-                                    ),
-                        ),
-                      ),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                  child: Hero(
+                    tag: widget.url + '__news',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(7.5),
+                      child: (widget.image != null && widget.image.isNotEmpty)
+                          ? FadeInImage.assetNetwork(
+                              width: deviceSize.width * 0.85,
+                              placeholder: 'assets/images/logo.png',
+                              image: widget.image,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            )
+                          : Image.asset(
+                              'assets/images/logo.png',
+                              width: deviceSize.width * 0.85,
+                              alignment: Alignment.center,
+                              fit: BoxFit.contain,
+                            ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
-              width: deviceSize.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    child: Text(widget.title,
-                        textDirection: TextDirection.rtl,
-                        style: Theme.of(context).textTheme.title),
-                  ),
-                  Container(
-                    child: Text(widget.subtitle,
-                        textDirection: TextDirection.rtl,
-                        style: Theme.of(context).textTheme.body1),
-                  ),
-                ],
-              ),
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+              child: Text(widget.title,
+                  textDirection: TextDirection.rtl,
+                  style: Theme.of(context).textTheme.title),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 17.0),
+              child: Text(widget.subtitle,
+                  textDirection: TextDirection.rtl,
+                  style: Theme.of(context).textTheme.body1),
             ),
           ],
         ),

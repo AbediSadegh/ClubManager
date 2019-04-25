@@ -25,48 +25,43 @@ class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
     tileSmallIndex = (tileSmallIndex == 5 ? 0 : ++tileSmallIndex);
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      Viewer(widget.photo, widget.deviceSize))),
-          child: Container(
-            margin: EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 1.0),
-            width: size.width,
-            height: size.height,
-            child: Hero(
-              tag: widget.photo.file,
-              child: widget.photo.is_video
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                          border: Border.all(color: Colors.grey, width: 1.5)),
-                      child: Image.asset(
-                        'assets/images/video-player.png',
-                      ),
-                    )
-                  : Stack(
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Viewer(widget.photo, widget.deviceSize))),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 1.0),
+        width: size.width,
+        height: size.height,
+        child: Hero(
+          tag: widget.photo.file,
+          child: widget.photo.is_video
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                      border: Border.all(color: Colors.grey, width: 1.5)),
+                  child: Image.asset(
+                    'assets/images/video-player.png',
+                  ),
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Container(
                       alignment: Alignment.center,
-                      fit: StackFit.expand,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator(),
-                        ),
-                        Image.network(
-                          widget.photo.image,
-                          fit: BoxFit.fill,
-                        ),
-                      ],
+                      child: CircularProgressIndicator(),
                     ),
-            ),
-          ),
+                    Image.network(
+                      widget.photo.image,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
+                ),
         ),
-      ],
+      ),
     );
   }
 }

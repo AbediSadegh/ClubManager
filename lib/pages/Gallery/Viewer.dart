@@ -63,7 +63,10 @@ class ViewerState extends State<Viewer> {
                     ? Chewie(
                         controller: chewieController,
                       )
-                    : fadeInImage(),
+                    : Image.network(
+                        widget._photo.image,
+                        fit: BoxFit.contain,
+                      ),
               ),
               Positioned(
                 bottom: 0,
@@ -97,13 +100,6 @@ class ViewerState extends State<Viewer> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget fadeInImage() {
-    return Image.network(
-      widget._photo.image,
-      fit: BoxFit.contain,
     );
   }
 }

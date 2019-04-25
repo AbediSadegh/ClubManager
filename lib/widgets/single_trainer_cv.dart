@@ -103,16 +103,12 @@ class _CVState extends State<CV> {
               decoration:
                   BoxDecoration(color: Theme.of(context).primaryColorLight),
               margin: EdgeInsets.only(left: 3.0, bottom: 2.0),
-              child: Stack(
-                children: <Widget>[
-                  FadeInImage.assetNetwork(
-                    width: _size.width / 3,
-                    height: double.infinity,
-                    placeholder: 'assets/images/vip.png',
-                    image: this.widget.imgURL,
-                    fit: BoxFit.cover,
-                  ),
-                ],
+              child: FadeInImage.assetNetwork(
+                width: _size.width / 3,
+                height: double.infinity,
+                placeholder: 'assets/images/vip.png',
+                image: this.widget.imgURL,
+                fit: BoxFit.cover,
               ),
             ),
           ],

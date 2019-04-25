@@ -3,6 +3,7 @@ import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/general_information/accountin_card.dart';
 import 'package:club_manager/pages/accounting/general_information/addSalary.dart';
+import 'package:club_manager/pages/accounting/general_information/commmerce_information.dart';
 import 'package:club_manager/pages/accounting/page1/accounting_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:unicorndial/unicorndial.dart';
@@ -115,7 +116,23 @@ class _Example extends State<Example> {
                 });
           },
         )));
-
+    childButtons.add(UnicornButton(
+        hasLabel: true,
+        labelText: "صورتحساب",
+        currentButton: FloatingActionButton(
+          heroTag: "صورتحساب",
+          backgroundColor: Colors.redAccent,
+          mini: true,
+          child: Icon(Icons.assignment_late),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context){
+                return getCommerceTotalDialog();
+              }
+            );
+          },
+        )));
     salary();
     if (fistLoad) {
       fistLoad = false;

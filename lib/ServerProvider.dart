@@ -352,3 +352,10 @@ Future<ShowMonthActivityEntity> addPayment({String url, String userName,String d
   var product = new ShowMonthActivityEntity.fromJson(jsonResPonse);
   return product;
 }
+Future<CommerceTotalEntity> getCommerceTotal({String url}) async {
+  final response = await http.post(url,);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  print(response.statusCode);
+  var product = new CommerceTotalEntity.fromJson(jsonResPonse);
+  return product;
+}

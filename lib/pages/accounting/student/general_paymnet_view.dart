@@ -30,6 +30,8 @@ class _GeneralpaymentViewState extends State<GeneralpaymentView> {
   bool isLoadingDialog;
   CheckPassEntity checkPassEntity;
   bool dialogLoadingPassCheck;
+  List<CommerceList> commerceList;
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -100,6 +102,7 @@ class _GeneralpaymentViewState extends State<GeneralpaymentView> {
                             controller.toString() != null) {
                           formKey.currentState.save();
                           if (!isLoadingDialog)
+                            sendCommerce();
                             createCheckUser(
                                 date: controller.text,
                                 price: moeny.toString(),
@@ -323,5 +326,29 @@ class _GeneralpaymentViewState extends State<GeneralpaymentView> {
       dialogLoadingPassCheck = false;
       first = true;
     });
+  }
+
+  sendCommerce() async {
+    CommerceList commerceEntity;
+    commerceEntity = await createCommerce(
+        url: URL.commerceCreate,
+        price: moeny.toString(),
+        title: nameHaveCheck + "چک",
+        is_income: true);
+    if (commerceEntity != null) {
+      //fistLoad = true;
+      commerceList.clear();
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("درخواست شما ثبت شد "),
+      ));
+    } else {
+      key.currentState.showSnackBar(SnackBar(
+        content: Text("خطا در برقراری ارتباط با سرور "),
+      ));
+    }
+
+//                              setState(() {
+//                                //dialogLoading = false;
+//                              });
   }
 }

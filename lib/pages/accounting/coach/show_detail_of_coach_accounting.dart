@@ -377,6 +377,7 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
                       formKey.currentState.save();
                       int price = int.parse(cost);
                       addpay(pay: cost);
+                      sendCommerce();
 //                      setState(() {
 //                        coaches[coachIndex]
 //                            .yearActivity[widget.yearIndex]
@@ -407,6 +408,30 @@ class _ShowMonthActivityState extends State<ShowMonthActivity> {
       ),
     );
   }
+  ExerciseUserListEntity entity;
+  List<CommerceList> commerceList;
+  sendCommerce() async {
+    CommerceList commerceEntity;
+    commerceEntity = await createCommerce(
+        url: URL.commerceCreate,
+        price: cost,
+        title: "پرداختی مربیان",
+        is_income: false);
+    if (commerceEntity != null) {
+      //fistLoad = true;
+      commerceList.clear();
+//      key.currentState.showSnackBar(SnackBar(
+//        content: Text("درخواست شما ثبت شد "),
+//      ));
+    } else {
+//      key.currentState.showSnackBar(SnackBar(
+//        content: Text("خطا در برقراری ارتباط با سرور "),
+//      ));
+    }
 
+//                              setState(() {
+//                                //dialogLoading = false;
+//                              });
+  }
 
 }

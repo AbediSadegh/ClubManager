@@ -724,3 +724,15 @@ class MonthAttendanceEntity {
         presence: json["presence"],
       );
 }
+class CommerceTotalEntity{
+  int inCome;
+  int outCome;
+  CommerceTotalEntity({this.inCome,this.outCome});
+  factory CommerceTotalEntity.fromJson(Map<String, dynamic> json) =>
+      new CommerceTotalEntity(
+        inCome: json["income_commerce"],
+        outCome:  json["outgo_commerce"],
+
+      );
+
+}

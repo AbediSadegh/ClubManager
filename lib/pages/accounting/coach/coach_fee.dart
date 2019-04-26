@@ -27,7 +27,7 @@ class _CoachFeeState extends State<CoachFee> {
           createFeeRow(title: "مبلغ کل", subTitle: feeEntity.fee.toString()),
           createFeeRow(
               title: "مبلغ پرداختی", subTitle: feeEntity.pay.toString()),
-          Divider(),
+          Divider() ,
           createFeeRow(title: "مبلغ باقیمانده", subTitle: sum.toString()),
         ],
       ) : null,

@@ -2,13 +2,18 @@ import 'package:club_manager/pages/mainPage.dart';
 import 'package:club_manager/pages/signup&login/register/select_time_period/time_period.dart';
 import 'package:club_manager/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Shahr khodro',
       theme: ThemeData(
         primaryColor: Color(0xFFF44336),
         primaryColorDark: Color(0xFFD32F2F),

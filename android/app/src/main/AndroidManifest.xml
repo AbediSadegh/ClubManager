@@ -12,7 +12,7 @@
         android:name=".MyApplication"
         android:label="club_manager"
         tools:replace="android:label"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
 

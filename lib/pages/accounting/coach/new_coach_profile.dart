@@ -1,5 +1,6 @@
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
+import 'package:club_manager/pages/accounting/coach/coach_fee.dart';
 import 'package:club_manager/pages/accounting/coach/show_detail_of_coach_accounting.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
           //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * .30,
+              height: MediaQuery.of(context).size.height * .4,
               child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
@@ -80,6 +81,11 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                               "فامیل : " + widget.user.user.last_name,
                               style: TextStyle(fontSize: 20),
                             ),
+                          ),
+                          CoachFee(
+                            width: MediaQuery.of(context).size.width *40,
+                            height: MediaQuery.of(context).size.height * .20,
+                            userName: widget.user.user.username,
                           ),
                         ],
                       ),

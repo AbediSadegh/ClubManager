@@ -359,3 +359,18 @@ Future<CommerceTotalEntity> getCommerceTotal({String url}) async {
   var product = new CommerceTotalEntity.fromJson(jsonResPonse);
   return product;
 }
+
+Future<FeeEntity> getFeeEntity({String url,String userName}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'username':  userName,
+  };
+  final response = await http.post(url,headers: requestHeaders,body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  //print(response.statusCode);
+  var product = new FeeEntity.fromJson(jsonResPonse);
+  return product;
+}

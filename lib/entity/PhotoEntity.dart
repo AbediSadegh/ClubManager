@@ -159,6 +159,7 @@ class UserEntity {
   String first_name;
   String last_name;
   String username;
+
   factory UserEntity.fromJson(Map<String, dynamic> parsedJson) {
     return UserEntity(
         first_name: parsedJson['first_name'],
@@ -686,7 +687,9 @@ class ShowMonthActivityEntity {
   int id;
   String date;
   int price;
+
   ShowMonthActivityEntity({this.id, this.date, this.price});
+
   factory ShowMonthActivityEntity.fromJson(Map<String, dynamic> json) =>
       new ShowMonthActivityEntity(
         id: json["id"],
@@ -714,9 +717,12 @@ class ShowMonthActivityList {
 
 class MonthAttendanceEntity {
   int absence;
+
   //String date;
   int presence;
+
   MonthAttendanceEntity({this.absence, this.presence});
+
   factory MonthAttendanceEntity.fromJson(Map<String, dynamic> json) =>
       new MonthAttendanceEntity(
         absence: json["absence"],
@@ -724,15 +730,30 @@ class MonthAttendanceEntity {
         presence: json["presence"],
       );
 }
-class CommerceTotalEntity{
+
+class CommerceTotalEntity {
   int inCome;
   int outCome;
-  CommerceTotalEntity({this.inCome,this.outCome});
+
+  CommerceTotalEntity({this.inCome, this.outCome});
+
   factory CommerceTotalEntity.fromJson(Map<String, dynamic> json) =>
       new CommerceTotalEntity(
         inCome: json["income_commerce"],
-        outCome:  json["outgo_commerce"],
-
+        outCome: json["outgo_commerce"],
       );
+}
 
+class FeeEntity {
+  int pay;
+  int fee;
+  bool success;
+
+  FeeEntity({this.pay, this.fee,this.success});
+
+  factory FeeEntity.fromJson(Map<String, dynamic> json) => FeeEntity(
+    fee: json["fee"],
+    pay: json["pay"],
+    success : json["success"],
+  );
 }

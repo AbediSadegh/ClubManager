@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.zarinpal.ewallets.purchase.HttpRequest;
+import com.zarinpal.ewallets.purchase.HttpRequestListener;
 import com.zarinpal.ewallets.purchase.OnCallbackRequestPaymentListener;
 import com.zarinpal.ewallets.purchase.OnCallbackVerificationPaymentListener;
 import com.zarinpal.ewallets.purchase.PaymentRequest;
 import com.zarinpal.ewallets.purchase.ZarinPal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodCall;
@@ -42,7 +47,6 @@ public class MainActivity extends FlutterActivity {
                 new MethodChannel.MethodCallHandler() {
                     @Override
                     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-                        Toast.makeText(MainActivity.this,"amirhosen",Toast.LENGTH_LONG).show();
                         price = call.method;
                         resultt = result;
                         payment();
@@ -55,21 +59,21 @@ public class MainActivity extends FlutterActivity {
 
         PaymentRequest payment = ZarinPal.getPaymentRequest();
 
-
         payment.setMerchantID("d5dac2a0-5ce0-11e9-bfa0-000c295eb8fc");
         payment.setAmount(10);
-        payment.setDescription("In App Purchase Test SDK");
+        payment.setDescription("پرداخت شهریه شرکت در دوره مدرسه فوتبال شهرخودرو");
         payment.setCallbackURL("app://amirhosen");
-
+        payment.setEmail("amirhosen.ebrahimi@gmail.com");
+        payment.setMobile("09196675357");
 
         ZarinPal.getPurchase(MainActivity.this).startPayment(payment, new OnCallbackRequestPaymentListener() {
             @Override
             public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
-
                 startActivity(intent);
             }
         });
 
 
     }
+
 }

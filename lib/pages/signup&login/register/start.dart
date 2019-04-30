@@ -63,29 +63,32 @@ class _StartState extends State<Start> {
             controller: controller,
             formKey: formKey,
             press: () {
-              formKey.currentState.save();
-              play = new Player(
-                reagentCode: noticePage.reagentCode,
-                address: familyStatusPage.address,
-                birthday: generalPage.birthDay,
-                coachName: educationPage.coachName,
-                email: generalPage.email,
-                family: generalPage.family,
-                fatherPhone: familyStatusPage.fatherPhone,
-                fatherWorks: familyStatusPage.fatherWorks,
-                favoritePos: health.favorite,
-                homePhone: familyStatusPage.homePhone,
-                lastTeam: educationPage.lastTeam,
-                motherPhone: familyStatusPage.motherPhone,
-                name: generalPage.name,
-                passport: generalPage.id,
-                patientHistory: health.patient,
-                schoolName: educationPage.schoolName,
-                technicalFoot: health.technical,
-              );
-              if (first) {
-                first = false;
-                sendData(username: LoginData.username);
+              if (formKey.currentState.validate()) {
+                formKey.currentState.save();
+
+                play = new Player(
+                  reagentCode: noticePage.reagentCode,
+                  address: familyStatusPage.address,
+                  birthday: generalPage.birthDay,
+                  coachName: educationPage.coachName,
+                  email: generalPage.email,
+                  family: generalPage.family,
+                  fatherPhone: familyStatusPage.fatherPhone,
+                  fatherWorks: familyStatusPage.fatherWorks,
+                  favoritePos: health.favorite,
+                  homePhone: familyStatusPage.homePhone,
+                  lastTeam: educationPage.lastTeam,
+                  motherPhone: familyStatusPage.motherPhone,
+                  name: generalPage.name,
+                  passport: generalPage.id,
+                  patientHistory: health.patient,
+                  schoolName: educationPage.schoolName,
+                  technicalFoot: health.technical,
+                );
+                if (first) {
+                  first = false;
+                  sendData(username: LoginData.username);
+                }
               }
             },
           ),
@@ -99,7 +102,7 @@ class _StartState extends State<Start> {
     setState(() {
       _isLoading = true;
     });
-    registerEntity = await register(url: URL.register+username+"/");
+    registerEntity = await register(url: URL.register + username + "/");
     setState(() {
       _isLoading = false;
     });

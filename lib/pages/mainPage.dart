@@ -9,6 +9,7 @@ import 'package:club_manager/pages/coach_cv/cv_viewer.dart';
 import 'package:club_manager/pages/honors/honors.dart';
 import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
+import 'package:club_manager/pages/signup&login/register/regent_code/regent_code_page.dart';
 import 'package:club_manager/pages/support/about_page.dart';
 
 import 'package:club_manager/widgets/CircleImageView.dart';
@@ -317,7 +318,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         },
       ),
     );
-    return;// todo change
     if (token == null) {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -327,9 +327,13 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         ),
       );
     } else {
-      key.currentState.showSnackBar(SnackBar(
-        content: Text("شما وارد شده اید"),
-      ));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return RegentCodePage();
+          },
+        ),
+      );
     }
   }
 }

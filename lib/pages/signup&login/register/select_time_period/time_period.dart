@@ -3,6 +3,7 @@ import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
+import 'package:club_manager/pages/signup&login/register/regent_code/regent_code_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,20 +30,21 @@ class _TimePeriodState extends State<TimePeriod> {
   final PageController controller;
 
   static const platform = const MethodChannel('pay');
-  String _statePayment = 'Unknown battery level.';
+  String _statePayment = 'انتخاب دوره مورد نظر';
 
   Future<void> payment() async {
-    String statePayment;
-    try {
-      final int result = await platform.invokeMethod("10");
-      statePayment = 'Battery level at $result % .';
-    } on PlatformException catch (e) {
-      statePayment = "Failed to get battery level: '${e.message}'.";
-    }
-
-    setState(() {
-      _statePayment = statePayment;
-    });
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return RegentCodePage();}));
+//    String statePayment;
+//    try {
+//      final int result = await platform.invokeMethod("10");
+//      statePayment = 'Battery level at $result % .';
+//    } on PlatformException catch (e) {
+//      statePayment = "Failed to get battery level: '${e.message}'.";
+//    }
+//
+//    setState(() {
+//      _statePayment = statePayment;
+//    });
   }
 
   _TimePeriodState({this.controller});

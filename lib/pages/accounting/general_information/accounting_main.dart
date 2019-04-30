@@ -165,7 +165,7 @@ class _Example extends State<Example> {
               itemBuilder: (context, index) {
                 return AccountingCard(
                     title: commerceList[index].title,
-                    date: "هنوز درست نشده",
+                    date: "1397/02/09",
                     isSalary: commerceList[index].is_income,
                     cost: commerceList[index].price.toString());
               },

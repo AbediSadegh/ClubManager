@@ -36,6 +36,22 @@ Future<CategoryItemList> getCategoryList(
   return product;
 }
 
+Future<CategoryItemList> getYearList(
+    {String url}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+//  Map<String, dynamic> data = {
+//    'letter': letter,
+//  };
+  final response = await http.get(url,headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CategoryItemList.fromJson(jsonResPonse);
+  return product;
+}
+
+
 Future<NewsPageEntity> loadNewsList(String url) async {
   final response = await http.get(url);
   NewsPageEntity newsList =

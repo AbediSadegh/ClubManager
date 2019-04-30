@@ -1,4 +1,7 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
+import 'package:club_manager/pages/Gallery/YearMenu.dart';
 import 'package:club_manager/pages/accounting/coach/coach.dart';
 import 'package:club_manager/pages/accounting/coach/coach_fee.dart';
 import 'package:club_manager/pages/accounting/coach/show_detail_of_coach_accounting.dart';
@@ -15,12 +18,39 @@ class NewCoachProfile extends StatefulWidget {
 
 class _NewCoachProfileState extends State<NewCoachProfile> {
   List _years = ["1398", "1399", "1400", "1401", "1402"];
-
+  CategoryItemList categoryItemList;
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentYear;
+  bool isLoading;
+  bool first;
+  static List<DropdownMenuItem<CategoryItem>> _items;
+  static CategoryItem currVal;
+  getCategory({String page: URL.getYearCategoty})async{
+    categoryItemList = await getYearList(url: page);
+    categoryItemList.categoryList.forEach((val) {
+      _items.add(DropdownMenuItem<CategoryItem>(
+        value: val,
+        child: Container(
+          child: Text(
+            val.title,
+            textDirection: TextDirection.rtl,
+            style: TextStyle(color: Colors.white),
+          ),
+          alignment: Alignment.center,
+        ),
+      ));
+    }
+    );
+    setState(() {
+      first = false;
+      isLoading = false;
+      currVal = _items[0].value;
+    });
+  }
 
   @override
   void initState() {
+    _items=List();
     _dropDownMenuItems = getDropDownMenuItems();
     _currentYear = _dropDownMenuItems[0].value;
     super.initState();
@@ -106,11 +136,22 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                   Row(
                     children: <Widget>[
                       Text("اتخاب سال : "),
-                      new DropdownButton(
-                        value: _currentYear,
-                        items: _dropDownMenuItems,
-                        onChanged: changedDropDownItem,
-                      ),
+//                      new DropdownButton(
+//                        value: _currentYear,
+//                        items: _dropDownMenuItems,
+//                        onChanged: changedDropDownItem,
+//                      ),
+                      !isLoading ? GalleryTopBar(
+                        //currVal: currAlbum,
+                          items: _items,
+                          currentValue: currVal,
+                          years: null,
+                          onChange: (CategoryItem item){
+                            setState(() {
+                              currVal = item;
+                            });
+                          }
+                      ) : SizedBox(height: 0,width: 0,),
                     ],
                   )
                 ],

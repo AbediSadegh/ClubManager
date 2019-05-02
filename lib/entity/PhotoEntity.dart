@@ -414,12 +414,14 @@ class CommerceList {
   String title;
   bool is_income;
   int price;
-  CommerceList({this.title, this.is_income, this.price});
+  String date;
+  CommerceList({this.date,this.title, this.is_income, this.price});
   factory CommerceList.fromJson(Map<String, dynamic> parsedJson) {
     return CommerceList(
       is_income: parsedJson['is_income'],
       price: parsedJson['price'],
       title: parsedJson['title'],
+      date : parsedJson['date'],
     );
   }
 }

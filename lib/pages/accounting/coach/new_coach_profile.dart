@@ -21,7 +21,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
   CategoryItemList categoryItemList;
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentYear;
-  bool isLoading;
+  bool isLoading=true;
   bool first;
   static List<DropdownMenuItem<CategoryItem>> _items;
   static CategoryItem currVal;
@@ -34,7 +34,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
           child: Text(
             val.title,
             textDirection: TextDirection.rtl,
-            style: TextStyle(color: Colors.white),
+            //style: TextStyle(color: Colors.white),
           ),
           alignment: Alignment.center,
         ),
@@ -67,6 +67,9 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
 
   @override
   Widget build(BuildContext context) {
+    if(isLoading){
+      getCategory();
+    }
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -131,7 +134,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                 children: <Widget>[
                   Text(
                     "صورتحساب",
-                    style: TextStyle(fontSize: 45),
+                    style: TextStyle(fontSize: 15),
                   ),
                   Row(
                     children: <Widget>[
@@ -141,16 +144,17 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
 //                        items: _dropDownMenuItems,
 //                        onChanged: changedDropDownItem,
 //                      ),
-                      !isLoading ? GalleryTopBar(
-                        //currVal: currAlbum,
-                          items: _items,
-                          currentValue: currVal,
-                          years: null,
-                          onChange: (CategoryItem item){
-                            setState(() {
-                              currVal = item;
-                            });
-                          }
+                      !isLoading ? DropdownButton<CategoryItem>(
+                        elevation: 15,
+                        iconSize: 25.0,
+                        items: _items,
+                        //style: TextStyle(inherit: false, color: Colors.black),
+                        value: currVal,
+                        onChanged: (CategoryItem item){
+                          setState(() {
+                            currVal = item;
+                          });
+                        },
                       ) : SizedBox(height: 0,width: 0,),
                     ],
                   )
@@ -166,7 +170,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "01",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -178,7 +182,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "02",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -190,7 +194,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "03",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             Divider(),
@@ -203,7 +207,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "04",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -215,7 +219,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "05",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -227,7 +231,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "06",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             Divider(),
@@ -240,7 +244,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "07",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -252,7 +256,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month:"08",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -264,7 +268,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month:"09",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             Divider(),
@@ -277,7 +281,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "10",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -289,7 +293,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                         userName: widget.user.user.username,
                         month: "11",
-                        year: _currentYear);
+                        year: currVal.title);
                   }));
                 }),
             createMonth(
@@ -301,7 +305,7 @@ class _NewCoachProfileState extends State<NewCoachProfile> {
                     return ShowMonthActivity(
                       userName: widget.user.user.username,
                       month:"12",
-                      year: _currentYear,
+                      year: currVal.title,
                     );
                   }));
                 }),

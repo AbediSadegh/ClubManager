@@ -21,10 +21,11 @@ class TimePeriod extends StatefulWidget {
 }
 
 class _TimePeriodState extends State<TimePeriod> {
-  int groupValue = 0;
-  String notice = "توجه : در ابتدا باید حداقل مبلغ " +
+  int groupValue = 1;
+  int paymentMethod = 0;
+  String notice = "توجه : در ابتدا در صورت پرداخت نقدی باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
-      "پرداخت شود";
+      " تومان پرداخت شود";
   final Color gradientEnd = Color(0xff676bc2);
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller;
@@ -33,8 +34,12 @@ class _TimePeriodState extends State<TimePeriod> {
   String _statePayment = 'انتخاب دوره مورد نظر';
 
   Future<void> payment() async {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return RegentCodePage();}));
-//    String statePayment;
+    if(paymentMethod==1) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return RegentCodePage();
+      }));
+    }else print("payOnline");
+    //    String statePayment;
 //    try {
 //      final int result = await platform.invokeMethod("10");
 //      statePayment = 'Battery level at $result % .';
@@ -107,9 +112,13 @@ class _TimePeriodState extends State<TimePeriod> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .1,
                       ),
-                      Text(
-                        _statePayment,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _statePayment,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        ),
                       ),
                       Divider(
                         color: Colors.yellow,
@@ -118,7 +127,7 @@ class _TimePeriodState extends State<TimePeriod> {
                         height: MediaQuery.of(context).size.height * .05,
                       ),
                       Container(
-                        height: 300,
+                        height: MediaQuery.of(context).size.height*.35,
                         child: ListView.builder(
                           controller: _listScrollController,
                           itemCount: periodList.length,
@@ -156,27 +165,65 @@ class _TimePeriodState extends State<TimePeriod> {
                           },
                         ),
                       ),
+                      Text("انتخاب روش پرداخت",style: TextStyle(color: Colors.white,fontSize: 23),textAlign: TextAlign.center,),
+                      Divider(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: <Widget>[
+                            Radio(
+                                activeColor: Colors.white,
+                                value: 0,
+                                groupValue: paymentMethod,
+                                onChanged: paymentValueOnChange
+                            ),
+                            Text("پرداخت نفدی",style: TextStyle(color: Colors.white),),
+
+                          ],
+                        ),
+                      ),
+                      Text(
+                        notice,textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.amber,fontSize: 15),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: <Widget>[
+                            Radio(
+                              activeColor: Colors.white,
+                                value: 1,
+                                groupValue: paymentMethod,
+                                onChanged: paymentValueOnChange
+                            ),
+                            Text("پرداخت اقساطی",style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .05,
                       ),
-                      Text(
-                        notice,
-                        style: TextStyle(color: Colors.amber),
-                      ),
+//                      Text(
+//                        notice,textAlign: TextAlign.center,
+//                        style: TextStyle(color: Colors.amber,fontSize: 15),
+//                      ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * .1,
+                        height: MediaQuery.of(context).size.height * .05,
                       ),
-                      FlatButton(
-                        child: Text(
-                          "پرداخت",
-                          style: TextStyle(color: gradientEnd, fontSize: 15),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                          child: Text(
+                            "پرداخت",
+                            style: TextStyle(color: gradientEnd, fontSize: 15),
+                          ),
+                          onPressed: () {
+                            payment();
+                          },
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
-                        onPressed: () {
-                          payment();
-                        },
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
                       ),
                     ],
                   ),
@@ -189,6 +236,13 @@ class _TimePeriodState extends State<TimePeriod> {
   void radioOnChanged(int value) {
     setState(() {
       groupValue = value;
+    });
+  }
+
+  void paymentValueOnChange(int value){
+    print("work seccess");
+    setState(() {
+      paymentMethod = value;
     });
   }
 

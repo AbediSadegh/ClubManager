@@ -29,5 +29,6 @@ class URL {
   static const String getTotalCommerce = "http://$padidehDomain/api/accounting/commerce-total/";
   static const String getCoachFee = "http://$padidehDomain/api/coach/fee/";
   static const String getYearCategoty = "http://$padidehDomain/api/coach/year-list/";
+  static const String checkRegentCode = "http://$padidehDomain/api/player/reagent/";
   static String token ='';
 }

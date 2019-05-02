@@ -22,9 +22,11 @@ class _getCommerceTotalDialogState extends State<getCommerceTotalDialog> {
   Widget build(BuildContext context) {
     getTotalCommerce();
     return Dialog(
+      elevation: 8,
+      backgroundColor:Colors.blueGrey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
-        height: MediaQuery.of(context).size.height *.35,
+        height: MediaQuery.of(context).size.height *.21,
         child: Column(
           children: <Widget>[
             Padding(
@@ -32,8 +34,8 @@ class _getCommerceTotalDialogState extends State<getCommerceTotalDialog> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("مبلغ دریافتی"),
-                  !isLoading ?Text(commerceTotalEntity.inCome.toString()) : CircularProgressIndicator(),
+                  Text("مبلغ دریافتی",style: TextStyle(color: Colors.white),),
+                  !isLoading ?Text(commerceTotalEntity.inCome.toString(),style: TextStyle(color: Colors.white)) : CircularProgressIndicator(),
                 ],
               ),
             ),
@@ -42,9 +44,19 @@ class _getCommerceTotalDialogState extends State<getCommerceTotalDialog> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("مبلغ پرداختی"),
-                  !isLoading ? Text(commerceTotalEntity.outCome.toString()) : CircularProgressIndicator(),
+                  Text("مبلغ پرداختی",style: TextStyle(color: Colors.white)),
+                  !isLoading ? Text(commerceTotalEntity.outCome.toString(),style: TextStyle(color: Colors.white)) : CircularProgressIndicator(),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FlatButton(
+                child: Text("تایید",style: TextStyle(color: Colors.white)),
+                onPressed: (){Navigator.pop(context);},
+                color: Colors.grey,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+
               ),
             ),
           ],

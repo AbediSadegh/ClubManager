@@ -1,3 +1,6 @@
+import 'package:club_manager/ServerProvider.dart';
+import 'package:club_manager/URL.dart';
+import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:club_manager/pages/signup&login/register/notice/notice_form.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +11,12 @@ class NoticePage extends StatelessWidget {
   GlobalKey<FormState> formKey;
   final press;
   bool isLoading;
+  CheckRegentCode entity;
 
   NoticePage({this.controller, this.press, this.formKey, this.isLoading});
-
+  checkRegent({String page: URL.checkRegentCode,String userName}) async {
+    entity = await checkRegentCode(url: page, userName: userName);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,9 +64,15 @@ class NoticePage extends StatelessWidget {
                     onSaved: reagentCodeOnSaved,
                     icon: Icons.email,
                     valid: (String str) {
-                      if (str!="09196675357"){
-                        return "کد معرف نا درست است ";
+                      if(str!="" && str!=null){
+                        checkRegent(userName: str);
+                        if(entity.success == false){
+                          return "کد معرف اشتباه است";
+                        }
                       }
+//                      if (str!="09196675357"){
+//                        return "کد معرف نا درست است ";
+//                      }
                     },
                     isEnable: true,
                     keyType: TextInputType.number,

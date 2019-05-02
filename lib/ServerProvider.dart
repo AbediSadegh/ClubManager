@@ -390,3 +390,18 @@ Future<FeeEntity> getFeeEntity({String url,String userName}) async {
   var product = new FeeEntity.fromJson(jsonResPonse);
   return product;
 }
+
+Future<CheckRegentCode> checkRegentCode({String url,String userName}) async {
+//  Map<String, String> requestHeaders = {
+//    'Authorization': token,
+//    // todo change
+//  };
+  Map<String, dynamic> data = {
+    'username':  userName,
+  };
+  final response = await http.post(url,body: data);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  //print(response.statusCode);
+  var product = new CheckRegentCode.fromJson(jsonResPonse);
+  return product;
+}

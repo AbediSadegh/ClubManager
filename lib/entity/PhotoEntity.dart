@@ -411,17 +411,24 @@ class PresenceEntity {
 }
 
 class CommerceList {
+
   String title;
   bool is_income;
   int price;
   String date;
   CommerceList({this.date,this.title, this.is_income, this.price});
   factory CommerceList.fromJson(Map<String, dynamic> parsedJson) {
+    String convertDate(String date) {
+      String year = date.substring(0, 4);
+      String month = date.substring(4, 6);
+      String day = date.substring(6, 8);
+      return year + "/" + month + "/" + day;
+    }
     return CommerceList(
       is_income: parsedJson['is_income'],
       price: parsedJson['price'],
       title: parsedJson['title'],
-      date : parsedJson['date'],
+      date : convertDate(parsedJson['date']),
     );
   }
 }
@@ -756,4 +763,14 @@ class FeeEntity {
     pay: json["pay"],
     success : json["success"],
   );
+}
+class CheckRegentCode{
+  bool success;
+
+  CheckRegentCode({this.success});
+
+  factory CheckRegentCode.fromJson(Map<String,dynamic> json)=>CheckRegentCode(
+    success: json["success"],
+  );
+
 }

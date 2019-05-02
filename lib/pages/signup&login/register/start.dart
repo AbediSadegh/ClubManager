@@ -50,7 +50,6 @@ class _StartState extends State<Start> {
         controller: controller,
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          timePer = TimePeriod(controller: controller),
           generalPage = GeneralPage(controller: controller),
           educationPage = EducationPage(controller: controller),
           familyStatusPage = FamilyStatusPage(
@@ -93,7 +92,7 @@ class _StartState extends State<Start> {
               }
             },
           ),
-
+          timePer = TimePeriod(controller: controller),
         ],
       ),
     );

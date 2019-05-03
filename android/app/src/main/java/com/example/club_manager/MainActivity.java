@@ -34,8 +34,8 @@ import static javax.xml.transform.OutputKeys.MEDIA_TYPE;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "pay";
+    private static final String CHECk = "check";
     String price;
-    MethodChannel.Result resultt;
     OnCallbackRequestPaymentListener listener = new OnCallbackRequestPaymentListener() {
         @Override
         public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
@@ -53,34 +53,21 @@ public class MainActivity extends FlutterActivity {
                 new MethodChannel.MethodCallHandler() {
                     @Override
                     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-        //                price = call.method;
-          //              resultt = result;
-            //            new Payment().execute();
-                        startActivity(new Intent(MainActivity.this,Main2Activity.class));
+                        price = call.method;
+                        startActivity(new Intent(MainActivity.this, Main2Activity.class).putExtra("price",price));
                     }
                 });
 
-    }
-    @Override
-    protected void onResume() {
-        if (getIntent().getData() != null) {
-            resultt.success(getIntent().getData().getQueryParameter("Status"));
-            if (getIntent().getData().getQueryParameter("Status").equals("NOK"))
-                Toast.makeText(MainActivity.this,"پرداخت موفقیت آمیز نبود",Toast.LENGTH_LONG).show();
-//            ZarinPal.getPurchase(this).verificationPayment(getIntent().getData(), new OnCallbackVerificationPaymentListener() {
-//                @Override
-//                public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
-//                    if (isPaymentSuccess) {
-//                        resultt.success("s");
-//                    } else {
-//                        resultt.error("f", "f", null);
-//                    }
-//                }
-//            });
-        }else if (getIntent().getStringExtra("Status")!=null){
-            Log.i("amirhosen","amirhosen");
-        }
-        super.onResume();
+        new MethodChannel(getFlutterView(), CHECk).setMethodCallHandler(
+                new MethodChannel.MethodCallHandler() {
+                    @Override
+                    public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+                        if (Data.isSucsses)
+                            result.success(1);
+                        else result.success(0);
+                    }
+                });
+
 
     }
 

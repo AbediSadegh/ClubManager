@@ -31,18 +31,20 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Main2Activity extends Activity {
-    private static final String CHANNEL = "pay";
     String price;
-    MethodChannel.Result resultt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-        price = "100";
+        price = getIntent().getStringExtra("price");
         new Payment().execute();
 
         if (getIntent().getData() != null) {
+            if (getIntent().getData().getQueryParameter("Status").equals("NOK")){
+                Data.isSucsses = false;
+            }else{
+                Data.isSucsses = true;
+            }
             startActivity(new Intent(Main2Activity.this,MainActivity.class));
         }
 

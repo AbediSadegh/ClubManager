@@ -1,4 +1,5 @@
 import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/ServerProvider.dart';
 import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
@@ -7,6 +8,7 @@ import 'package:club_manager/pages/signup&login/register/regent_code/regent_code
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TimePeriod extends StatefulWidget {
   final PageController controller;
@@ -33,6 +35,7 @@ class _TimePeriodState extends State<TimePeriod> {
   final PageController controller;
 
   static const platform = const MethodChannel('pay');
+  static const checkPaymentMethodChanel = const MethodChannel('check');
   String _statePayment = 'انتخاب دوره مورد نظر';
 
   Future<void> payment() async {
@@ -48,19 +51,34 @@ class _TimePeriodState extends State<TimePeriod> {
       String statePayment;
       try {
         final int result = await platform.invokeMethod(groupValue.toString());
-        setState(() {
-          isLoadingPayment = false;
-          if (result=='OK')
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-              return RegentCodePage();
-            }));
-        });
       } on PlatformException catch (e) {}
 
       setState(() {
         _statePayment = statePayment;
       });
     }
+  }
+void savePhoneNumber()async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', LoginData.username);
+}
+  void checkPayment() async {
+    try {
+      final int result = await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
+      setState(() {
+        if (result == 1) {
+          savePhoneNumber()
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return RegentCodePage();
+          }));
+        } else {
+          setState(() {
+            isLoadingPayment = false;
+          });
+        }
+      });
+    } on PlatformException catch (e) {}
   }
 
   _TimePeriodState({this.controller});
@@ -103,6 +121,7 @@ class _TimePeriodState extends State<TimePeriod> {
     if (fistLoad) {
       fistLoad = false;
       getPlaneList();
+      checkPayment();
     }
     // TODO: implement build
     return WillPopScope(
@@ -241,7 +260,7 @@ class _TimePeriodState extends State<TimePeriod> {
                                       color: gradientEnd, fontSize: 15),
                                 ),
                           onPressed: () {
-                              payment();
+                            payment();
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(

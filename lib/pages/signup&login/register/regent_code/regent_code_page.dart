@@ -1,12 +1,32 @@
 import 'package:club_manager/LoginData.dart';
 import 'package:club_manager/pages/mainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+class RegentCodePage extends StatefulWidget {
+  @override
+  _RegentCodePageState createState() => _RegentCodePageState();
+}
 
-class RegentCodePage extends StatelessWidget {
+
+
+class _RegentCodePageState extends State<RegentCodePage>  {
   final Color gradientEnd = Color(0xff676bc2);
-
+  bool isLoading ;
+  @override
+  void initState() {
+    isLoading = true;
+    super.initState();
+  }
+  void getPhone()async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+     LoginData.username = sp.getString('token');
+  }
   @override
   Widget build(BuildContext context) {
+    if (isLoading){
+      getPhone();
+      isLoading  = false;
+    }
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

@@ -1,3 +1,4 @@
+import 'package:club_manager/dummy_start.dart';
 import 'package:club_manager/pages/mainPage.dart';
 import 'package:club_manager/pages/signup&login/register/select_time_period/time_period.dart';
 import 'package:club_manager/pages/splash_screen.dart';
@@ -26,15 +27,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFF444444),
         dividerColor: Color(0xFFBDBDBD),
       ),
-      home: SplashScreen(),
-//      navigatorObservers: const <NavigatorObserver>[],
-//      initialRoute: "/splash_screen",
-//      onGenerateRoute: _getRoute,
-//      routes: {
-//        "/mainPage": (context) => whichPageToGO,
-//        "/splash_screen": (context) => Directionality(
-//            textDirection: TextDirection.rtl, child: SplashScreen()),
-//      },
+      home: DummyStart(),
     );
   }
 

@@ -32,20 +32,32 @@ import okhttp3.Response;
 
 public class Main2Activity extends Activity {
     String price;
+    String userName;
+    String token = "Token b893d1e8672b62c6c1507e4b2841f1030a6a173d";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         price = getIntent().getStringExtra("price");
-        new Payment().execute();
+        if (price != null) {
+            userName = price.substring(0, 11);
+            price = price.substring(11);
+            price= "100";
+            Data.userName=userName;
+            Data.price = price;
+        }
 
         if (getIntent().getData() != null) {
-            if (getIntent().getData().getQueryParameter("Status").equals("NOK")){
+            if (getIntent().getData().getQueryParameter("Status").equals("NOK")) {
                 Data.isSucsses = false;
-            }else{
+            } else {
                 Data.isSucsses = true;
             }
-            startActivity(new Intent(Main2Activity.this,MainActivity.class));
+            new Payment().execute();
+
+        } else {
+            new Payment().execute();
         }
 
 
@@ -59,9 +71,6 @@ public class Main2Activity extends Activity {
     };
 
 
-
-
-
     @SuppressLint("StaticFieldLeak")
     public class Payment extends AsyncTask<Void, Void, Void> {
 
@@ -72,39 +81,70 @@ public class Main2Activity extends Activity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            OkHttpClient client = new OkHttpClient();
+            if (getIntent().getData() == null) {
 
-            MediaType MEDIA_TYPE = MediaType.parse("application/json");
-            String url = "http://185.213.166.42:8000/api/zarinpal/request/";
+                OkHttpClient client = new OkHttpClient();
+
+                MediaType MEDIA_TYPE = MediaType.parse("application/json");
+                String url = "http://185.213.166.42:8000/api/zarinpal/request/";
 
 
-            JSONObject postData = new JSONObject();
-            try {
-                postData.put("amount", price);
-                postData.put("mobile", "09196675357");
-                postData.put("callback_url", "app://app");
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            RequestBody body = RequestBody.create(MEDIA_TYPE, postData.toString());
+                JSONObject postData = new JSONObject();
+                try {
+                    postData.put("amount", price);
+                    postData.put("mobile", "09196675357");
+                    postData.put("callback_url", "app://app");
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(MEDIA_TYPE, postData.toString());
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
-                assert response.body() != null;
-                String data = response.body().string();
-                JSONObject jsonObj = new JSONObject(data);
-                Uri uri = Uri.parse(jsonObj.getString("url"));
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                listener.onCallbackResultPaymentRequest(1, "a", uri, intent);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    assert response.body() != null;
+                    String data = response.body().string();
+                    JSONObject jsonObj = new JSONObject(data);
+                    Uri uri = Uri.parse(jsonObj.getString("url"));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    listener.onCallbackResultPaymentRequest(1, "a", uri, intent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                OkHttpClient client = new OkHttpClient();
+
+                MediaType MEDIA_TYPE = MediaType.parse("application/json");
+                String url = "http://185.213.166.42:8000/api/accounting/cash-create/";
+
+
+                JSONObject postData = new JSONObject();
+                try {
+                    postData.put("amount", Data.userName);
+                    postData.put("username", Data.price);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(MEDIA_TYPE, postData.toString());
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body).addHeader("Authorization", token)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    assert response.body() != null;
+                    startActivity(new Intent(Main2Activity.this, MainActivity.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return null;
         }
@@ -116,5 +156,6 @@ public class Main2Activity extends Activity {
         }
 
     }
+
 
 }

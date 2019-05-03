@@ -48,13 +48,16 @@ class _TimePeriodState extends State<TimePeriod> {
         return RegentCodePage();
       }));
     } else {
-      print("payOnline");
       String statePayment;
       try {
-        final int result = await platform.invokeMethod(groupValue.toString());
-      } on PlatformException catch (e) {}
+        final int result = await platform
+            .invokeMethod("09196675357" + groupValue.toString()); // todo change
+      } on PlatformException catch (e) {
+        e.toString();
+      }
 
       setState(() {
+        isLoadingPayment = false;
         _statePayment = statePayment;
       });
     }
@@ -71,13 +74,12 @@ class _TimePeriodState extends State<TimePeriod> {
           await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
       setState(() {
         if (result == 1) {
-          widget.pref.setString('payCheck', 'paid');
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return RegentCodePage();
           }));
-        }
-        widget.pref.setString('payCheck', 'notPaid');
+        } else
+          widget.pref.setString('payCheck', 'OK');
       });
     } on PlatformException catch (e) {}
   }
@@ -117,13 +119,19 @@ class _TimePeriodState extends State<TimePeriod> {
     });
   }
 
+  void saveSharedPrefrence() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString('payCheck', 'OK');
+  }
+
   @override
   Widget build(BuildContext context) {
     if (fistLoad) {
       fistLoad = false;
+      saveSharedPrefrence();
       if (LoginData.username != null) savePhoneNumber();
-      getPlaneList();
       checkPayment();
+      getPlaneList();
     }
     // TODO: implement build
     return WillPopScope(
@@ -214,16 +222,11 @@ class _TimePeriodState extends State<TimePeriod> {
                                 groupValue: paymentMethod,
                                 onChanged: paymentValueOnChange),
                             Text(
-                              "پرداخت نفدی",
+                              "پرداخت نقدی",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
-                      ),
-                      Text(
-                        notice,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.amber, fontSize: 15),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -262,7 +265,7 @@ class _TimePeriodState extends State<TimePeriod> {
                                       color: gradientEnd, fontSize: 15),
                                 ),
                           onPressed: () {
-                            payment();
+                            if (!isLoadingPayment && groupValue != 1) payment();
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:club_manager/FakeEntity.dart';
+import 'package:club_manager/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +16,10 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/mainPage');
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) {
+          return MainPage();
+        }));
   }
 
   @override

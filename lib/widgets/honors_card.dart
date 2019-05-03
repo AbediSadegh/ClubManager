@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:club_manager/widgets/expandable.dart';
 
-class BaseItem extends StatefulWidget {
+class HonorsCard extends StatefulWidget {
   final String imgURL;
   final String title;
   final String description;
   final GestureTapCallback onDelete;
   final GestureTapCallback onEdit;
 
-  BaseItem(
+  HonorsCard(
       {@required this.imgURL,
       @required this.title,
       @required this.description,
       this.onDelete,
       this.onEdit});
 
-  State<BaseItem> createState() => BaseItemState();
+  State<HonorsCard> createState() => HonorsCardState();
 }
 
-class BaseItemState extends State<BaseItem> {
-  Size deviceSize;
-
+class HonorsCardState extends State<HonorsCard> {
   Widget build(BuildContext context) {
-    deviceSize = MediaQuery.of(context).size;
+    Size deviceSize = MediaQuery.of(context).size;
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.5, horizontal: 10.5),
       elevation: 3.5,
@@ -48,23 +46,17 @@ class BaseItemState extends State<BaseItem> {
             ),
             ExpandablePanel(
               header: Container(
-//              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 14.0),
                 width: deviceSize.width * 0.9,
                 padding: EdgeInsets.only(right: 5.0),
                 alignment: Alignment.centerRight,
                 child: Text(
                   widget.title,
-//                      textAlign: TextAlign.center,
                   textDirection: TextDirection.rtl,
                   style: Theme.of(context).textTheme.title,
                 ),
               ),
               collapsed: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Theme.of(context).cardColor,
-                ),
-                padding: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(3.0),
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
                 child: Column(
                   children: <Widget>[
@@ -88,12 +80,9 @@ class BaseItemState extends State<BaseItem> {
               expanded: Column(
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      color: Theme.of(context).cardColor,
-                    ),
-                    margin: EdgeInsets.all(10.0),
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(3.0),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
                     child: Text(
                       widget.description,
                       softWrap: true,

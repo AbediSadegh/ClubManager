@@ -3,6 +3,7 @@ import 'package:club_manager/pages/signup&login/register/select_time_period/time
 import 'package:club_manager/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -21,30 +22,30 @@ class MyApp extends StatelessWidget {
         //scaffoldBackgroundColor: Color(0xFFFFEB3B),
         backgroundColor: Color(0xff37474f),
 //        cardColor: Color(0xff660000),
-      //cardColor: Color(0xffED2939),
+        //cardColor: Color(0xffED2939),
         accentColor: Color(0xFF444444),
         dividerColor: Color(0xFFBDBDBD),
       ),
-      home: TimePeriod(),
-      initialRoute: "/splash_screen",
-      onGenerateRoute: _getRoute,
-      routes: {
-        "/mainPage": (context) => TimePeriod(),
-        "/splash_screen": (context) => Directionality(
-            textDirection: TextDirection.rtl, child: SplashScreen()),
-      },
+      home: SplashScreen(),
+//      navigatorObservers: const <NavigatorObserver>[],
+//      initialRoute: "/splash_screen",
+//      onGenerateRoute: _getRoute,
+//      routes: {
+//        "/mainPage": (context) => whichPageToGO,
+//        "/splash_screen": (context) => Directionality(
+//            textDirection: TextDirection.rtl, child: SplashScreen()),
+//      },
     );
   }
 
-  Route<dynamic> _getRoute(RouteSettings settings) {
-    if (settings.name != '/splash_screen') {
-      return null;
-    }
-
-    return MaterialPageRoute<void>(
-      settings: settings,
-      builder: (BuildContext context) => SplashScreen(),
-      fullscreenDialog: true,
-    );
-  }
+//  Route<dynamic> _getRoute(RouteSettings settings) {
+//    if (settings.name != '/splash_screen') {
+//      return null;
+//    }
+//    return MaterialPageRoute<void>(
+//      settings: settings,
+//      builder: (BuildContext context) => SplashScreen(),
+//      fullscreenDialog: true,
+//    );
+//  }
 }

@@ -15,8 +15,9 @@ class TimePeriod extends StatefulWidget {
 
   //final func;
   String selectedTime;
+  SharedPreferences pref;
 
-  TimePeriod({@required this.controller});
+  TimePeriod({@required this.controller, @required this.pref});
 
   @override
   _TimePeriodState createState() => _TimePeriodState();
@@ -70,11 +71,13 @@ class _TimePeriodState extends State<TimePeriod> {
           await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
       setState(() {
         if (result == 1) {
+          widget.pref.setString('payCheck', 'paid');
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return RegentCodePage();
           }));
         }
+        widget.pref.setString('payCheck', 'notPaid');
       });
     } on PlatformException catch (e) {}
   }

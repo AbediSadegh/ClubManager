@@ -66,7 +66,7 @@ class _HonorViewState extends State<HonorView> {
             controller: _listScrollController,
             itemCount: list.length,
             itemBuilder: (context, index) {
-              return BaseItem(
+              return HonorsCard(
                 imgURL: list[index].image,
                 title: list[index].title,
                 description: list[index].content,

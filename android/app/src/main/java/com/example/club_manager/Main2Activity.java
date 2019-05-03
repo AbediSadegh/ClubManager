@@ -1,26 +1,26 @@
 package com.example.club_manager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
-import com.zarinpal.ewallets.purchase.HttpRequest;
-import com.zarinpal.ewallets.purchase.HttpRequestListener;
 import com.zarinpal.ewallets.purchase.OnCallbackRequestPaymentListener;
-import com.zarinpal.ewallets.purchase.OnCallbackVerificationPaymentListener;
-import com.zarinpal.ewallets.purchase.PaymentRequest;
-import com.zarinpal.ewallets.purchase.ZarinPal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugins.GeneratedPluginRegistrant;
@@ -30,12 +30,25 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static javax.xml.transform.OutputKeys.MEDIA_TYPE;
-
-public class MainActivity extends FlutterActivity {
+public class Main2Activity extends Activity {
     private static final String CHANNEL = "pay";
     String price;
     MethodChannel.Result resultt;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        price = "100";
+        new Payment().execute();
+
+        if (getIntent().getData() != null) {
+            startActivity(new Intent(Main2Activity.this,MainActivity.class));
+        }
+
+
+    }
+
     OnCallbackRequestPaymentListener listener = new OnCallbackRequestPaymentListener() {
         @Override
         public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, Intent intent) {
@@ -43,46 +56,9 @@ public class MainActivity extends FlutterActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        GeneratedPluginRegistrant.registerWith(this);
 
 
-        new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
-                new MethodChannel.MethodCallHandler() {
-                    @Override
-                    public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-        //                price = call.method;
-          //              resultt = result;
-            //            new Payment().execute();
-                        startActivity(new Intent(MainActivity.this,Main2Activity.class));
-                    }
-                });
 
-    }
-    @Override
-    protected void onResume() {
-        if (getIntent().getData() != null) {
-            resultt.success(getIntent().getData().getQueryParameter("Status"));
-            if (getIntent().getData().getQueryParameter("Status").equals("NOK"))
-                Toast.makeText(MainActivity.this,"پرداخت موفقیت آمیز نبود",Toast.LENGTH_LONG).show();
-//            ZarinPal.getPurchase(this).verificationPayment(getIntent().getData(), new OnCallbackVerificationPaymentListener() {
-//                @Override
-//                public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
-//                    if (isPaymentSuccess) {
-//                        resultt.success("s");
-//                    } else {
-//                        resultt.error("f", "f", null);
-//                    }
-//                }
-//            });
-        }else if (getIntent().getStringExtra("Status")!=null){
-            Log.i("amirhosen","amirhosen");
-        }
-        super.onResume();
-
-    }
 
     @SuppressLint("StaticFieldLeak")
     public class Payment extends AsyncTask<Void, Void, Void> {

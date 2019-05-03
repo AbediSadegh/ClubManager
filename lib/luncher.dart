@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFF444444),
         dividerColor: Color(0xFFBDBDBD),
       ),
-      home: MainPage(),
+      home: TimePeriod(),
       initialRoute: "/splash_screen",
       onGenerateRoute: _getRoute,
       routes: {
-        "/mainPage": (context) => MainPage(),
+        "/mainPage": (context) => TimePeriod(),
         "/splash_screen": (context) => Directionality(
             textDirection: TextDirection.rtl, child: SplashScreen()),
       },

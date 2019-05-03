@@ -23,6 +23,8 @@ class TimePeriod extends StatefulWidget {
 class _TimePeriodState extends State<TimePeriod> {
   int groupValue = 1;
   int paymentMethod = 0;
+  bool isLoadingPayment;
+
   String notice = "توجه : در ابتدا در صورت پرداخت نقدی باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
       " تومان پرداخت شود";
@@ -34,22 +36,31 @@ class _TimePeriodState extends State<TimePeriod> {
   String _statePayment = 'انتخاب دوره مورد نظر';
 
   Future<void> payment() async {
-    if(paymentMethod==1) {
+    setState(() {
+      isLoadingPayment = true;
+    });
+    if (paymentMethod == 1) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return RegentCodePage();
       }));
-    }else print("payOnline");
-    //    String statePayment;
-//    try {
-//      final int result = await platform.invokeMethod("10");
-//      statePayment = 'Battery level at $result % .';
-//    } on PlatformException catch (e) {
-//      statePayment = "Failed to get battery level: '${e.message}'.";
-//    }
-//
-//    setState(() {
-//      _statePayment = statePayment;
-//    });
+    } else {
+      print("payOnline");
+      String statePayment;
+      try {
+        final int result = await platform.invokeMethod(groupValue.toString());
+        setState(() {
+          isLoadingPayment = false;
+          if (result=='OK')
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+              return RegentCodePage();
+            }));
+        });
+      } on PlatformException catch (e) {}
+
+      setState(() {
+        _statePayment = statePayment;
+      });
+    }
   }
 
   _TimePeriodState({this.controller});
@@ -75,6 +86,7 @@ class _TimePeriodState extends State<TimePeriod> {
   void initState() {
     super.initState();
     periodList = new List();
+    isLoadingPayment = false;
     _listScrollController.addListener(() {
       double maxScroll = _listScrollController.position.maxScrollExtent;
       double currentScroll = _listScrollController.position.pixels;
@@ -127,7 +139,7 @@ class _TimePeriodState extends State<TimePeriod> {
                         height: MediaQuery.of(context).size.height * .05,
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height*.35,
+                        height: MediaQuery.of(context).size.height * .35,
                         child: ListView.builder(
                           controller: _listScrollController,
                           itemCount: periodList.length,
@@ -165,7 +177,11 @@ class _TimePeriodState extends State<TimePeriod> {
                           },
                         ),
                       ),
-                      Text("انتخاب روش پرداخت",style: TextStyle(color: Colors.white,fontSize: 23),textAlign: TextAlign.center,),
+                      Text(
+                        "انتخاب روش پرداخت",
+                        style: TextStyle(color: Colors.white, fontSize: 23),
+                        textAlign: TextAlign.center,
+                      ),
                       Divider(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -175,28 +191,30 @@ class _TimePeriodState extends State<TimePeriod> {
                                 activeColor: Colors.white,
                                 value: 0,
                                 groupValue: paymentMethod,
-                                onChanged: paymentValueOnChange
+                                onChanged: paymentValueOnChange),
+                            Text(
+                              "پرداخت نفدی",
+                              style: TextStyle(color: Colors.white),
                             ),
-                            Text("پرداخت نفدی",style: TextStyle(color: Colors.white),),
-
                           ],
                         ),
                       ),
                       Text(
-                        notice,textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.amber,fontSize: 15),
+                        notice,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.amber, fontSize: 15),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: <Widget>[
                             Radio(
-                              activeColor: Colors.white,
+                                activeColor: Colors.white,
                                 value: 1,
                                 groupValue: paymentMethod,
-                                onChanged: paymentValueOnChange
-                            ),
-                            Text("پرداخت اقساطی",style: TextStyle(color: Colors.white)),
+                                onChanged: paymentValueOnChange),
+                            Text("پرداخت اقساطی",
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -213,12 +231,17 @@ class _TimePeriodState extends State<TimePeriod> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FlatButton(
-                          child: Text(
-                            "پرداخت",
-                            style: TextStyle(color: gradientEnd, fontSize: 15),
-                          ),
+                          child: isLoadingPayment
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Text(
+                                  "پرداخت",
+                                  style: TextStyle(
+                                      color: gradientEnd, fontSize: 15),
+                                ),
                           onPressed: () {
-                            payment();
+                              payment();
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -239,7 +262,7 @@ class _TimePeriodState extends State<TimePeriod> {
     });
   }
 
-  void paymentValueOnChange(int value){
+  void paymentValueOnChange(int value) {
     print("work seccess");
     setState(() {
       paymentMethod = value;

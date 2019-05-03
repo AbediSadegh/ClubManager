@@ -67,7 +67,7 @@ void savePhoneNumber()async{
       final int result = await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
       setState(() {
         if (result == 1) {
-          savePhoneNumber()
+          savePhoneNumber();
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return RegentCodePage();

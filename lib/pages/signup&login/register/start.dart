@@ -42,58 +42,65 @@ class _StartState extends State<Start> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: key,
-      body: PageView(
-        pageSnapping: false,
-        physics: NeverScrollableScrollPhysics(),
-        controller: controller,
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          generalPage = GeneralPage(controller: controller),
-          educationPage = EducationPage(controller: controller),
-          familyStatusPage = FamilyStatusPage(
-            controller: controller,
-          ),
-          health = HealthPage(
-            controller: controller,
-          ),
-          noticePage = NoticePage(
-            isLoading: _isLoading,
-            controller: controller,
-            formKey: formKey,
-            press: () {
-              if (formKey.currentState.validate()) {
-                formKey.currentState.save();
+    return WillPopScope(
+      onWillPop: (){
+        if(controller.page == 0){
+          Navigator.pop(context);
+        }else controller.previousPage(duration: Duration(milliseconds: 1400), curve: Curves.linear);
+      },
+      child: Scaffold(
+        key: key,
+        body: PageView(
+          pageSnapping: false,
+          physics: NeverScrollableScrollPhysics(),
+          controller: controller,
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            generalPage = GeneralPage(controller: controller),
+            educationPage = EducationPage(controller: controller),
+            familyStatusPage = FamilyStatusPage(
+              controller: controller,
+            ),
+            health = HealthPage(
+              controller: controller,
+            ),
+            noticePage = NoticePage(
+              isLoading: _isLoading,
+              controller: controller,
+              formKey: formKey,
+              press: () {
+                if (formKey.currentState.validate()) {
+                  formKey.currentState.save();
 
-                play = new Player(
-                  reagentCode: noticePage.reagentCode,
-                  address: familyStatusPage.address,
-                  birthday: generalPage.birthDay,
-                  coachName: educationPage.coachName,
-                  email: generalPage.email,
-                  family: generalPage.family,
-                  fatherPhone: familyStatusPage.fatherPhone,
-                  fatherWorks: familyStatusPage.fatherWorks,
-                  favoritePos: health.favorite,
-                  homePhone: familyStatusPage.homePhone,
-                  lastTeam: educationPage.lastTeam,
-                  motherPhone: familyStatusPage.motherPhone,
-                  name: generalPage.name,
-                  passport: generalPage.id,
-                  patientHistory: health.patient,
-                  schoolName: educationPage.schoolName,
-                  technicalFoot: health.technical,
-                );
-                if (first) {
-                  first = false;
-                  sendData(username: LoginData.username);
+                  play = new Player(
+                    reagentCode: noticePage.reagentCode,
+                    address: familyStatusPage.address,
+                    birthday: generalPage.birthDay,
+                    coachName: educationPage.coachName,
+                    email: generalPage.email,
+                    family: generalPage.family,
+                    fatherPhone: familyStatusPage.fatherPhone,
+                    fatherWorks: familyStatusPage.fatherWorks,
+                    favoritePos: health.favorite,
+                    homePhone: familyStatusPage.homePhone,
+                    lastTeam: educationPage.lastTeam,
+                    motherPhone: familyStatusPage.motherPhone,
+                    name: generalPage.name,
+                    passport: generalPage.id,
+                    patientHistory: health.patient,
+                    schoolName: educationPage.schoolName,
+                    technicalFoot: health.technical,
+                  );
+                  if (first) {
+                    first = false;
+                    sendData(username: LoginData.username);
+                  }
                 }
-              }
-            },
-          ),
-          timePer = TimePeriod(controller: controller),
-        ],
+              },
+            ),
+            timePer = TimePeriod(controller: controller),
+          ],
+        ),
       ),
     );
   }

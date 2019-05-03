@@ -58,24 +58,22 @@ class _TimePeriodState extends State<TimePeriod> {
       });
     }
   }
-void savePhoneNumber()async{
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('token', LoginData.username);
-}
+
+  void savePhoneNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', LoginData.username);
+  }
+
   void checkPayment() async {
     try {
-      final int result = await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
+      final int result =
+          await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
       setState(() {
         if (result == 1) {
-          savePhoneNumber();
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return RegentCodePage();
           }));
-        } else {
-          setState(() {
-            isLoadingPayment = false;
-          });
         }
       });
     } on PlatformException catch (e) {}
@@ -120,6 +118,7 @@ void savePhoneNumber()async{
   Widget build(BuildContext context) {
     if (fistLoad) {
       fistLoad = false;
+      if (LoginData.username != null) savePhoneNumber();
       getPlaneList();
       checkPayment();
     }

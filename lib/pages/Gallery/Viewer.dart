@@ -1,3 +1,4 @@
+import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
@@ -23,11 +24,12 @@ class ViewerState extends State<Viewer> {
   void initState() {
     super.initState();
     if (widget._photo.is_video) {
-      _controller = VideoPlayerController.network(widget._photo.file);
+      _controller = VideoPlayerController.network(
+          'http://' + URL.padidehDomain + widget._photo.file);
       chewieController = ChewieController(
         videoPlayerController: _controller,
         aspectRatio: 3.0 / 2.0,
-        autoPlay: false,
+        autoPlay: true,
         looping: false,
       );
     }
@@ -64,7 +66,7 @@ class ViewerState extends State<Viewer> {
                         controller: chewieController,
                       )
                     : Image.network(
-                        widget._photo.image,
+                        'http://' + URL.padidehDomain + widget._photo.file,
                         fit: BoxFit.contain,
                       ),
               ),
@@ -101,5 +103,12 @@ class ViewerState extends State<Viewer> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    chewieController.dispose();
+    super.dispose();
   }
 }

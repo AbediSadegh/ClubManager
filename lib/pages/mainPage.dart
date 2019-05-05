@@ -10,7 +10,6 @@ import 'package:club_manager/pages/honors/honors.dart';
 import 'package:club_manager/pages/news/news.dart';
 import 'package:club_manager/pages/signup&login/login/login_dialog.dart';
 import 'package:club_manager/pages/signup&login/register/regent_code/regent_code_page.dart';
-import 'package:club_manager/pages/signup&login/register/select_time_period/time_period.dart';
 import 'package:club_manager/pages/support/about_page.dart';
 
 import 'package:club_manager/widgets/CircleImageView.dart';

@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 String token = "Token b893d1e8672b62c6c1507e4b2841f1030a6a173d";
 
 Future loadGallery({String url,int id}) async {
-  print("hellllllllllllllllllllllllllllllllllllllllllo");
   Map<String, String> requestHeaders = {
     'Authorization': token,
   };//http://185.213.166.42:8000/api/gallery/category/

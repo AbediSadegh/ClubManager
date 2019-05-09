@@ -5,6 +5,7 @@ import 'package:club_manager/URL.dart';
 import 'package:club_manager/entity/PhotoEntity.dart';
 import 'package:club_manager/pages/signup&login/register/form_text_field.dart';
 import 'package:club_manager/pages/signup&login/register/regent_code/regent_code_page.dart';
+import 'package:club_manager/pages/signup&login/register/select_time_period/pay_method_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -287,10 +288,28 @@ class _TimePeriodState extends State<TimePeriod> {
   }
 
   void paymentValueOnChange(int value) {
-    print("work seccess");
-    setState(() {
-      paymentMethod = value;
-    });
+    //todo
+    if (value == 1) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return PaymentMethodDialog(
+              NoFunction: () {
+                Navigator.pop(context);
+              },
+              yesFunction: () {
+                setState(() {
+                  paymentMethod = value;
+                  Navigator.pop(context);
+                });
+              },
+            );
+          });
+    } else {
+      setState(() {
+        paymentMethod = value;
+      });
+    }
   }
 
   String price;

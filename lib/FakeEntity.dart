@@ -45,7 +45,7 @@ class FakeData {
   static String yerarCost = "840000 T";
   static String sixMonthCost = "420000 T";
   static String summerCost = "120000 T";
-  static int minimumCost = 300000;
+  static int minimumCost = 100000;
 
   static List<Component> components = [
     Component(

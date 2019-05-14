@@ -43,7 +43,6 @@ public class Main2Activity extends Activity {
         if (price != null) {
             userName = price.substring(0, 11);
             price = price.substring(11);
-            price= "100";
             Data.userName=userName;
             Data.price = price;
         }

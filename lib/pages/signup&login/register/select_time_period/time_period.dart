@@ -8,6 +8,7 @@ import 'package:club_manager/pages/signup&login/register/regent_code/regent_code
 import 'package:club_manager/pages/signup&login/register/select_time_period/pay_method_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:club_manager/LoginData.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,6 +29,7 @@ class _TimePeriodState extends State<TimePeriod> {
   int groupValue = 1;
   int paymentMethod = 0;
   bool isLoadingPayment;
+  bool isOnlinePay =true;
 
   String notice = "توجه : در ابتدا در صورت پرداخت نقدی باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
@@ -45,6 +47,9 @@ class _TimePeriodState extends State<TimePeriod> {
       isLoadingPayment = true;
     });
     if (paymentMethod == 1) {
+      if(formKey.currentState.validate()){
+        formKey.currentState.save();
+      }
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return RegentCodePage();
       }));
@@ -52,7 +57,7 @@ class _TimePeriodState extends State<TimePeriod> {
       String statePayment;
       try {
         final int result = await platform
-            .invokeMethod("09196675357" + groupValue.toString()); // todo change
+            .invokeMethod(LoginData.username + price);
       } on PlatformException catch (e) {
         e.toString();
       }
@@ -198,7 +203,7 @@ class _TimePeriodState extends State<TimePeriod> {
                                   ),
                                   Text(
                                     periodList[index].price.toString() +
-                                        " تومن ",
+                                        " تومان ",
                                     style: TextStyle(color: Colors.amber),
                                   ),
                                 ],
@@ -243,13 +248,31 @@ class _TimePeriodState extends State<TimePeriod> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * .05,
-                      ),
-//                      Text(
-//                        notice,textAlign: TextAlign.center,
-//                        style: TextStyle(color: Colors.amber,fontSize: 15),
-//                      ),
+                      isOnlinePay==false ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                        child: Form(
+                          key: formKey,
+                          child: FormTextField(
+                            label: "مبلغ",
+                            hintText: "لطفا مبلغ مورد نظر خود را وارد کنید",
+                            obsecure: false,
+                            icon: Icons.credit_card,
+                            onSaved: paymentOnSave,
+                            keyType:
+                            TextInputType.numberWithOptions(signed: false),
+                            valid: (String str) {
+                              int cost = int.parse(str);
+                              if (cost < FakeData.minimumCost) {
+                                String error = "تومان باشد" +
+                                    FakeData.minimumCost.toString() +
+                                    "حداقل میلغ پرداختی باید";
+                                return error;
+                              }
+                            },
+                          ),
+                        ),
+                      ): Container(height: 0,),
+                      //todo
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .05,
                       ),
@@ -299,6 +322,7 @@ class _TimePeriodState extends State<TimePeriod> {
               },
               yesFunction: () {
                 setState(() {
+                  isOnlinePay = false;
                   paymentMethod = value;
                   Navigator.pop(context);
                 });
@@ -307,12 +331,13 @@ class _TimePeriodState extends State<TimePeriod> {
           });
     } else {
       setState(() {
+        isOnlinePay = true;
         paymentMethod = value;
       });
     }
   }
 
-  String price;
+  String price = "0";
 
   paymentOnSave(String str) {
     price = str;

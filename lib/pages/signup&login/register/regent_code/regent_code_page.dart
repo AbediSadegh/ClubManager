@@ -11,14 +11,11 @@ class RegentCodePage extends StatefulWidget {
 class _RegentCodePageState extends State<RegentCodePage> {
   final Color gradientEnd = Color(0xff676bc2);
   bool isLoading;
-
   @override
   void initState() {
     isLoading = true;
-
     super.initState();
   }
-
   void getPhone() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     LoginData.username = sp.getString('token');

@@ -106,7 +106,12 @@ class _LoginDialogState extends State<LoginDialog>
                                         obscureText: false,
                                         enabled: isEnabaledPhoneNumber,
                                         decoration: InputDecoration(
-                                            icon: Icon(Icons.phone),
+                                          labelStyle: TextStyle(color: Colors.grey),
+                                          border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.grey)),
+                                            icon: Icon(Icons.phone,color: Colors.grey,),
                                             labelText: "تلفن"),
                                         validator: (String str) {
                                           if (str.length < 10) {
@@ -128,8 +133,11 @@ class _LoginDialogState extends State<LoginDialog>
                                               child: TextFormField(
                                                 onSaved: smsNumberOnSave,
                                                 decoration: InputDecoration(
+                                                  labelStyle: TextStyle(color: Colors.grey),
+                                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
                                                   labelText: "تاییدیه پیامکی",
-                                                  icon: Icon(Icons.sms),
+                                                  icon: Icon(Icons.sms,color: Colors.grey,),
                                                 ),
                                                 keyboardType:
                                                     TextInputType.number,

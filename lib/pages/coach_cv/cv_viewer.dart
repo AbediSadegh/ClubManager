@@ -23,7 +23,7 @@ class _CVViewerState extends State<CVViewer> {
   String nextPage;
   bool first;
 
-  getCoachList({String page: URL.urlcoachList}) async {
+  getCoachList({String page: URL.urlCoachList}) async {
     _isLoading = true;
     coachListEntity = await loadCoachList(page);
     setState(() {

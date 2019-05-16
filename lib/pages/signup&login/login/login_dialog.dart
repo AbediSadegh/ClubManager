@@ -274,7 +274,7 @@ class _LoginDialogState extends State<LoginDialog>
         content: Text("کد نادرست است "),
       ));
     } else if (codEntity.is_registered == true) {
-      _saveToekn(codEntity.token);
+      _saveToekn(phone);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -283,6 +283,7 @@ class _LoginDialogState extends State<LoginDialog>
       );
     } else if (codEntity.is_registered == false) {
       LoginData.username = phone;
+
       URL.token = codEntity.token;
       Navigator.pushReplacement(
         context,

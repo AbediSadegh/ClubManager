@@ -63,7 +63,7 @@ public class MainActivity extends FlutterActivity {
                     @Override
                     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
                         if (Data.isSucsses)
-                            result.success(1);
+                            result.success(Data.price);
                         else result.success(0);
                     }
                 });

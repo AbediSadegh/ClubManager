@@ -7,21 +7,21 @@ import 'package:http/http.dart' as http;
 
 String token = "Token b893d1e8672b62c6c1507e4b2841f1030a6a173d";
 
-Future loadGallery({String url,int id}) async {
+Future loadGallery({String url, int id}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
-  };//http://185.213.166.42:8000/api/gallery/category/
+  }; //http://185.213.166.42:8000/api/gallery/category/
   print(id.toString());
   Map<String, String> data = {
     'category': id.toString(),
   };
-  final response = await http.post(url+"/",body: data);
+  final response = await http.post(url + "/", body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new PhotoList.fromJson(jsonResPonse);
   return product;
 }
-Future<CategoryItemList> getCategoryList(
-    {String url}) async {
+
+Future<CategoryItemList> getCategoryList({String url}) async {
 //  Map<String, String> requestHeaders = {
 //    'Authorization': token,
 //    // todo change
@@ -29,14 +29,15 @@ Future<CategoryItemList> getCategoryList(
 //  Map<String, dynamic> data = {
 //    'letter': letter,
 //  };
-  final response = await http.get(url,);
+  final response = await http.get(
+    url,
+  );
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new CategoryItemList.fromJson(jsonResPonse);
   return product;
 }
 
-Future<CategoryItemList> getYearList(
-    {String url}) async {
+Future<CategoryItemList> getYearList({String url}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
     // todo change
@@ -44,12 +45,11 @@ Future<CategoryItemList> getYearList(
 //  Map<String, dynamic> data = {
 //    'letter': letter,
 //  };
-  final response = await http.get(url,headers: requestHeaders);
+  final response = await http.get(url, headers: requestHeaders);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new CategoryItemList.fromJson(jsonResPonse);
   return product;
 }
-
 
 Future<NewsPageEntity> loadNewsList(String url) async {
   final response = await http.get(url);
@@ -297,6 +297,22 @@ Future<CheckCreateEntity> createCheck(
   return product;
 }
 
+Future<CheckCreateEntity> createPay(
+    {String url, String userName, String price}) async {
+  Map<String, String> requestHeaders = {
+    'Authorization': token,
+    // todo change
+  };
+  Map<String, dynamic> data = {
+    'user': userName,
+    'price': price,
+  };
+  final response = await http.post(url, body: data, headers: requestHeaders);
+  final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
+  var product = new CheckCreateEntity.fromJson(jsonResPonse);
+  return product;
+}
+
 Future<PresenceEntity> setPresence(
     {String url, String userName, String date, bool attendance}) async {
   Map<String, String> requestHeaders = {
@@ -320,8 +336,9 @@ Future<PeriodListEntity> getPlane({String url}) async {
   var product = new PeriodListEntity.fromJson(jsonResPonse);
   return product;
 }
+
 Future<ShowMonthActivityList> getCoachDetailOfMonth(
-    {String url,String username,String date}) async {
+    {String url, String username, String date}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
   };
@@ -329,35 +346,36 @@ Future<ShowMonthActivityList> getCoachDetailOfMonth(
     'username': username,
     'date': date,
   };
-  final response = await http.post(url,headers: requestHeaders,body: data);
+  final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new ShowMonthActivityList.fromJson(jsonResPonse);
   return product;
 }
 
 Future<MonthAttendanceEntity> getMonthAttendance(
-    {String url,String username,String date}) async {
+    {String url, String username, String date}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
   };
   Map<String, dynamic> data = {
     'username': username,
-    'date' : date,
+    'date': date,
   };
-  final response = await http.post(url,headers: requestHeaders,body: data);
+  final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   var product = new MonthAttendanceEntity.fromJson(jsonResPonse);
   return product;
 }
 
-Future<ShowMonthActivityEntity> addPayment({String url, String userName,String date,String price}) async {
+Future<ShowMonthActivityEntity> addPayment(
+    {String url, String userName, String date, String price}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
     // todo change
   };
   Map<String, dynamic> data = {
-    'user':  userName,
-    'date':  date,
+    'user': userName,
+    'date': date,
     'price': price,
   };
   final response = await http.post(url, body: data, headers: requestHeaders);
@@ -367,38 +385,41 @@ Future<ShowMonthActivityEntity> addPayment({String url, String userName,String d
   var product = new ShowMonthActivityEntity.fromJson(jsonResPonse);
   return product;
 }
+
 Future<CommerceTotalEntity> getCommerceTotal({String url}) async {
-  final response = await http.get(url,);
+  final response = await http.get(
+    url,
+  );
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   //print(response.statusCode);
   var product = new CommerceTotalEntity.fromJson(jsonResPonse);
   return product;
 }
 
-Future<FeeEntity> getFeeEntity({String url,String userName}) async {
+Future<FeeEntity> getFeeEntity({String url, String userName}) async {
   Map<String, String> requestHeaders = {
     'Authorization': token,
     // todo change
   };
   Map<String, dynamic> data = {
-    'username':  userName,
+    'username': userName,
   };
-  final response = await http.post(url,headers: requestHeaders,body: data);
+  final response = await http.post(url, headers: requestHeaders, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   //print(response.statusCode);
   var product = new FeeEntity.fromJson(jsonResPonse);
   return product;
 }
 
-Future<CheckRegentCode> checkRegentCode({String url,String userName}) async {
+Future<CheckRegentCode> checkRegentCode({String url, String userName}) async {
 //  Map<String, String> requestHeaders = {
 //    'Authorization': token,
 //    // todo change
 //  };
   Map<String, dynamic> data = {
-    'username':  userName,
+    'username': userName,
   };
-  final response = await http.post(url,body: data);
+  final response = await http.post(url, body: data);
   final jsonResPonse = json.decode(utf8.decode(response.bodyBytes));
   //print(response.statusCode);
   var product = new CheckRegentCode.fromJson(jsonResPonse);

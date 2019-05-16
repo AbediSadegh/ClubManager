@@ -29,7 +29,7 @@ class _TimePeriodState extends State<TimePeriod> {
   int groupValue = 1;
   int paymentMethod = 0;
   bool isLoadingPayment;
-  bool isOnlinePay =true;
+  bool isOnlinePay = true;
 
   String notice = "توجه : در ابتدا در صورت پرداخت نقدی باید حداقل مبلغ " +
       FakeData.minimumCost.toString() +
@@ -37,7 +37,6 @@ class _TimePeriodState extends State<TimePeriod> {
   final Color gradientEnd = Color(0xff676bc2);
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final PageController controller;
-
   static const platform = const MethodChannel('pay');
   static const checkPaymentMethodChanel = const MethodChannel('check');
   String _statePayment = 'انتخاب دوره مورد نظر';
@@ -46,18 +45,13 @@ class _TimePeriodState extends State<TimePeriod> {
     setState(() {
       isLoadingPayment = true;
     });
-    if (paymentMethod == 1) {
-      if(formKey.currentState.validate()){
-        formKey.currentState.save();
-      }
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return RegentCodePage();
-      }));
-    } else {
+
       String statePayment;
       try {
-        final int result = await platform
-            .invokeMethod(LoginData.username + price);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String username = await prefs.get('token');
+        print(price);
+        final int result = await platform.invokeMethod(username + price);
       } on PlatformException catch (e) {
         e.toString();
       }
@@ -67,7 +61,7 @@ class _TimePeriodState extends State<TimePeriod> {
         _statePayment = statePayment;
       });
     }
-  }
+  //}
 
   void savePhoneNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -78,12 +72,26 @@ class _TimePeriodState extends State<TimePeriod> {
     try {
       final int result =
           await checkPaymentMethodChanel.invokeMethod(groupValue.toString());
-      setState(() {
-        if (result == 1) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return RegentCodePage();
-          }));
+      setState(() async {
+        if (result != 0) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String username = await prefs.get('token');
+          scaffoldState.currentState.showSnackBar(SnackBar(
+            content: Text("لطفا چند لحظه صبر کنید ..."),
+            duration: Duration(seconds: 1),
+          ));
+          CheckCreateEntity createEntity = await createPay(
+            url: URL.verifyZarinpal,
+            userName: username,
+            price: result.toString(),
+          );
+          if (createEntity.user != null) {
+            print(createEntity.user);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return RegentCodePage();
+            }));
+          }
         } else
           widget.pref.setString('payCheck', 'OK');
       });
@@ -98,6 +106,8 @@ class _TimePeriodState extends State<TimePeriod> {
   PeriodListEntity periodListEntity;
   String nextPage;
   List<PeriodEntity> periodList;
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
+  String price = "0";
 
   getPlaneList({String page: URL.getPeriods}) async {
     _isLoading = true;
@@ -123,6 +133,13 @@ class _TimePeriodState extends State<TimePeriod> {
         }
       }
     });
+    if (fistLoad) {
+      fistLoad = false;
+      saveSharedPrefrence();
+      if (LoginData.username != null) savePhoneNumber();
+      checkPayment();
+      getPlaneList();
+    }
   }
 
   void saveSharedPrefrence() async {
@@ -132,13 +149,6 @@ class _TimePeriodState extends State<TimePeriod> {
 
   @override
   Widget build(BuildContext context) {
-    if (fistLoad) {
-      fistLoad = false;
-      saveSharedPrefrence();
-      if (LoginData.username != null) savePhoneNumber();
-      checkPayment();
-      getPlaneList();
-    }
     // TODO: implement build
     return WillPopScope(
       onWillPop: () {
@@ -148,6 +158,7 @@ class _TimePeriodState extends State<TimePeriod> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          key: scaffoldState,
           body: _isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -248,30 +259,36 @@ class _TimePeriodState extends State<TimePeriod> {
                           ],
                         ),
                       ),
-                      isOnlinePay==false ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                        child: Form(
-                          key: formKey,
-                          child: FormTextField(
-                            label: "مبلغ",
-                            hintText: "لطفا مبلغ مورد نظر خود را وارد کنید",
-                            obsecure: false,
-                            icon: Icons.credit_card,
-                            onSaved: paymentOnSave,
-                            keyType:
-                            TextInputType.numberWithOptions(signed: false),
-                            valid: (String str) {
-                              int cost = int.parse(str);
-                              if (cost < FakeData.minimumCost) {
-                                String error = "تومان باشد" +
-                                    FakeData.minimumCost.toString() +
-                                    "حداقل میلغ پرداختی باید";
-                                return error;
-                              }
-                            },
-                          ),
-                        ),
-                      ): Container(height: 0,),
+                      isOnlinePay == false
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 14.0),
+                              child: Form(
+                                key: formKey,
+                                child: FormTextField(
+                                  label: "مبلغ",
+                                  hintText:
+                                      "لطفا مبلغ مورد نظر خود را وارد کنید",
+                                  obsecure: false,
+                                  icon: Icons.credit_card,
+                                  onSaved: paymentOnSave,
+                                  keyType: TextInputType.numberWithOptions(
+                                      signed: false),
+                                  valid: (String str) {
+                                    int cost = int.parse(str);
+                                    if (cost < FakeData.minimumCost) {
+                                      String error = "تومان باشد" +
+                                          FakeData.minimumCost.toString() +
+                                          "حداقل میلغ پرداختی باید";
+                                      return error;
+                                    }
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 0,
+                            ),
                       //todo
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .05,
@@ -289,7 +306,16 @@ class _TimePeriodState extends State<TimePeriod> {
                                       color: gradientEnd, fontSize: 15),
                                 ),
                           onPressed: () {
-                            if (!isLoadingPayment && groupValue != 1) payment();
+                            if (paymentMethod == 1) {
+                              if (formKey.currentState.validate()) {
+                                formKey.currentState.save();
+                                if (!isLoadingPayment && groupValue != 1)
+                                  payment();
+                              }
+                            } else if (!isLoadingPayment && groupValue != 1){
+                              price = groupValue.toString();
+                              payment();
+                            }
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -336,8 +362,6 @@ class _TimePeriodState extends State<TimePeriod> {
       });
     }
   }
-
-  String price = "0";
 
   paymentOnSave(String str) {
     price = str;

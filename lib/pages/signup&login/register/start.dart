@@ -114,7 +114,6 @@ class _StartState extends State<Start> {
       _isLoading = false;
     });
     if (registerEntity != null) {
-      _saveToekn(URL.token);
       controller.nextPage(
           duration: Duration(milliseconds: 1200), curve: Curves.linear);
     } else {
@@ -125,8 +124,5 @@ class _StartState extends State<Start> {
     }
   }
 
-  _saveToekn(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
-  }
+
 }

@@ -11,6 +11,8 @@
     <application
         android:name=".MyApplication"
         android:label="club_manager"
+        android:fullBackupContent="false"
+        android:usesCleartextTraffic="true"
         tools:replace="android:label"
         android:icon="@mipmap/launcher_icon">
         <activity android:name=".Main2Activity">

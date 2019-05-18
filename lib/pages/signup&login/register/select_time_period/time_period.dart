@@ -45,7 +45,6 @@ class _TimePeriodState extends State<TimePeriod> {
     setState(() {
       isLoadingPayment = true;
     });
-
       String statePayment;
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();

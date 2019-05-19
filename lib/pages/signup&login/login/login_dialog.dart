@@ -283,7 +283,7 @@ class _LoginDialogState extends State<LoginDialog>
       );
     } else if (codEntity.is_registered == false) {
       LoginData.username = phone;
-
+      _saveToekn(phone);
       URL.token = codEntity.token;
       Navigator.pushReplacement(
         context,

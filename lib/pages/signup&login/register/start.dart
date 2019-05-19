@@ -71,7 +71,6 @@ class _StartState extends State<Start> {
               press: () {
                 if (formKey.currentState.validate()) {
                   formKey.currentState.save();
-
                   play = new Player(
                     reagentCode: noticePage.reagentCode,
                     address: familyStatusPage.address,
@@ -94,7 +93,8 @@ class _StartState extends State<Start> {
                   if (first) {
                     first = false;
                     sendData(username: LoginData.username);
-                  }
+                  }else {controller.nextPage(
+                      duration: Duration(milliseconds: 1200), curve: Curves.linear);}
                 }
               },
             ),

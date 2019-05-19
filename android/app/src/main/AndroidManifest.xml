@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.club_manager">
+    package="dev.hydra.club_manager">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -10,7 +10,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name=".MyApplication"
-        android:label="club_manager"
+        android:label="باشگاه شهرخودرو"
         tools:replace="android:label"
         android:icon="@mipmap/launcher_icon">
         <activity android:name=".Main2Activity">

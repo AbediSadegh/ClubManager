@@ -1,4 +1,4 @@
-package com.example.club_manager;
+package dev.hydra.club_manager;
 
 public class Data {
     public static boolean isSucsses = false;

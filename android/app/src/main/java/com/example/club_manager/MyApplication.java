@@ -1,4 +1,4 @@
-package com.example.club_manager;
+package dev.hydra.club_manager;
 
 import android.app.Activity;
 import android.app.Application;

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Shahr khodro',
+      title: 'Shahr Khodro',
       theme: ThemeData(
         primaryColor: Color(0xFFF44336),
         primaryColorDark: Color(0xFFD32F2F),

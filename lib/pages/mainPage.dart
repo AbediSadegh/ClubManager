@@ -90,7 +90,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/homepage-bg.jpg'),fit: BoxFit.fill),
+          image: DecorationImage(
+              image: AssetImage('assets/images/homepage-bg.jpg'),
+              fit: BoxFit.fill),
         ),
         child: ListView(
           children: <Widget>[
@@ -261,23 +263,23 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       );
                     },
                   ),
-                  CircleImage(
-                    height: 90,
-                    gestureTapCallback: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return AccountingHomePage();
-                          },
-                        ),
-                      );
-                    },
-                    width: 90,
-                    title: MainPage.itemNames[8],
-                    iconData: MainPage.itemIcons[8],
-                    animation: intervals[8],
-                    url: MainPage.itemImages[8],
-                  ),
+                  // CircleImage(
+                  //   height: 90,
+                  //   gestureTapCallback: () {
+                  //     Navigator.of(context).push(
+                  //       MaterialPageRoute(
+                  //         builder: (context) {
+                  //           return AccountingHomePage();
+                  //         },
+                  //       ),
+                  //     );
+                  //   },
+                  //   width: 90,
+                  //   title: MainPage.itemNames[8],
+                  //   iconData: MainPage.itemIcons[8],
+                  //   animation: intervals[8],
+                  //   url: MainPage.itemImages[8],
+                  // ),
                 ],
               ),
             ),
@@ -292,7 +294,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+        style: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

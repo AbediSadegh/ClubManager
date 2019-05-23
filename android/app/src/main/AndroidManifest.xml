@@ -10,7 +10,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name=".MyApplication"
-        android:label="باشگاه شهرخودرو"
+        android:label="آکادمی شهرخودرو"
         tools:replace="android:label"
         android:icon="@mipmap/launcher_icon">
         <activity android:name=".Main2Activity">
